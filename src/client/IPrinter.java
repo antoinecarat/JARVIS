@@ -1,5 +1,7 @@
 package client;
 
-public interface IPrinter {
+import java.util.List;
 
+public interface IPrinter {
+	void display(List<Event> e);
 }
