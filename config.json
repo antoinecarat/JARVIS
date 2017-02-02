@@ -1,0 +1,19 @@
+{
+	"extensions": [
+		"Agenda Loader":
+		{
+			"class": "plugins.AgendaLoader",
+			"autorun": "true",
+		},
+		"Agenda Printer":
+		{
+			"class": "plugins.AgendaPrinter",
+			"autorun": "false",
+		},
+		"Agenda Setter":
+		{
+			"class": "plugins.AgendaSetter",
+			"autorun": "false",
+		},
+	]
+}
