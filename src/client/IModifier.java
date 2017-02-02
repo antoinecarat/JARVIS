@@ -1,6 +1,8 @@
 package client;
 
+import java.util.Date;
+
 public interface IModifier {
-	Event modifyDate(Event e);
-	Event modifyName(Event e);
+	void modifyDate(IEvent e, Date d);
+	void modifyName(IEvent e, String name);
 }

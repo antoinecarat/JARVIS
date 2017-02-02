@@ -3,35 +3,37 @@ import java.util.Collection;
 import java.util.TreeSet;
 
 
-public class Agenda {
+public class Agenda implements IAgenda{
 	
 	String name;
-	Collection<Event> events;
+	Collection<IEvent> events;
 	
 	public Agenda() {
 		super();
-		this.events = new TreeSet<Event>();
+		this.events = new TreeSet<IEvent>();
 	}
 	
 	public Agenda(String name) {
 		super();
 		this.name = name;
-		this.events = new TreeSet<Event>();
+		this.events = new TreeSet<IEvent>();
 	}
 
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Collection<Event> getEvents() {
+
+	public Collection<IEvent> getEvents() {
 		return events;
 	}
-	
-	public void setEvents(Collection<Event> events) {
+
+	public void setEvents(Collection<IEvent> events) {
 		this.events = events;
 	}
+
+
 }

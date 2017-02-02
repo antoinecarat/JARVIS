@@ -2,7 +2,7 @@ package client;
 import java.util.Date;
 
 
-public class Event implements Comparable<Event> {
+public class Event implements Comparable<Event>, IEvent {
 
 	String name;
 	Date date;
@@ -36,4 +36,10 @@ public class Event implements Comparable<Event> {
 	public int compareTo(Event o) {
 		return this.date.compareTo(o.getDate());
 	}
+
+	public String toString() {
+		return "Event [name=" + name + ", date=" + date + "]";
+	}
+	
+	
 }
