@@ -14,11 +14,11 @@ public class Platform {
 		try {
 						
 			//Load config.json
-			String baseClassName = readJSON("config.json");
-			//(new BufferedReader(new FileReader("config.json"))).readLine();
+			String baseClassName = extractFromJSON("base", "class", "config.json");
 			
 			//Load base config
-					
+			String baseClassConfigFile = extractFromJSON("base", "configFile", "config.json");
+			//String baseClassName = extractFromJSON("extensions", "class", baseClassConfigFile);
 			
 			//Load base extension
 			Class<?> cl = Class.forName(baseClassName);
@@ -35,12 +35,13 @@ public class Platform {
 		return null;
 	}
 	
-	public static String readJSON(String fileName){
+	public static String extractFromJSON(String object, String prop, String fileName){
 		try {
 			String json = new String();
 			String line = null;
 			try {
-				BufferedReader reader = new BufferedReader(new FileReader("test.json"));
+				
+				BufferedReader reader = new BufferedReader(new FileReader(fileName));
 				
 			    while ((line = reader.readLine()) != null) {
 			    	json += line;
@@ -48,8 +49,8 @@ public class Platform {
 			    reader.close();
 			    
 				JSONObject obj = new JSONObject(json);
-
-				return obj.getJSONObject("pageInfo").getString("pageName");
+				
+				return obj.getJSONObject(object).getString(prop);
 
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
