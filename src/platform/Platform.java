@@ -5,69 +5,43 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import platform.plugins.IPlugin;
+import platform.plugins.IAutorun;
 
 public class Platform {
 
+	private static List<String> autoruns;
+	private static Map<String,List<String>> dependencies;
+	
 	public static void main(String[] args) {
 		
 		try {
+			autoruns = extractArrayFromJSON("autoruns","config.json");
+			System.out.println(autoruns);
 			
-			IPlugin ext = (IPlugin) getBaseExtension();
-			ext.run();
+			for (String clS : autoruns){
+				Class<?> cl = Class.forName(clS);
+				IAutorun auto = (IAutorun) cl.newInstance();
+				//TODO: Load dependencies into dependencies
+				auto.run();
+			}
 			
 		} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	/* todo :
-	 * getExtensions(Class<?>). gives all the extensions matching with class
-	 * use Plugin class as a template
-	 * 
-	 * 
-	 */
-	
-	public static List<String> getExtensions(Class<?> target){
-		List<String> extensions = new ArrayList<String>();
-		
-		return extensions;
-	}
-	
-	public static Object getBaseExtension() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		//Load config.json
-		String baseClassName = extractFromJSON("base", "config.json");
-		Class<?> cl = Class.forName(baseClassName);
-		return cl.newInstance();
-		
-		//Load base config
-		/*String[] tmp = baseClassName.replace('.', '/').split("/");
-		String baseConfig = "src/";
-		for (int i=0; i<tmp.length-1; ++i){
-			baseConfig += tmp[i] + "/";
-		}
-		baseConfig += "config.json";
-		
-		Collection<String> dependencies = extractArrayFromJSON("dependencies", baseConfig);
-		//String baseClassConfigFile = extractFromJSON("base", "configFile", "config.json");
-		//String baseClassName = extractFromJSON("extensions", "class", baseClassConfigFile);
-		
-		//Load base extension*/
-		
-	}
-	
 	public static Object getExtension(Class<?> targetClass) throws ClassNotFoundException, InstantiationException, IllegalAccessException {		
 		return targetClass.newInstance();
 	}
 
-	private static Collection<String> extractArrayFromJSON(String prop, String fileName) {
+	private static List<String> extractArrayFromJSON(String prop, String fileName) {
 		try {
 			String json = new String();
 			String line = null;
@@ -83,7 +57,7 @@ public class Platform {
 				JSONObject obj = new JSONObject(json);
 				
 				JSONArray array = obj.getJSONArray(prop);
-				Collection<String> items = new ArrayList<String>();
+				List<String> items = new ArrayList<String>();
 				for (int i=0; i < array.length() ; ++i){
 					items.add(array.getString(i));
 				}
@@ -102,10 +76,8 @@ public class Platform {
 			return null;
 		}
 	}
-
 	
-	
-	public static String extractFromJSON(String prop, String fileName){
+	public static String extractStringFromJSON(String prop, String fileName){
 		try {
 			String json = new String();
 			String line = null;

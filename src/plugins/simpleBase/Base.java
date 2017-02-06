@@ -1,4 +1,4 @@
-package plugins.bases;
+package plugins.simpleBase;
 
 import java.util.Date;
 
@@ -7,11 +7,12 @@ import client.Event;
 import client.IAgenda;
 import client.IEvent;
 import platform.Platform;
+import platform.plugins.IAutorun;
 import platform.plugins.IPlugin;
 import platform.plugins.IPrinter;
-import plugins.printers.Printer;
+import plugins.Simpleprinter.Printer;
 
-public class Base implements IPlugin{
+public class Base implements IPlugin, IAutorun{
 
 	public void run() {
 		System.out.println("OK, let's go.");
