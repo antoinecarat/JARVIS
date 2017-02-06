@@ -24,4 +24,6 @@ public interface IAgenda {
 	 */
 	public abstract void setEvents(Collection<IEvent> events);
 
+	public abstract void addEvent(IEvent event);
+
 }

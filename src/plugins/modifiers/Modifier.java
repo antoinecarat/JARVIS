@@ -1,9 +1,9 @@
-package plugins;
+package plugins.modifiers;
 
 import java.util.Date;
 
 import client.IEvent;
-import client.IModifier;
+import platform.plugins.IModifier;
 
 public class Modifier implements IModifier {
 

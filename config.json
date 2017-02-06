@@ -1,7 +1,7 @@
 {
-	"base" : {
-		"class": "client.Base",
-		"interface": "platform.IPlugin",
-		"configFile": "base/config.json",
-	}
+	"base" : "plugins.bases.Base",
+	"plugins" : [
+		"plugins.printer.Printer",
+		"plugins.modifier.Modifier",
+	]
 }

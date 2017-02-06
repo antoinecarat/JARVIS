@@ -1,0 +1,9 @@
+{
+	"name" : "Base Class",
+	"about" : "Just an agenda with an event",
+	"class" : "plugins.bases.Base",
+	"interface" : "platform.plugins.IPlugin",
+	"dependencies" : [
+		"plugins.printers.Printer",
+	],
+}

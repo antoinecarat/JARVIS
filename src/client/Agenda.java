@@ -35,5 +35,9 @@ public class Agenda implements IAgenda{
 		this.events = events;
 	}
 
+	public void addEvent(IEvent event) {
+		this.events.add(event);
+	}
+
 
 }
