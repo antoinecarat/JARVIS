@@ -8,8 +8,9 @@ import platform.plugins.IPlugin;
 
 public class Modifier implements IPlugin, IModifier {
 
-	public void modifyDate(IEvent e, Date d) {
-		e.setDate(d);
+
+	public void modifyDateDebut(IEvent e, Date d) {
+		e.setDateDebut(d);
 	}
 
 	public void modifyName(IEvent e, String name) {

@@ -1,9 +1,11 @@
 package plugins.simpleBase;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import client.Agenda;
 import client.Event;
+import client.Frequence;
 import client.IAgenda;
 import client.IEvent;
 import platform.Platform;
@@ -17,11 +19,15 @@ public class Base implements IPlugin, IAutorun{
 	public void run() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		System.out.println("OK, let's go.");
 		IAgenda agenda = new Agenda();
-		IEvent event = new Event("Pouet", new Date(2015, 05, 20));
+		ArrayList participants = new ArrayList();
+		participants.add("Margaux");
+		participants.add("Moi");
+		IEvent event = new Event("Poueeet", new Date(2015, 03, 06), new Date(2015, 03, 07), "test@gmail.com", "02.40.56.56.65", Frequence.Année, "Anniversaire", "Anniversaire de Margaaaaaaaaux", "Chez moi", participants);
+
 		agenda.addEvent(event);
 		
-		IPrinter printer = (IPrinter) Platform.getExtensions(IPrinter.class).get(0).newInstance();
-//		IPrinter printer = new Printer();
+		IPrinter printer = (IPrinter) Platform.getExtensions(IPrinter.class).get(1).newInstance();
+
 		printer.display(agenda);
 	}
 }

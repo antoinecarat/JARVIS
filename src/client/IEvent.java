@@ -1,17 +1,50 @@
 package client;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public interface IEvent {
 
-	public abstract String getName();
+	String getName();
 
-	public abstract void setName(String name);
+	void setName(String name);
 
-	public abstract Date getDate();
+	Date getDateDebut();
 
-	public abstract void setDate(Date date);
+	void setDateDebut(Date dateDebut);
 
-	public abstract String toString();
+	Date getDateFin();
+
+	void setDateFin(Date dateFin);
+
+	String getMail();
+
+	void setMail(String mail);
+
+	String getTel();
+
+	void setTel(String tel);
+
+	Frequence getFrequence();
+
+	void setFrequence(Frequence frequence);
+
+	String getType();
+
+	void setType(String type);
+
+	String getDescription();
+
+	void setDescription(String description);
+
+	String getLieu();
+
+	void setLieu(String lieu);
+
+	ArrayList<String> getParticipants();
+
+	void setParticipants(ArrayList<String> participants);
+	
+	int compareTo(Event e);
 
 }
