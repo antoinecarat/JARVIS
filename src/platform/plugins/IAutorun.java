@@ -2,6 +2,6 @@ package platform.plugins;
 
 public interface IAutorun {
 
-	void run();
+	void run() throws ClassNotFoundException, InstantiationException, IllegalAccessException;
 	
 }

@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import platform.plugins.IAutorun;
+import platform.plugins.IPrinter;
 
 public class Platform {
 
@@ -107,6 +108,22 @@ public class Platform {
 			return null;
 		}
 		
+	}
+
+	public static List<Class<?>> getExtensions(Class<?> need) throws ClassNotFoundException {
+		
+		List<String> plugins = extractArrayFromJSON("plugins","config.json");
+		List<Class<?>> pluginsObject = new ArrayList<Class<?>>();
+		
+		for (String p : plugins) {
+			Class<?> cl = Class.forName(p);
+			
+			if(need.isAssignableFrom(cl)){
+				pluginsObject.add(cl);
+			}
+		}
+		
+		return pluginsObject;
 	}
 	
 }

@@ -1,4 +1,4 @@
-package plugins.Simpleprinter;
+package plugins.simplePrinter;
 
 import client.IAgenda;
 import client.IEvent;
