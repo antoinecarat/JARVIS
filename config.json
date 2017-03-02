@@ -2,12 +2,13 @@
 	"name" : "JARVIS",
 	"description" : "JARVIS is a customizable agenda.",
 	"autoruns" : [
+	
 		"plugins.simpleBase.Base",
-		"plugins.secondBase.SecondBase",
+		"plugins.secondBase.SecondBase"
 	],
 	"plugins" : [
 		"plugins.simplePrinter.Printer",
 		"plugins.hardPrinter.HardPrinter",
-		"plugins.simpleModifier.Modifier",
+		"plugins.simpleModifier.Modifier"
 	]
 }
