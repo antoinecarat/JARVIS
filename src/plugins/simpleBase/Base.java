@@ -12,7 +12,7 @@ import platform.Platform;
 import platform.plugins.IAutorun;
 import platform.plugins.IPlugin;
 import platform.plugins.IPrinter;
-import plugins.simplePrinter.Printer;
+import plugins.simplePrinter.SimplePrinter;
 
 public class Base implements IPlugin, IAutorun{
 

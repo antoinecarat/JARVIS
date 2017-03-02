@@ -6,7 +6,7 @@ import client.IEvent;
 import platform.plugins.IModifier;
 import platform.plugins.IPlugin;
 
-public class Modifier implements IPlugin, IModifier {
+public class SimpleModifier implements IPlugin, IModifier {
 
 
 	public void modifyDateDebut(IEvent e, Date d) {
