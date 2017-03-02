@@ -26,7 +26,7 @@ public class Base implements IPlugin, IAutorun{
 
 		agenda.addEvent(event);
 		
-		IPrinter printer = (IPrinter) Platform.getExtensions(IPrinter.class).get(1).newInstance();
+		IPrinter printer = (IPrinter) Platform.getExtensions(IPrinter.class).get(0).newInstance();
 
 		printer.display(agenda);
 	}
