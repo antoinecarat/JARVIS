@@ -21,6 +21,7 @@ public class Base implements IPlugin, IAutorun{
 	public void run() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		System.out.println("OK, let's go.");
 		IAgenda agenda = new Agenda();
+		
 		ArrayList participants = new ArrayList();
 		participants.add("Margaux");
 		participants.add("Moi");
@@ -30,9 +31,13 @@ public class Base implements IPlugin, IAutorun{
 		
 		List<IPluginDescriptor> listPluginDescriptor = Platform.getExtensions(IPrinter.class);
 		
+		
+		new AgendaFrame(agenda);
+		
 		IPrinter printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(0), IPrinter.class);
 		
-		
 		printer.display(agenda);
+
+		
 	}
 }
