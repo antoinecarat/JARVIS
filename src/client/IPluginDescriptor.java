@@ -10,4 +10,10 @@ public interface IPluginDescriptor {
 
 	void removeProperty(String key);
 
+	PluginState getState();
+	
+	void setState(PluginState state);
+	
+	public String toString();
+	
 }

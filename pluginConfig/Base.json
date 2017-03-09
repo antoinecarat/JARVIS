@@ -3,8 +3,5 @@
 	"about" : "Just an agenda with an event",
 	"class" : "plugins.simpleBase.Base",
 	"interface" : "platform.plugins.IPlugin",
-	"autorun": "True",
-	"dependencies" : [
-		
-	]
+	"autorun": "True"
 }

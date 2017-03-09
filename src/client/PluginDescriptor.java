@@ -5,10 +5,13 @@ import java.util.Map;
 
 public class PluginDescriptor implements IPluginDescriptor {
 
-	Map<String, String> properties;
+	private Map<String, String> properties;
+	
+	private PluginState state;
 	
 	public PluginDescriptor(Map<String, String> prop) {
 		this.properties = prop;
+		this.state = PluginState.AVAILABLE;
 	}
 	
 	public Map<String, String> getProperties() {
@@ -23,6 +26,19 @@ public class PluginDescriptor implements IPluginDescriptor {
 		properties.remove(key);
 	}
 	
-	//TODO : add state and singleton
+	public PluginState getState() {
+		return state;
+	}
+
+	public void setState(PluginState state) {
+		this.state = state;
+	}
+
+	public String toString() {
+		return "PluginDescriptor [properties=" + properties + ", state=" + state + "]";
+	}
+
+	
+	//TODO : singleton
 	
 }
