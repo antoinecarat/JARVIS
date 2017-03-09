@@ -20,9 +20,15 @@ import platform.plugins.IPrinter;
 
 public class Platform {
 
-	private static List<String> autoruns;
-	private static Map<String, List<String>> dependencies;
 	private static List<IPluginDescriptor> pluginDescript;
+
+	public static List<IPluginDescriptor> getPluginDescript() {
+		return pluginDescript;
+	}
+
+	public static void setPluginDescript(List<IPluginDescriptor> pluginDescript) {
+		Platform.pluginDescript = pluginDescript;
+	}
 
 	public static void main(String[] args) {
 
