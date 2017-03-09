@@ -41,17 +41,13 @@ public class Platform {
 		for (IPluginDescriptor plugin : pluginDescript) {
 			if(plugin.getProperties().get("autorun").equals("True")){
 				String classPlugin = plugin.getProperties().get("class");
+				System.out.println(classPlugin);
 				Class<?> cl = Class.forName(classPlugin);
 				IAutorun obj = (IAutorun) cl.newInstance();
-				
+
 				obj.run();
 			}
 		}
-	}
-
-	public static Object getExtension(Class<?> targetClass)
-			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		return targetClass.newInstance();
 	}
 
 	public static List<IPluginDescriptor> getExtensions(Class<?> need) throws ClassNotFoundException {
@@ -70,7 +66,7 @@ public class Platform {
 		return plugins;
 	}
 
-	public static void loadPluginDescriptors() {
+	private static void loadPluginDescriptors() {
 
 		List<String> plugins = extractArrayFromJSON("plugins", "config.json");
 
@@ -150,7 +146,7 @@ public class Platform {
 		}
 	}
 
-	public static String extractStringFromJSON(String prop, String fileName) {
+	private static String extractStringFromJSON(String prop, String fileName) {
 		try {
 			String json = new String();
 			String line = null;
@@ -182,7 +178,7 @@ public class Platform {
 
 	}
 
-	public static Map<String, String> jsonIntoMap(String fileName) {
+	private static Map<String, String> jsonIntoMap(String fileName) {
 		try {
 			String json = new String();
 			String line = null;

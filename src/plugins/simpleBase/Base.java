@@ -32,6 +32,7 @@ public class Base implements IPlugin, IAutorun{
 		
 		IPrinter printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(0), IPrinter.class);
 		
+		
 		printer.display(agenda);
 	}
 }

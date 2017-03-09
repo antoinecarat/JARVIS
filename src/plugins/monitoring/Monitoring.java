@@ -2,6 +2,8 @@ package plugins.monitoring;
 
 import javax.swing.*;
 
+import client.IPluginDescriptor;
+import client.PluginDescriptor;
 import platform.Platform;
 import platform.plugins.IAutorun;
 import platform.plugins.IMonitoring;
@@ -19,7 +21,11 @@ public class Monitoring implements IPlugin, IMonitoring, IAutorun {
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	   
 	    JTextArea pd = new JTextArea();
-	    pd.setText(Platform.getPluginDescript().toString());
+	    String s = "";
+	    for (IPluginDescriptor p : Platform.getPluginDescript()){
+	    	s += p.toString() + "\n";
+	    }
+	    pd.setText(s);
 	    frame.add(pd);
 	    
 	    frame.setVisible(true);
