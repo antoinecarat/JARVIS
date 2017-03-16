@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -15,8 +17,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import client.IPluginDescriptor;
-import client.PluginDescriptor;
 import client.PluginState;
 import client.UnassignableException;
 import platform.plugins.IAutorun;
@@ -24,7 +24,8 @@ import platform.plugins.IAutorun;
 public class Platform {
 
 	private static List<IPluginDescriptor> pluginDescript;
-
+//	private static List<>
+	
 	public static List<IPluginDescriptor> getPluginDescript() {
 		return pluginDescript;
 	}
@@ -84,6 +85,7 @@ public class Platform {
 			desc = new PluginDescriptor(prop);
 			
 			pluginDescript.add(desc);
+			
 		}
 	}
 
@@ -218,6 +220,24 @@ public class Platform {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static Object proxyfy(Object o){
+		
+		return Proxy.newProxyInstance(
+				o.getClass().getClassLoader(),
+				concat(o.getClass().getInterfaces(), IObservable.class), 
+				new ObserverHandler(o));
+	}
+	
+	public static Class<?>[] concat(Class<?>[] objs, Class<?> o){
+		
+		Class<?>[] copyObjs = Arrays.copyOf(objs, objs.length+1);
+		
+		copyObjs[copyObjs.length-1] = o;
+		
+		return copyObjs;
+		
 	}
 
 

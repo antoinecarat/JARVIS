@@ -1,7 +1,8 @@
-package client;
+package platform;
 
-import java.util.HashMap;
 import java.util.Map;
+
+import client.PluginState;
 
 public class PluginDescriptor implements IPluginDescriptor {
 

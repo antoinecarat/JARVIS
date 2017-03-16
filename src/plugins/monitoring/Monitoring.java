@@ -1,17 +1,21 @@
 package plugins.monitoring;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.*;
 
-import client.IPluginDescriptor;
-import client.PluginDescriptor;
+import platform.IPluginDescriptor;
 import platform.Platform;
+import platform.PluginDescriptor;
 import platform.plugins.IAutorun;
 import platform.plugins.IMonitoring;
 import platform.plugins.IPlugin;
 
-public class Monitoring implements IPlugin, IMonitoring, IAutorun {
+public class Monitoring implements IPlugin, IMonitoring, IAutorun, Observer {
 
-	@Override
+	private JTextArea pd;
+	
 	public void run() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		System.out.println(Platform.getPluginDescript());
 		JFrame frame = new JFrame();
@@ -20,7 +24,7 @@ public class Monitoring implements IPlugin, IMonitoring, IAutorun {
 	    frame.setLocationRelativeTo(null);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	   
-	    JTextArea pd = new JTextArea();
+	    pd = new JTextArea();
 	    String s = "";
 	    for (IPluginDescriptor p : Platform.getPluginDescript()){
 	    	s += p.toString() + "\n";
@@ -29,12 +33,17 @@ public class Monitoring implements IPlugin, IMonitoring, IAutorun {
 	    frame.add(pd);
 	    
 	    frame.setVisible(true);
-	    
-	    
-	    
-	    
-	    
 
+	}
+
+	
+	public void update(Observable arg0, Object arg1) {
+	    String s = "";
+	    for (IPluginDescriptor p : Platform.getPluginDescript()){
+	    	s += p.toString() + "\n";
+	    }
+	    
+	    pd.setText(s);
 	}
 	
 }

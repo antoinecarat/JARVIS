@@ -9,7 +9,7 @@ import client.Event;
 import client.Frequence;
 import client.IAgenda;
 import client.IEvent;
-import client.IPluginDescriptor;
+import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.plugins.IAutorun;
 import platform.plugins.IPlugin;

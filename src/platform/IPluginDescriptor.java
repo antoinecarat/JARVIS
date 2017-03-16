@@ -1,6 +1,8 @@
-package client;
+package platform;
 
 import java.util.Map;
+
+import client.PluginState;
 
 public interface IPluginDescriptor {
 
