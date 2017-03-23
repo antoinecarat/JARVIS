@@ -221,24 +221,4 @@ public class Platform {
 			return null;
 		}
 	}
-	
-	public static Object proxyfy(Object o){
-		
-		return Proxy.newProxyInstance(
-				o.getClass().getClassLoader(),
-				concat(o.getClass().getInterfaces(), IObservable.class), 
-				new ObserverHandler(o));
-	}
-	
-	public static Class<?>[] concat(Class<?>[] objs, Class<?> o){
-		
-		Class<?>[] copyObjs = Arrays.copyOf(objs, objs.length+1);
-		
-		copyObjs[copyObjs.length-1] = o;
-		
-		return copyObjs;
-		
-	}
-
-
 }

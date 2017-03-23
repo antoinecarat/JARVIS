@@ -12,11 +12,9 @@ import client.IEvent;
 import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.plugins.IAutorun;
-import platform.plugins.IPlugin;
 import platform.plugins.IPrinter;
-import plugins.simplePrinter.SimplePrinter;
 
-public class Base implements IPlugin, IAutorun{
+public class Base implements IAutorun{
 
 	public void run() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		System.out.println("OK, let's go.");

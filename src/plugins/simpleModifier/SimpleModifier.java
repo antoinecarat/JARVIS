@@ -4,9 +4,8 @@ import java.util.Date;
 
 import client.IEvent;
 import platform.plugins.IModifier;
-import platform.plugins.IPlugin;
 
-public class SimpleModifier implements IPlugin, IModifier {
+public class SimpleModifier implements IModifier {
 
 
 	public void modifyDateDebut(IEvent e, Date d) {

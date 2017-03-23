@@ -1,18 +1,14 @@
 package plugins.monitoring;
 
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
 
 import platform.IPluginDescriptor;
 import platform.Platform;
-import platform.PluginDescriptor;
 import platform.plugins.IAutorun;
 import platform.plugins.IMonitoring;
-import platform.plugins.IPlugin;
 
-public class Monitoring implements IPlugin, IMonitoring, IAutorun, Observer {
+public class Monitoring implements IMonitoring, IAutorun {
 
 	private JTextArea pd;
 	
@@ -34,16 +30,6 @@ public class Monitoring implements IPlugin, IMonitoring, IAutorun, Observer {
 	    
 	    frame.setVisible(true);
 
-	}
-
-	
-	public void update(Observable arg0, Object arg1) {
-	    String s = "";
-	    for (IPluginDescriptor p : Platform.getPluginDescript()){
-	    	s += p.toString() + "\n";
-	    }
-	    
-	    pd.setText(s);
 	}
 	
 }
