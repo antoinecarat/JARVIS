@@ -45,6 +45,8 @@ public interface IEvent {
 
 	void setParticipants(ArrayList<String> participants);
 	
+	String toString();
+	
 	int compareTo(Event e);
 
 }

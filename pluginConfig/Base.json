@@ -2,6 +2,6 @@
 	"name" : "Base Class",
 	"about" : "Just an agenda with an event",
 	"class" : "plugins.simpleBase.Base",
-	"interface" : "platform.plugins.IPlugin",
+	"interface" : "platform.plugins.IAutorun",
 	"autorun": "True"
 }

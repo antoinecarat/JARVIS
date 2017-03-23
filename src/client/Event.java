@@ -231,9 +231,7 @@ public class Event implements Comparable<Event>, IEvent {
 
 	@Override
 	public String toString() {
-		return "Event [name=" + name + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", mail=" + mail + ", tel="
-				+ tel + ", frequence=" + frequence + ", type=" + type + ", description=" + description + ", lieu="
-				+ lieu + ", participants=" + participants + "]";
+		return "(" + dateDebut + ") " + name + " [" + type + "]";
 	}
 	
 }

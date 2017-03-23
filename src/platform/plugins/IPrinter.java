@@ -1,7 +1,9 @@
 package platform.plugins;
 
+import javax.swing.JPanel;
+
 import client.IAgenda;
 
 public interface IPrinter {
-	void display(IAgenda a);
+	JPanel display(IAgenda a);
 }
