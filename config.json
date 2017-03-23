@@ -4,6 +4,7 @@
 	"plugins" : [
 		"plugins.simpleBase.Base",
 		"plugins.simplePrinter.SimplePrinter",
+		"plugins.monthPrinter.MonthPrinter",
 		"plugins.simpleModifier.SimpleModifier",
 		"plugins.monitoring.Monitoring"
 	]

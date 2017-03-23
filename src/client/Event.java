@@ -225,8 +225,15 @@ public class Event implements Comparable<Event>, IEvent {
 	}
 
 	@Override
-	public int compareTo(Event o) {
-		return this.dateDebut.compareTo(o.getDateDebut()); // TO FIX, need others parameters
+	public int compareTo(Event e) {
+		
+		int compareDate = dateDebut.compareTo(e.getDateDebut());
+		
+		if( compareDate == 0){
+			return name.compareTo(e.getName());
+		}
+		
+		return compareDate;
 	}
 
 	@Override
