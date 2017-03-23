@@ -3,6 +3,7 @@ package plugins.simplePrinter;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import client.IAgenda;
@@ -14,14 +15,14 @@ public class SimplePrinter implements IPrinter {
 	public JPanel display(IAgenda a) {
 		
 		JPanel panel = new JPanel();
-		JButton button;
+		JLabel label;
 		GridLayout grid = new GridLayout(a.getEvents().size(), 1);
 		
 		panel.setLayout(grid);
 		
 		for (IEvent event : a.getEvents()) {
-			button = new JButton(event.toString());
-			panel.add(button);
+			label = new JLabel(event.toString());
+			panel.add(label);
 		}
 		
 		return panel;

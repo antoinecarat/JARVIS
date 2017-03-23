@@ -231,7 +231,7 @@ public class Event implements Comparable<Event>, IEvent {
 
 	@Override
 	public String toString() {
-		return "(" + dateDebut + ") " + name + " [" + type + "]";
+		return "(" + dateDebut.getDay()+ ":" + dateDebut.getMonth() + ":" + dateDebut.getYear() + ") " + name + " [" + type + "]";
 	}
 	
 }
