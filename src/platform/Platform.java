@@ -34,8 +34,7 @@ public class Platform {
 		Platform.pluginDescript = pluginDescript;
 	}
 
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {		
 
 		loadPluginDescriptors();
 		// Run autoruns

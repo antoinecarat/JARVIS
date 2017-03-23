@@ -1,13 +1,13 @@
 package platform.plugins;
 
-import java.util.Date;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
+import client.IAgenda;
 import client.IEvent;
 
 public interface IModifier {
 
-	void modifyDateDebut(IEvent e, Date d);
-
-	void modifyName(IEvent e, String name);
+	void modify(IAgenda a, IEvent e, Map<String,Object> list) throws NoSuchFieldException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
 
 }

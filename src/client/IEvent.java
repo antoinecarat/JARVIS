@@ -49,4 +49,5 @@ public interface IEvent {
 	
 	int compareTo(Event e);
 
+	boolean equals(Object obj);
 }

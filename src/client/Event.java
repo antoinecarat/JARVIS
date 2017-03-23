@@ -240,5 +240,15 @@ public class Event implements Comparable<Event>, IEvent {
 	public String toString() {
 		return "(" + dateDebut.getDay()+ ":" + dateDebut.getMonth() + ":" + dateDebut.getYear() + ") " + name + " [" + type + "]";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		IEvent e = (IEvent) obj;
+		
+		return this.dateDebut.equals(e.getDateDebut()) && this.name.equals(e.getName());
+	}
+
+
 	
 }
