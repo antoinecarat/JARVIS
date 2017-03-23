@@ -1,5 +1,5 @@
 {
-	"name" : "Base Class",
+	"name" : "Base",
 	"about" : "Just an agenda with an event",
 	"class" : "plugins.simpleBase.Base",
 	"interface" : "platform.plugins.IAutorun",

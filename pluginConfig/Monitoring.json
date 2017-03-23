@@ -1,5 +1,5 @@
 {
-	"name" : "Monitoring Class",
+	"name" : "Monitoring",
 	"about" : "monitor",
 	"class" : "plugins.monitoring.Monitoring",
 	"interface" : "platform.plugins.IMonitoring",

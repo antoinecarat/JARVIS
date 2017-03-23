@@ -38,54 +38,7 @@ public class Base implements IAutorun{
 		
 		agenda.addEvent(event);
 		
-		
-		JFrame frame = new JFrame("Agenda JARVIS");
-		frame.setSize(800,600);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		
-		frame.setLayout(new GridLayout(2, 2, 0, 1));
-		
-		JPanel createEvent = new JPanel();
-		createEvent.setLayout(new GridLayout(9, 2));
-		
-		String label[] = {"name", "dateDebut", "dateFin", "mail", "tel", "frequence", "type", "description", "lieu"};
-
-		JTextField tf;
-		for(int i=0; i < label.length; ++i){
-			tf = new JTextField();
-			createEvent.add(new Label(label[i]));
-			createEvent.add(tf);
-		}
-		frame.add(createEvent);
-		
-		List<IPluginDescriptor> listPluginDescriptor = Platform.getExtensions(IPrinter.class);
-		IPrinter printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(0), IPrinter.class);
-		JPanel printAgenda = printer.display(agenda);
-		frame.add(printAgenda);
-		
-		JPanel create = new JPanel(new FlowLayout());
-		JButton createButton = new JButton("Create new Event");
-		createButton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				
-				IEvent event = new Event("Petard de bon diou", new Date(2017, 03, 06), new Date(2017, 03, 07), "test@gmail.com", "02.40.56.56.65", Frequence.Année, "Anniversaire", "Anniversaire de Margaaaaaaaaux", "Chez moi", participants);
-				agenda.addEvent(event);
-			}
-		});
-		
-		create.add(createButton);
-		frame.add(create);
-		
-		JPanel printers = new JPanel(new FlowLayout());
-		JButton ip;
-		for(int i = 0; i < listPluginDescriptor.size() ; ++i){
-			ip = new JButton(listPluginDescriptor.get(i).getProperties().get("name"));
-			printers.add(ip);
-		}
-		frame.add(printers);
+		AgendaFrame frame = new AgendaFrame(agenda);
 		
 		frame.setVisible(true);
 		
