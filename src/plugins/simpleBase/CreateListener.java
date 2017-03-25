@@ -4,21 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.util.List;
 
 import client.Event;
 import client.Frequence;
-import client.IAgenda;
 import client.IEvent;
-import platform.plugins.IPrinter;
+import jdk.nashorn.internal.runtime.linker.InvokeByName;
 
 public class CreateListener implements ActionListener {
 
 	AgendaFrame frame;
-	
-	//Mafenetre f;
 	
 	public CreateListener(AgendaFrame frame) {
 		super();
@@ -27,9 +22,13 @@ public class CreateListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ArrayList<String> participants = new ArrayList<String>();
 		
-		IEvent event = new Event("Petard de bon diou", new Date(2017, 03, 06), new Date(2017, 03, 07), "test@gmail.com", "02.40.56.56.65", Frequence.Année, "Anniversaire", "Anniversaire de Margaaaaaaaaux", "Chez moi", participants );
+		List<String> tf = frame.getFieldsContent();
+		//TODO: call invoke with reflect; Frequency & participants /!\.
+		
+		ArrayList<String> participants = new ArrayList<String>();
+		IEvent event = new Event(tf.get(0), new Date(tf.get(1)), new Date(tf.get(2)), tf.get(3), tf.get(4), Frequence.Année, tf.get(6), tf.get(7), tf.get(8), participants);
+		
 		frame.getAgenda().addEvent(event);
 		frame.refreshPrinter();
 	}

@@ -6,13 +6,17 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.Label;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import client.Event;
 import client.IAgenda;
 import platform.IPluginDescriptor;
 import platform.Platform;
@@ -24,9 +28,16 @@ public class AgendaFrame extends JFrame {
 	JPanel createEvent;
 	JPanel printAgenda;
 	IPrinter printer;
-	GridBagConstraints gbc;
+	GridBagConstraints gbc_createPanel;
+	GridBagConstraints gbc_createButton;
+	GridBagConstraints gbc_printPanel;
+	GridBagConstraints gbc_printButtons;
+	
 	GridBagLayout gb;
 	int nbPrinters;
+	JLabel[] labels;
+	JTextField[] textFields;
+	
 	
 
 	public AgendaFrame(IAgenda agenda) throws HeadlessException, ClassNotFoundException {
@@ -40,52 +51,32 @@ public class AgendaFrame extends JFrame {
 		this.setResizable(false);
 		gb = new GridBagLayout();
 		this.setLayout(gb);
-		gbc = new GridBagConstraints();
-		gbc.fill = GridBagConstraints.NONE;
 		
 		this.createEvent = new JPanel();
-		createEvent.setLayout(new GridLayout(9, 2));
-		
-		String label[] = {"name", "dateDebut", "dateFin", "mail", "tel", "frequence", "type", "description", "lieu"};
-
-		JTextField tf;
-		for(int i=0; i < label.length; ++i){
-			tf = new JTextField();
-			createEvent.add(new Label(label[i]));
-			createEvent.add(tf);
-		}
-		
-		
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.gridheight = 9;
-		gbc.gridwidth = 2;
-		gb.setConstraints(createEvent, gbc);
-		this.add(createEvent);
+		Field[] fields = Event.class.getDeclaredFields();
+		createEvent.setLayout(new GridLayout(fields.length, 2));
 		
 		List<IPluginDescriptor> listPluginDescriptor = Platform.getExtensions(IPrinter.class);
 		nbPrinters = listPluginDescriptor.size();
 		this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(0), IPrinter.class);
 		this.printAgenda = printer.display(agenda);
 		
-		gbc.gridx = 3;
-		gbc.gridy = 0;
-		gbc.gridheight = 9;
-		gbc.gridwidth = nbPrinters;
-		gb.setConstraints(printAgenda, gbc);
-		this.add(printAgenda);
+		labels = new JLabel[fields.length];
+		for (int i = 0; i < fields.length; ++i){
+			labels[i] = new JLabel(fields[i].getName());
+		}
+		
+		textFields = new JTextField[labels.length];
+		for(int i=0; i < labels.length; ++i){
+			createEvent.add(labels[i]);
+			textFields[i] = new JTextField();
+			createEvent.add(textFields[i]);
+		}
 		
 		JPanel create = new JPanel(new FlowLayout());
 		JButton createButton = new JButton("Create new Event");
 		createButton.addActionListener(new CreateListener(this));
 		create.add(createButton);
-		
-		gbc.gridx = 10;
-		gbc.gridy = 1;
-		gbc.gridheight = 1;
-		gbc.gridwidth = 1;
-		gb.setConstraints(create, gbc);
-		this.add(create);
 		
 		JPanel printers = new JPanel(new FlowLayout());
 		JButton ip;
@@ -94,11 +85,46 @@ public class AgendaFrame extends JFrame {
 			printers.add(ip);
 		}
 		
-		gbc.gridx = 10;
-		gbc.gridy = 3;
-		gbc.gridheight = 1;
-		gbc.gridwidth = 1;
-		gb.setConstraints(printers, gbc);
+		//GBConstraints
+		gbc_createPanel = new GridBagConstraints();
+		gbc_createPanel.anchor = GridBagConstraints.NORTH;
+		gbc_createButton = new GridBagConstraints();
+		gbc_createButton.anchor = GridBagConstraints.NORTH;
+		gbc_printPanel = new GridBagConstraints();
+		gbc_printPanel.anchor = GridBagConstraints.NORTH;
+		gbc_printButtons = new GridBagConstraints();
+		gbc_printButtons.anchor = GridBagConstraints.NORTH;
+		
+		//CreatePanel
+		gbc_createPanel.gridx = 0;
+		gbc_createPanel.gridy = 0;
+		gbc_createPanel.gridheight = fields.length;
+		gbc_createPanel.gridwidth = 2;
+		gb.setConstraints(createEvent, gbc_createPanel);
+		this.add(createEvent);
+		
+		//PrintPanel
+		gbc_printPanel.gridx = 2;
+		gbc_printPanel.gridy = 0;
+		gbc_printPanel.gridheight = 9;
+		gbc_printPanel.gridwidth = nbPrinters;
+		gb.setConstraints(printAgenda, gbc_printPanel);
+		this.add(printAgenda);
+		
+		//CreateButtons
+		gbc_createButton.gridx = 1;
+		gbc_createButton.gridy = 10;
+		gbc_createButton.gridheight = 1;
+		gbc_createButton.gridwidth = 1;
+		gb.setConstraints(create, gbc_createButton);
+		this.add(create);
+		
+		//PrintButtons
+		gbc_printButtons.gridx = 2;
+		gbc_printButtons.gridy = 10;
+		gbc_printButtons.gridheight = 1;
+		gbc_printButtons.gridwidth = nbPrinters;
+		gb.setConstraints(printers, gbc_printButtons);
 		this.add(printers);
 		
 	}
@@ -111,16 +137,21 @@ public class AgendaFrame extends JFrame {
 		this.remove(printAgenda);
 		this.printAgenda = this.printer.display(this.agenda);
 		
-		gbc.gridx = 3;
-		gbc.gridy = 0;
-		gbc.gridheight = 9;
-		gbc.gridwidth = nbPrinters;
-		gb.setConstraints(printAgenda, gbc);
+		gb.setConstraints(printAgenda, gbc_printPanel);
 		this.add(printAgenda);
 		this.revalidate();
 		this.repaint();
 	}
 	
+	public List<String> getFieldsContent(){
+		List<String> content = new ArrayList<String>();
+		for (JTextField t : textFields){
+			content.add(t.getText());
+		}
+		
+		return content;
+		
+	}
 	
 	
 	
