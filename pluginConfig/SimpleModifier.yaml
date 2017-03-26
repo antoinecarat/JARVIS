@@ -1,0 +1,5 @@
+name: SimplerModifier
+about: Just modify the start of the event and the name
+class: plugins.simpleModifier.SimpleModifier
+interface: platform.plugins.IModifier
+autorun: "False"

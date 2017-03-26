@@ -1,21 +1,15 @@
 package platform;
 
-import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Proxy;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.yaml.snakeyaml.Yaml;
 
 import client.PluginState;
 import client.UnassignableException;
@@ -34,7 +28,7 @@ public class Platform {
 		Platform.pluginDescript = pluginDescript;
 	}
 
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {		
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, FileNotFoundException {		
 
 		loadPluginDescriptors();
 		// Run autoruns
@@ -66,23 +60,24 @@ public class Platform {
 		return plugins;
 	}
 
-	private static void loadPluginDescriptors() {
+	private static void loadPluginDescriptors() throws FileNotFoundException {
 
-		List<String> plugins = extractArrayFromJSON("plugins", "config.json");
+		
+		InputStream input = new FileInputStream(new File("config.yaml"));
+	    Yaml yaml = new Yaml();
+	    Map<String, Object> map = (Map<String, Object>) yaml.load(input);
+		List<String> plugins = (List<String>) map.get("plugins");
 
 		IPluginDescriptor desc;
 		pluginDescript = new ArrayList<IPluginDescriptor>();
 		
 		for (String p : plugins) {
-
 			String[] tmp = p.split(Pattern.quote("."));
-
-			String pluginFile = "pluginConfig/" + tmp[tmp.length - 1] + ".json";
-
-			Map<String, String> prop = jsonIntoMap(pluginFile);
-
-			desc = new PluginDescriptor(prop);
+			String pluginFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
 			
+			InputStream pluginConf = new FileInputStream(new File(pluginFile));
+			Map<String, String> prop = (Map<String, String>) yaml.load(pluginConf);
+			desc = new PluginDescriptor(prop);
 			pluginDescript.add(desc);
 			
 		}
@@ -109,115 +104,5 @@ public class Platform {
 		
 		iPluginDescriptor.setState(PluginState.RUNNING);
 		return obj;
-	}
-	
-	private static List<String> extractArrayFromJSON(String prop, String fileName) {
-		try {
-			String json = new String();
-			String line = null;
-			try {
-
-				BufferedReader reader = new BufferedReader(new FileReader(fileName));
-
-				while ((line = reader.readLine()) != null) {
-					json += line;
-				}
-				reader.close();
-
-				JSONObject obj = new JSONObject(json);
-
-				JSONArray array = obj.getJSONArray(prop);
-				List<String> items = new ArrayList<String>();
-				for (int i = 0; i < array.length(); ++i) {
-					items.add(array.getString(i));
-				}
-				return items;
-
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				return null;
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-			}
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static String extractStringFromJSON(String prop, String fileName) {
-		try {
-			String json = new String();
-			String line = null;
-			try {
-
-				BufferedReader reader = new BufferedReader(new FileReader(fileName));
-
-				while ((line = reader.readLine()) != null) {
-					json += line;
-				}
-				reader.close();
-
-				JSONObject obj = new JSONObject(json);
-
-				return obj.getString(prop);
-
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				return null;
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-			}
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return null;
-		}
-
-	}
-
-	private static Map<String, String> jsonIntoMap(String fileName) {
-		try {
-			String json = new String();
-			String line = null;
-			try {
-
-				BufferedReader reader = new BufferedReader(new FileReader(fileName));
-
-				while ((line = reader.readLine()) != null) {
-					json += line;
-				}
-				reader.close();
-
-				JSONObject obj = new JSONObject(json);
-				Map<String, String> map = new HashMap<>();
-				
-				for (Iterator iterator = obj.keys(); iterator.hasNext();) {
-					Object o = iterator.next();
-					map.put((String) o, obj.getString((String) o));
-
-				}
-				/*while (it.hasNext()) {
-					o = obj.keys().next();
-					System.out.println((String) o);
-				}*/
-
-				return map;
-
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				return null;
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-			}
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 }

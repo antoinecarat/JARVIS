@@ -1,0 +1,5 @@
+name: MonthPrinter
+about: display only events of the current month
+class: plugins.monthPrinter.MonthPrinter
+interface: platform.plugins.IPrinter
+autorun: "False"

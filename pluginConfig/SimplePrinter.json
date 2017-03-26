@@ -1,7 +1,0 @@
-{
-	"name" : "SimplePrinter",
-	"about" : "Print toString() of all events",
-	"class" : "plugins.simplePrinter.SimplePrinter",
-	"interface" : "platform.plugins.IPrinter",
-	"autorun": "False"
-}
