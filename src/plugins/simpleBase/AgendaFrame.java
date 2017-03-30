@@ -61,10 +61,19 @@ public class AgendaFrame extends JFrame {
 		List<IPluginDescriptor> listPluginDescriptor = Platform.getExtensions(IPrinter.class);
 		nbPrinters = listPluginDescriptor.size();
 		this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(0), IPrinter.class);
-		this.printAgenda = printer.display(agenda);
 		
 		this.running_printers = new ArrayList<IPrinter>();
-		this.running_printers.add(this.printer);
+		for(int i=0; i< nbPrinters; ++i){
+			running_printers.add(null);
+		}
+		
+		this.running_printers.set(0, this.printer);
+		
+		if(this.printer == null){
+			this.printAgenda = new JPanel();
+		} else {
+			this.printAgenda = printer.display(agenda);
+		}
 		
 		labels = new JLabel[fields.length];
 		for (int i = 0; i < fields.length; ++i){
@@ -141,7 +150,12 @@ public class AgendaFrame extends JFrame {
 
 	public void refreshPrinter() {
 		this.remove(printAgenda);
-		this.printAgenda = this.printer.display(this.agenda);
+		
+		if(this.printer == null){
+			this.printAgenda = new JPanel();
+		} else {
+			this.printAgenda = printer.display(agenda);
+		}
 		
 		gb.setConstraints(printAgenda, gbc_printPanel);
 		this.add(printAgenda);
@@ -167,7 +181,7 @@ public class AgendaFrame extends JFrame {
 			} else {
 				listPluginDescriptor = Platform.getExtensions(IPrinter.class);
 				this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
-				this.running_printers.add(this.printer);
+				this.running_printers.set(index, this.printer);
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
