@@ -64,7 +64,6 @@ public class Platform {
 		return plugins;
 	}
 	
-	//TODO: manage properties
 	public static List<IPluginDescriptor> getExtensions(Class<?> need, Map<String, Object> properties) throws ClassNotFoundException {
 
 		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
@@ -74,7 +73,14 @@ public class Platform {
 			String interfacePath = plugin.getProperties().get("interface");
 
 			if(interfacePath.equals(need.getName())){
-				plugins.add(plugin);
+				
+				boolean matches = true;
+				for (Object key : properties.keySet()){
+					matches = matches && (plugin.getProperties().get(key).equals(properties.get(key)));
+				}
+				if (matches){
+					plugins.add(plugin);
+				}
 			}
 		}
 		
@@ -117,13 +123,12 @@ public class Platform {
 				}else{
 					throw new UnassignableException();
 				}
+				iPluginDescriptor.setState(PluginState.RUNNING);
 				
 			} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 				iPluginDescriptor.setState(PluginState.FAILED);
 			}
 		}
-		
-		iPluginDescriptor.setState(PluginState.RUNNING);
 		return obj;
 	}
 }

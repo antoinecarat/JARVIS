@@ -9,7 +9,9 @@ import java.awt.HeadlessException;
 import java.awt.Label;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -60,14 +62,23 @@ public class AgendaFrame extends JFrame {
 		
 		List<IPluginDescriptor> listPluginDescriptor = Platform.getExtensions(IPrinter.class);
 		nbPrinters = listPluginDescriptor.size();
-		this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(0), IPrinter.class);
+		
+		//TODO: add a default key in config file and
+		Map<String, Object> prop = new HashMap<String, Object>();
+		prop.put("default", "True");
+		IPluginDescriptor defaultPrinter = Platform.getExtensions(IPrinter.class, prop).get(0);
+		System.out.println("Default: " + defaultPrinter.getProperties().get("name"));
+		this.printer = (IPrinter) Platform.loadPlugin(defaultPrinter, IPrinter.class);
+		//this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(0), IPrinter.class);
 		
 		this.running_printers = new ArrayList<IPrinter>();
 		for(int i=0; i< nbPrinters; ++i){
 			running_printers.add(null);
 		}
 		
-		this.running_printers.set(0, this.printer);
+		//int index = 0;
+		int index = listPluginDescriptor.indexOf(defaultPrinter);
+		this.running_printers.set(index, this.printer);
 		
 		if(this.printer == null){
 			this.printAgenda = new JPanel();
