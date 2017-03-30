@@ -166,7 +166,9 @@ public class AgendaFrame extends JFrame {
 	public List<String> getFieldsContent(){
 		List<String> content = new ArrayList<String>();
 		for (JTextField t : textFields){
-			content.add(t.getText());
+			if(t.getText().length()>0){
+				content.add(t.getText());
+			}
 		}
 		
 		return content;

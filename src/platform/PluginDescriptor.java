@@ -1,11 +1,13 @@
 package platform;
 
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import client.PluginState;
 
-public class PluginDescriptor implements IPluginDescriptor {
-
+public class PluginDescriptor extends Observable implements IPluginDescriptor {
+	
 	private Map<String, String> properties;
 	
 	private PluginState state;
@@ -33,12 +35,19 @@ public class PluginDescriptor implements IPluginDescriptor {
 
 	public void setState(PluginState state) {
 		this.state = state;
+		
+		this.setChanged();
+		this.notifyObservers(state);
 	}
 
 	public String toString() {
 		return "PluginDescriptor [properties=" + properties + ", state=" + state + "]";
 	}
 
+	public void setObserver(Observer o){
+		this.addObserver(o);
+	}
+	
 	
 	//TODO : singleton
 	
