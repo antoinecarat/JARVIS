@@ -1,5 +1,6 @@
 package plugins.simpleBase;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -37,6 +38,7 @@ public class AgendaFrame extends JFrame {
 	int nbPrinters;
 	JLabel[] labels;
 	JTextField[] textFields;
+	List<IPrinter> running_printers;
 	
 	
 
@@ -45,7 +47,7 @@ public class AgendaFrame extends JFrame {
 		this.agenda = agenda;
 		
 		this.setTitle("Agenda JARVIS");
-		this.setSize(800,600);
+		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
@@ -60,6 +62,9 @@ public class AgendaFrame extends JFrame {
 		nbPrinters = listPluginDescriptor.size();
 		this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(0), IPrinter.class);
 		this.printAgenda = printer.display(agenda);
+		
+		this.running_printers = new ArrayList<IPrinter>();
+		this.running_printers.add(this.printer);
 		
 		labels = new JLabel[fields.length];
 		for (int i = 0; i < fields.length; ++i){
@@ -157,8 +162,13 @@ public class AgendaFrame extends JFrame {
 	public void changePrinter(int index) {
 		List<IPluginDescriptor> listPluginDescriptor;
 		try {
-			listPluginDescriptor = Platform.getExtensions(IPrinter.class);
-			this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
+			if (running_printers.size() > index && running_printers.get(index) != null){
+				this.printer = running_printers.get(index);
+			} else {
+				listPluginDescriptor = Platform.getExtensions(IPrinter.class);
+				this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
+				this.running_printers.add(this.printer);
+			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="pluginConfig"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JSONReader"/>
-	<classpathentry kind="lib" path="/Users/margauxcherrueau/Downloads/snakeyaml-1.18.jar"/>
+	<classpathentry kind="lib" path="snakeyaml-1.18.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

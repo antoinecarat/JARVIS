@@ -28,7 +28,6 @@ import platform.plugins.IPrinter;
 public class Base implements IAutorun{
 
 	public void run() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		System.out.println("OK, let's go.");
 		IAgenda agenda = new Agenda();
 		
 		ArrayList<String> participants = new ArrayList<String>();

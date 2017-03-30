@@ -18,46 +18,22 @@ public class Monitoring implements IMonitoring, IAutorun {
 		//System.out.println(Platform.getPluginDescript());
 		JFrame frame = new JFrame();
 	    frame.setTitle("Monitoring");
-	    frame.setSize(800, 600);
+	    frame.setSize(500, 400);
 	    frame.setLocationRelativeTo(null);
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    
 	    Object[][] data = new Object[Platform.getPluginDescript().size()][2];
 	    int i=0;
 	    for (IPluginDescriptor p : Platform.getPluginDescript()){
 	    	data[i][0] = p.getProperties().get("name");
 	    	data[i][1] = p.getState();
-	    ++i;
+	    	++i;
 	    }
 	    
-
-		String[] titles = {"Name","State"}; 
-		TableModel model = new AbstractTableModel() {
-		    public String getColumnName(int col) {
-		        return columnNames[col].toString();
-		    }
-		    public int getRowCount() { return rowData.length; }
-		    public int getColumnCount() { return columnNames.length; }
-		    public Object getValueAt(int row, int col) {
-		        return rowData[row][col];
-		    }
-		    public boolean isCellEditable(int row, int col)
-		        { return true; }
-		    public void setValueAt(Object value, int row, int col) {
-		        rowData[row][col] = value;
-		        fireTableCellUpdated(row, col);
-		    }
-		}
+		Object[] titles = {"Name","State"};
 		JTable table = new JTable(data, titles);
-
-	    
-	    DefaultListModel<String> listModel = new DefaultListModel<String>();
-	    
-	    
-	    
-	    JList list = new JList(listModel);
-	    
-	    frame.add(list);
+		
+	    frame.add(table);
 	    
 	    frame.setVisible(true);
 
