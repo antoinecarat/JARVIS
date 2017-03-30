@@ -9,7 +9,9 @@ import java.awt.HeadlessException;
 import java.awt.Label;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -60,14 +62,20 @@ public class AgendaFrame extends JFrame {
 		
 		List<IPluginDescriptor> listPluginDescriptor = Platform.getExtensions(IPrinter.class);
 		nbPrinters = listPluginDescriptor.size();
-		this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(0), IPrinter.class);
 		
+		Map<String, Object> prop = new HashMap<String, Object>();
+		prop.put("default", "True");
+		List<IPluginDescriptor> defaults = Platform.getExtensions(IPrinter.class, prop);
+		IPluginDescriptor defaultPrinter = defaults.size() > 0 ? defaults.get(0) : listPluginDescriptor.get(0);
+		this.printer = (IPrinter) Platform.loadPlugin(defaultPrinter, IPrinter.class);
+				
 		this.running_printers = new ArrayList<IPrinter>();
 		for(int i=0; i< nbPrinters; ++i){
 			running_printers.add(null);
 		}
 		
-		this.running_printers.set(0, this.printer);
+		int index = listPluginDescriptor.indexOf(defaultPrinter);
+		this.running_printers.set(index, this.printer);
 		
 		if(this.printer == null){
 			this.printAgenda = new JPanel();
@@ -166,7 +174,9 @@ public class AgendaFrame extends JFrame {
 	public List<String> getFieldsContent(){
 		List<String> content = new ArrayList<String>();
 		for (JTextField t : textFields){
-			content.add(t.getText());
+			if(t.getText().length()>0){
+				content.add(t.getText());
+			}
 		}
 		
 		return content;

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 import java.util.regex.Pattern;
 
 import org.yaml.snakeyaml.Yaml;
@@ -39,6 +40,12 @@ public class Platform {
 				obj.run();
 			}
 		}
+		
+		
+		
+//		for (IPluginDescriptor p : pluginDescript) {
+//			System.out.println(((Observable)p).countObservers());
+//		}
 	}
 
 	public static List<IPluginDescriptor> getExtensions(Class<?> need) throws ClassNotFoundException {
@@ -51,6 +58,29 @@ public class Platform {
 
 			if(interfacePath.equals(need.getName())){
 				plugins.add(plugin);
+			}
+		}
+		
+		return plugins;
+	}
+	
+	public static List<IPluginDescriptor> getExtensions(Class<?> need, Map<String, Object> properties) throws ClassNotFoundException {
+
+		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
+		
+		for (IPluginDescriptor plugin : pluginDescript) {
+			
+			String interfacePath = plugin.getProperties().get("interface");
+
+			if(interfacePath.equals(need.getName())){
+				
+				boolean matches = true;
+				for (Object key : properties.keySet()){
+					matches = matches && (plugin.getProperties().get(key).equals(properties.get(key)));
+				}
+				if (matches){
+					plugins.add(plugin);
+				}
 			}
 		}
 		
@@ -93,13 +123,12 @@ public class Platform {
 				}else{
 					throw new UnassignableException();
 				}
+				iPluginDescriptor.setState(PluginState.RUNNING);
 				
 			} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 				iPluginDescriptor.setState(PluginState.FAILED);
 			}
 		}
-		
-		iPluginDescriptor.setState(PluginState.RUNNING);
 		return obj;
 	}
 }
