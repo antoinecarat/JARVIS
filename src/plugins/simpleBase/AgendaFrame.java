@@ -72,7 +72,7 @@ public class AgendaFrame extends JFrame {
 		if(this.printer == null){
 			this.printAgenda = new JPanel();
 		} else {
-			this.printAgenda = printer.display(agenda);
+			this.printAgenda = printer.display(agenda, this);
 		}
 		
 		labels = new JLabel[fields.length];
@@ -92,7 +92,7 @@ public class AgendaFrame extends JFrame {
 		createButton.addActionListener(new CreateListener(this));
 		create.add(createButton);
 		
-		JPanel printers = new JPanel(new FlowLayout());//TODO use a card layout
+		JPanel printers = new JPanel(new FlowLayout());
 		JButton ip;
 		for(int i = 0; i < listPluginDescriptor.size() ; ++i){
 			ip = new JButton(listPluginDescriptor.get(i).getProperties().get("name"));
@@ -154,7 +154,7 @@ public class AgendaFrame extends JFrame {
 		if(this.printer == null){
 			this.printAgenda = new JPanel();
 		} else {
-			this.printAgenda = printer.display(agenda);
+			this.printAgenda = printer.display(agenda, this);
 		}
 		
 		gb.setConstraints(printAgenda, gbc_printPanel);

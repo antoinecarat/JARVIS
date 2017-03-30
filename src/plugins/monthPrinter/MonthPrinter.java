@@ -3,6 +3,7 @@ package plugins.monthPrinter;
 import java.awt.GridLayout;
 import java.util.Date;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -12,7 +13,7 @@ import platform.plugins.IPrinter;
 
 public class MonthPrinter implements IPrinter {
 
-	public JPanel display(IAgenda a) {
+	public JPanel display(IAgenda a, JFrame frame) {
 		
 		JPanel panel = new JPanel();
 		JLabel label;

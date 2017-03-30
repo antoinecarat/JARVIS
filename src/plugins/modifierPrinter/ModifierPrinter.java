@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -16,7 +17,7 @@ import platform.plugins.IPrinter;
 
 public class ModifierPrinter implements IPrinter{
 
-	public JPanel display(IAgenda a) {
+	public JPanel display(IAgenda a, JFrame frame) {
 		
 		JPanel panel = new JPanel();
 		JPanel buttons = null; 
@@ -27,12 +28,13 @@ public class ModifierPrinter implements IPrinter{
 		GridLayout subGrid;
 		
 		List<IPluginDescriptor> listPluginDescriptor;
-		
-		for (IEvent event : a.getEvents()) {
 
-			try {
-	
-				listPluginDescriptor = Platform.getExtensions(IModifier.class);
+		try {
+
+			listPluginDescriptor = Platform.getExtensions(IModifier.class);
+			
+			for (IEvent event : a.getEvents()) {
+				
 				label = new JLabel(event.toString());
 
 				panel.add(label);
@@ -42,17 +44,19 @@ public class ModifierPrinter implements IPrinter{
 				
 				for (IPluginDescriptor iPluginDescriptor : listPluginDescriptor) {
 					button = new JButton(iPluginDescriptor.getProperties().get("name"));
+					//TODO: ajouter le lien entre le bouton et le modify ? (wtf ? je sais pas comment faire)
+					//button.addActionListener(new );
 					buttons.add(button);
 					buttons.setLayout(subGrid);
 				}
 				
 				panel.add(buttons);
-				
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
 			}
-			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
+			
+		
 		
 		return panel;
 	}

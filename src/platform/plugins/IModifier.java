@@ -8,6 +8,6 @@ import client.IEvent;
 
 public interface IModifier {
 
-	void modify(IAgenda a, IEvent e, Map<String,Object> list) throws NoSuchFieldException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+	void modify(IAgenda a, IEvent e) throws NoSuchFieldException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
 
 }

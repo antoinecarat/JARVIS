@@ -9,7 +9,7 @@ import platform.plugins.IModifier;
 
 public class DeleteEventModifier implements IModifier{
 
-	public void modify(IAgenda a, IEvent e, Map<String, Object> list) throws NoSuchFieldException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void modify(IAgenda a, IEvent e) throws NoSuchFieldException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 					
 		if(!a.getEvents().remove(e)){
 			throw new IllegalArgumentException();
