@@ -34,10 +34,7 @@ public class Platform {
 		// Run autoruns
 		for (IPluginDescriptor plugin : pluginDescript) {
 			if(plugin.getProperties().get("autorun").equals("True")){
-				String classPlugin = plugin.getProperties().get("class");
-				System.out.println(classPlugin);
-				Class<?> cl = Class.forName(classPlugin);
-				IAutorun obj = (IAutorun) cl.newInstance();
+				IAutorun obj = (IAutorun) loadPlugin(plugin, IAutorun.class);
 
 				obj.run();
 			}

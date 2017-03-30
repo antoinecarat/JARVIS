@@ -5,4 +5,5 @@ plugins:
   - plugins.simplePrinter.SimplePrinter
   - plugins.monthPrinter.MonthPrinter
   - plugins.simpleModifier.SimpleModifier
+  - plugins.modifierPrinter.ModifierPrinter
   - plugins.monitoring.Monitoring

@@ -78,10 +78,11 @@ public class AgendaFrame extends JFrame {
 		createButton.addActionListener(new CreateListener(this));
 		create.add(createButton);
 		
-		JPanel printers = new JPanel(new FlowLayout());
+		JPanel printers = new JPanel(new FlowLayout());//TODO use a card layout
 		JButton ip;
 		for(int i = 0; i < listPluginDescriptor.size() ; ++i){
 			ip = new JButton(listPluginDescriptor.get(i).getProperties().get("name"));
+			ip.addActionListener(new ChangePrinterListener(this, i));
 			printers.add(ip);
 		}
 		
@@ -152,6 +153,17 @@ public class AgendaFrame extends JFrame {
 		return content;
 		
 	}
+
+	public void changePrinter(int index) {
+		List<IPluginDescriptor> listPluginDescriptor;
+		try {
+			listPluginDescriptor = Platform.getExtensions(IPrinter.class);
+			this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
 	
 	
 	

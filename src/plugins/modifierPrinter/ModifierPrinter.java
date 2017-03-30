@@ -1,4 +1,4 @@
-package platform.plugins.modifierPrinter;
+package plugins.modifierPrinter;
 
 import java.awt.GridLayout;
 import java.util.List;
@@ -38,12 +38,10 @@ public class ModifierPrinter implements IPrinter{
 				panel.add(label);
 				
 				subGrid = new GridLayout(1, listPluginDescriptor.size());
+				buttons = new JPanel();
 				
 				for (IPluginDescriptor iPluginDescriptor : listPluginDescriptor) {
-					printer = (IPrinter) Platform.loadPlugin(iPluginDescriptor, IModifier.class);
-					buttons = new JPanel();
-					button = new JButton(printer.getClass().getName());
-					
+					button = new JButton(iPluginDescriptor.getProperties().get("name"));
 					buttons.add(button);
 					buttons.setLayout(subGrid);
 				}
