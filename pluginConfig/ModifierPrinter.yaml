@@ -3,8 +3,5 @@ about: Allows to modify events (not only printing it)
 class: plugins.modifierPrinter.ModifierPrinter
 interface: platform.plugins.IPrinter
 autorun: "False"
-<<<<<<< HEAD
 default: "False"
-=======
 default: "True"
->>>>>>> branch 'master' of https://github.com/cara-puce/JARVIS.git
