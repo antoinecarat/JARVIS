@@ -1,26 +1,35 @@
-package plugins.modifierPrinter;
+package plugins.simpleModifier;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
-import client.IAgenda;
 import client.IEvent;
+import platform.IPluginDescriptor;
+import platform.Platform;
+import platform.plugins.IModifier;
+import plugins.simpleBase.AgendaFrame;
 
-public class CallModifyListener implements ActionListener{
+public class ModifierListener implements ActionListener{
 
-	IAgenda agenda;
+	IModifier modifier;
+	List<IPluginDescriptor> list;
+	int index;
+	AgendaFrame frame;
 	IEvent event;
-	
-	
-	public CallModifyListener(IAgenda agenda, IEvent event) {
+
+	public ModifierListener(int index, List<IPluginDescriptor> list, AgendaFrame frame, IEvent event) {
 		super();
-		this.agenda = agenda;
+		this.index = index;
+		this.list = list;
+		this.frame = frame;
 		this.event = event;
 	}
 
 
 	public void actionPerformed(ActionEvent arg0) {
-		
+		this.modifier = (IModifier) Platform.loadPlugin(list.get(index), IModifier.class);
+		this.modifier.modify(frame, frame.getAgenda(), event);
 	}
 
 }

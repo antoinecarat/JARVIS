@@ -1,10 +1,12 @@
-package plugins.modifierPrinter;
+package plugins.simpleModifier;
 
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,12 +25,6 @@ import plugins.simpleBase.CreateListener;
 
 public class ModifierEventFrame extends JFrame {
 
-	GridBagConstraints gbc_createPanel;
-	GridBagConstraints gbc_createButton;
-	GridBagLayout gb;
-	
-	JPanel modifyEvent;
-
 	JTextField[] textFields;
 	
 	IEvent event;
@@ -37,20 +33,18 @@ public class ModifierEventFrame extends JFrame {
 	JLabel[] labels;
 
 	
-	public ModifierEventFrame(IEvent event) throws HeadlessException {
+	public ModifierEventFrame(JFrame frame, IEvent event) throws HeadlessException {
 		super();
 		this.event = event;
 		
 		this.setTitle("Modify the event");
-		this.setSize(800, 600);
+		this.setSize(400, 600);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
-		gb = new GridBagLayout();
-		this.setLayout(gb);
-			
+		
 		Field[] fields = Event.class.getDeclaredFields();
-		modifyEvent.setLayout(new GridLayout(fields.length, 2));
+		this.setLayout(new GridLayout(fields.length+1, 2));
 
 		labels = new JLabel[fields.length];
 		for (int i = 0; i < fields.length; ++i){
@@ -59,39 +53,19 @@ public class ModifierEventFrame extends JFrame {
 		
 		textFields = new JTextField[labels.length];
 		for(int i=0; i < labels.length; ++i){
-			modifyEvent.add(labels[i]);
+			this.add(labels[i]);
 			textFields[i] = new JTextField();
-			
-			try {
-				method = event.getClass().getMethod("get"+upFirstChar(fields[i].getName()));
-			
-				String getMethodResult = (String) method.invoke(event);
-				
-				textFields[i].setText(getMethodResult);
-				modifyEvent.add(textFields[i]);
-				
-				JPanel create = new JPanel(new FlowLayout());
-				JButton createButton = new JButton("Create new Event");
-				createButton.addActionListener(new ModifierListener(this, event));
-				create.add(createButton);
-				
-				//CreatePanel
-				gbc_createPanel.gridx = 0;
-				gbc_createPanel.gridy = 0;
-				gbc_createPanel.gridheight = fields.length;
-				gbc_createPanel.gridwidth = 2;
-				gb.setConstraints(modifyEvent, gbc_createPanel);
-				this.add(modifyEvent);
-								
-			} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
-			}
-
+			//TODO: retrieve value of the field with reflect
+			textFields[i].setText("Value");
+			this.add(textFields[i]);
 		}
-	}
-	
-	private String upFirstChar(String toUp){
-		return toUp.substring(0, 1).toUpperCase() + toUp.substring(1);
+		JButton cancel = new JButton("Annuler");
+		cancel.addActionListener(new QuitListener(this));
+		this.add(cancel);
+		JButton accept = new JButton("Confirmer");
+		accept.addActionListener(new ModifyListener(this, event));
+		this.add(accept);
+		
 	}
 	
 	public List<String> getFieldsContent(){
@@ -99,7 +73,6 @@ public class ModifierEventFrame extends JFrame {
 		for (JTextField t : textFields){
 			content.add(t.getText());
 		}
-		
 		return content;
 	}
 	

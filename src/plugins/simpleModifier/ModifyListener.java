@@ -1,4 +1,4 @@
-package plugins.modifierPrinter;
+package plugins.simpleModifier;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +11,12 @@ import java.util.Date;
 import client.Event;
 import client.IEvent;
 
-public class ModifierListener implements ActionListener {
+public class ModifyListener implements ActionListener {
 
 	ModifierEventFrame frame;
 	IEvent event;
 	
-	public ModifierListener(ModifierEventFrame frame, IEvent event) {
+	public ModifyListener(ModifierEventFrame frame, IEvent event) {
 		super();
 		this.frame = frame;
 		this.event = event;
@@ -47,7 +47,7 @@ public class ModifierListener implements ActionListener {
 			}
 			
 		}
-
+		frame.dispose();
 	}
 	
 	private String upFirstChar(String toUp){

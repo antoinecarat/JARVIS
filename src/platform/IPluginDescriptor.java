@@ -1,8 +1,7 @@
 package platform;
 
+import java.util.List;
 import java.util.Map;
-
-import client.PluginState;
 
 public interface IPluginDescriptor {
 
@@ -17,5 +16,9 @@ public interface IPluginDescriptor {
 	void setState(PluginState state);
 	
 	public String toString();
+
+	List<Object> getInstances();
+	
+	void addInstance(Object o);
 	
 }

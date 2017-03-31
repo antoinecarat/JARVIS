@@ -8,19 +8,14 @@ import java.util.Map;
 import client.IAgenda;
 import client.IEvent;
 import platform.plugins.IModifier;
-import plugins.modifierPrinter.ModifierEventFrame;
+import plugins.simpleBase.AgendaFrame;
 
 public class SimpleModifier implements IModifier {
 
-	public void modify(IAgenda a, IEvent e) throws NoSuchFieldException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		
-		Map<String, Object> list = new HashMap<String, Object>();
-		Object field;
-		Method method;
-		
-		ModifierEventFrame frame = new ModifierEventFrame(e);
-		
-		frame.setVisible(true);
+	public void modify(AgendaFrame frame, IAgenda a, IEvent e) {
+		ModifierEventFrame popup = new ModifierEventFrame(frame, e);
+		popup.setVisible(true);
+		frame.refreshPrinter();
 	}
 
 }

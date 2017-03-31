@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 
 import org.yaml.snakeyaml.Yaml;
 
-import client.PluginState;
 import client.UnassignableException;
 import platform.plugins.IAutorun;
 
@@ -120,6 +119,7 @@ public class Platform {
 				
 				if(need.isAssignableFrom(cl)){
 					obj = cl.newInstance();
+					iPluginDescriptor.addInstance(obj);
 				}else{
 					throw new UnassignableException();
 				}
@@ -127,6 +127,25 @@ public class Platform {
 				
 			} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 				iPluginDescriptor.setState(PluginState.FAILED);
+			}
+		} else if (iPluginDescriptor.getState() == PluginState.RUNNING) {
+			if (iPluginDescriptor.getProperties().get("singleton").equals("True")){
+				return iPluginDescriptor.getInstances().get(0);
+			} else {
+				try {
+					Class<?> cl = Class.forName(iPluginDescriptor.getProperties().get("class"));
+					
+					if(need.isAssignableFrom(cl)){
+						obj = cl.newInstance();
+						iPluginDescriptor.addInstance(obj);
+					}else{
+						throw new UnassignableException();
+					}
+					iPluginDescriptor.setState(PluginState.RUNNING);
+					
+				} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
+					iPluginDescriptor.setState(PluginState.FAILED);
+				}
 			}
 		}
 		return obj;

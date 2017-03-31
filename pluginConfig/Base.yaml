@@ -3,3 +3,4 @@ about: Just a simple Agenda application
 class: plugins.simpleBase.Base
 interface: platform.plugins.IAutorun
 autorun: "True"
+singleton: "True"

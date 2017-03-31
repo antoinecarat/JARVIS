@@ -3,5 +3,5 @@ about: Allows to modify events (not only printing it)
 class: plugins.modifierPrinter.ModifierPrinter
 interface: platform.plugins.IPrinter
 autorun: "False"
-default: "False"
 default: "True"
+singleton: "True"

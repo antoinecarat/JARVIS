@@ -17,7 +17,7 @@ public interface IEvent {
 
 	void setDateFin(Date dateFin);
 
-	String getMail();
+	/*String getMail();
 
 	void setMail(String mail);
 
@@ -27,7 +27,7 @@ public interface IEvent {
 
 	Frequence getFrequence();
 
-	void setFrequence(Frequence frequence);
+	void setFrequence(Frequence frequence);*/
 
 	String getType();
 
@@ -41,9 +41,9 @@ public interface IEvent {
 
 	void setLieu(String lieu);
 
-	ArrayList<String> getParticipants();
+	/*ArrayList<String> getParticipants();
 
-	void setParticipants(ArrayList<String> participants);
+	void setParticipants(ArrayList<String> participants);*/
 	
 	String toString();
 	

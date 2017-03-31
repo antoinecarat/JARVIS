@@ -10,9 +10,9 @@ import javax.swing.JTable;
 import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.PluginDescriptor;
+import platform.PluginState;
 import platform.plugins.IAutorun;
 import platform.plugins.IMonitoring;
-import client.PluginState;
 
 public class Monitoring implements IMonitoring, IAutorun, Observer {
 
@@ -23,11 +23,12 @@ public class Monitoring implements IMonitoring, IAutorun, Observer {
 		//System.out.println(Platform.getPluginDescript());
 		frame = new JFrame();
 	    frame.setTitle("Monitoring");
-	    frame.setSize(500, 400);
-	    frame.setLocationRelativeTo(null);
+	    frame.setSize(300, 400);
+		frame.setLocation(900, 100);
+	    //frame.setLocationRelativeTo(null);
 	    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    
-	    Object[][] data = new Object[Platform.getPluginDescript().size()][2];
+	    Object[][] data = new Object[Platform.getPluginDescript().size()][3];
 //	    int i=0;
 //	    for (IPluginDescriptor p : Platform.getPluginDescript()){
 //	    	
@@ -44,10 +45,12 @@ public class Monitoring implements IMonitoring, IAutorun, Observer {
 	    for(int i=0; i<l.size(); ++i){
 	    	data[i][0] = l.get(i).getProperties().get("name");
 	    	data[i][1] = l.get(i).getState();
+	    	data[i][2] = l.get(i).getInstances().size();
+	    	
 	    	((PluginDescriptor)Platform.getPluginDescript().get(i)).setObserver(this);
 	    }
 	    
-		Object[] titles = {"Name","State"};
+		Object[] titles = {"Name", "State", "# Instances"};
 		this.table = new JTable(data, titles);
 		
 	    frame.add(table);
@@ -58,7 +61,7 @@ public class Monitoring implements IMonitoring, IAutorun, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Object[][] data = new Object[Platform.getPluginDescript().size()][2];
+		Object[][] data = new Object[Platform.getPluginDescript().size()][3];
 	    int i=0;
 	    
 	    for (IPluginDescriptor p : Platform.getPluginDescript()){
@@ -66,15 +69,17 @@ public class Monitoring implements IMonitoring, IAutorun, Observer {
 	    			.equals(((IPluginDescriptor) o).getProperties().get("name"))){
 	    		data[i][0] = p.getProperties().get("name");
 		    	data[i][1] = (PluginState) arg;
+		    	data[i][2] = p.getInstances().size();
 		    	
 	    	} else {
 	    		data[i][0] = p.getProperties().get("name");
 		    	data[i][1] = p.getState();
+		    	data[i][2] = p.getInstances().size();
 	    	}	    	
 	    	++i;
 	    }
 	    
-		Object[] titles = {"Name","State"};
+	    Object[] titles = {"Name", "State", "# Instances"};
 		this.frame.remove(this.table);
 		this.table = new JTable(data, titles);
 		this.frame.add(this.table);

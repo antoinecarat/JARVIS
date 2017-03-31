@@ -50,7 +50,8 @@ public class AgendaFrame extends JFrame {
 		
 		this.setTitle("Agenda JARVIS");
 		this.setSize(800, 600);
-		this.setLocationRelativeTo(null);
+		this.setLocation(0, 100);
+		//this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		gb = new GridBagLayout();
@@ -68,14 +69,7 @@ public class AgendaFrame extends JFrame {
 		List<IPluginDescriptor> defaults = Platform.getExtensions(IPrinter.class, prop);
 		IPluginDescriptor defaultPrinter = defaults.size() > 0 ? defaults.get(0) : listPluginDescriptor.get(0);
 		this.printer = (IPrinter) Platform.loadPlugin(defaultPrinter, IPrinter.class);
-				
-		this.running_printers = new ArrayList<IPrinter>();
-		for(int i=0; i< nbPrinters; ++i){
-			running_printers.add(null);
-		}
-		
-		int index = listPluginDescriptor.indexOf(defaultPrinter);
-		this.running_printers.set(index, this.printer);
+
 		
 		if(this.printer == null){
 			this.printAgenda = new JPanel();
@@ -186,18 +180,14 @@ public class AgendaFrame extends JFrame {
 	public void changePrinter(int index) {
 		List<IPluginDescriptor> listPluginDescriptor;
 		try {
-			if (running_printers.size() > index && running_printers.get(index) != null){
-				this.printer = running_printers.get(index);
-			} else {
-				listPluginDescriptor = Platform.getExtensions(IPrinter.class);
-				this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
-				this.running_printers.set(index, this.printer);
-			}
+			System.out.println("Refreshing printer");
+			listPluginDescriptor = Platform.getExtensions(IPrinter.class);
+			this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		}
+	}
 	
 	
 	

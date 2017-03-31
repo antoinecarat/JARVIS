@@ -1,10 +1,10 @@
 package platform;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-
-import client.PluginState;
 
 public class PluginDescriptor extends Observable implements IPluginDescriptor {
 	
@@ -12,8 +12,11 @@ public class PluginDescriptor extends Observable implements IPluginDescriptor {
 	
 	private PluginState state;
 	
+	private List<Object> instances;
+	
 	public PluginDescriptor(Map<String, String> prop) {
 		this.properties = prop;
+		this.instances = new ArrayList<Object>();
 		this.state = PluginState.AVAILABLE;
 	}
 	
@@ -46,6 +49,16 @@ public class PluginDescriptor extends Observable implements IPluginDescriptor {
 
 	public void setObserver(Observer o){
 		this.addObserver(o);
+	}
+
+	@Override
+	public List<Object> getInstances() {
+		return instances;
+	}
+
+	@Override
+	public void addInstance(Object o) {
+		instances.add(o);
 	}
 	
 	

@@ -2,17 +2,17 @@ package plugins.simplePrinter;
 
 import java.awt.GridLayout;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import client.IAgenda;
 import client.IEvent;
 import platform.plugins.IPrinter;
+import plugins.simpleBase.AgendaFrame;
 
 public class SimplePrinter implements IPrinter {
 
-	public JPanel display(IAgenda a, JFrame frame) {
+	public JPanel display(IAgenda a, AgendaFrame frame) {
 		
 		JPanel panel = new JPanel();
 		JLabel label;

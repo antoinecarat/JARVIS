@@ -1,4 +1,4 @@
-package client;
+package platform;
 
 public enum PluginState {
 
