@@ -1,12 +1,7 @@
 package plugins.simpleModifier;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -16,12 +11,11 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import client.Event;
 import client.IEvent;
-import plugins.simpleBase.CreateListener;
+import plugins.simpleBase.AgendaFrame;
 
 public class ModifierEventFrame extends JFrame {
 
@@ -31,16 +25,19 @@ public class ModifierEventFrame extends JFrame {
 
 	Method method;
 	JLabel[] labels;
+	
+	AgendaFrame frame;
 
 	
-	public ModifierEventFrame(JFrame frame, IEvent event) throws HeadlessException {
+	public ModifierEventFrame(AgendaFrame frame, IEvent event) throws HeadlessException {
 		super();
+		this.frame = frame;
 		this.event = event;
 		
 		this.setTitle("Modify the event");
 		this.setSize(400, 600);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setResizable(false);
 		
 		Field[] fields = Event.class.getDeclaredFields();
@@ -56,7 +53,23 @@ public class ModifierEventFrame extends JFrame {
 			this.add(labels[i]);
 			textFields[i] = new JTextField();
 			//TODO: retrieve value of the field with reflect
-			textFields[i].setText("Value");
+			try {
+				Method m = Event.class.getDeclaredMethod("get"+upFirstChar(labels[i].getText()));
+				textFields[i].setText(m.invoke(event).toString());
+			} catch (NoSuchMethodException | SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			this.add(textFields[i]);
 		}
 		JButton cancel = new JButton("Annuler");
@@ -76,6 +89,14 @@ public class ModifierEventFrame extends JFrame {
 		return content;
 	}
 	
+	private String upFirstChar(String toUp){
+		return toUp.substring(0, 1).toUpperCase() + toUp.substring(1);
+	}
 	
+	@Override
+	public void dispose() {
+		frame.refreshPrinter();
+		super.dispose();
+	}
 	
 }

@@ -54,6 +54,7 @@ public class CreateListener implements ActionListener {
 				event = m.newInstance(contents);
 				
 				frame.getAgenda().addEvent(event);
+				frame.clearFields();
 				frame.refreshPrinter();
 				
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException

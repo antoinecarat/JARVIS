@@ -188,6 +188,14 @@ public class AgendaFrame extends JFrame {
 			e.printStackTrace();
 		}
 	}
+
+	public void clearFields() {
+		for (JTextField t : textFields){
+			if(t.getText().length()>0){
+				t.setText("");
+			}
+		}
+	}
 	
 	
 	

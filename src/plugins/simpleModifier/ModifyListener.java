@@ -33,7 +33,7 @@ public class ModifyListener implements ActionListener {
 			String content = fieldsContent.get(i);
 			String field = fields[i].getName();
 			try {
-				cl = fields[i].getClass();
+				cl = fields[i].getType();
 				method = event.getClass().getMethod("set"+upFirstChar(field), cl);
 				
 				if(cl.equals(Date.class)){
