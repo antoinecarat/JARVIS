@@ -30,10 +30,7 @@ public class Base implements IAutorun{
 	public void run() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		IAgenda agenda = new Agenda();
 		
-		ArrayList<String> participants = new ArrayList<String>();
-		participants.add("Margaux");
-		participants.add("Moi");
-		IEvent event = new Event("Poueeet", new Date(2015, 03, 06), new Date(2015, 03, 07), "test@gmail.com", "02.40.56.56.65", Frequence.Année, "Anniversaire", "Anniversaire de Margaaaaaaaaux", "Chez moi", participants);
+		IEvent event = new Event("Poueeet", new Date(2015, 03, 06), new Date(2015, 03, 07), "Anniversaire", "Anniversaire de Margaaaaaaaaux", "Chez moi");
 		
 		agenda.addEvent(event);
 		

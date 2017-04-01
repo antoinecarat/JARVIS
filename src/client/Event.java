@@ -17,6 +17,16 @@ public class Event implements Comparable<Event>, IEvent {
 	//ArrayList<String> participants;
 	
 	
+	public Event(String name, Date dateDebut, Date dateFin, String type, String description, String lieu) {
+		super();
+		this.name = name;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.type = type;
+		this.description = description;
+		this.lieu = lieu;
+	}
+
 	public Event() {
 		super();
 	}

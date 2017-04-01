@@ -56,8 +56,6 @@ public class ModifierPrinter implements IPrinter{
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-			
-		
 		
 		return panel;
 	}
