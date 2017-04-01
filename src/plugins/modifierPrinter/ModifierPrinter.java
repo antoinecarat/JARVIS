@@ -23,12 +23,12 @@ public class ModifierPrinter implements IPrinter{
 		JPanel panel = new JPanel();
 		JPanel buttons = null; 
 		JButton button;
-		IPrinter printer;
 		JLabel label;
 		GridLayout grid = new GridLayout(a.getEvents().size(), 2);
 		GridLayout subGrid;
 		
 		List<IPluginDescriptor> modifiers;
+		panel.setLayout(grid);
 
 		try {
 
