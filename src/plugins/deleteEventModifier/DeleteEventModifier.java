@@ -11,10 +11,6 @@ import plugins.simpleBase.AgendaFrame;
 public class DeleteEventModifier implements IModifier{
 
 	public void modify(AgendaFrame frame, IAgenda a, IEvent e) {
-		//TODO Show confirmation dialog
-		//JDialog dialog = new JDialog(frame, "Confirmer");
-		//dialog.show();
-		//TODO Confirmation dialog accept =
 		
 		if (JOptionPane.showConfirmDialog(frame, "Do you really want to remove it?", "Confirmation window", JOptionPane.YES_NO_OPTION) 
 				== JOptionPane.YES_OPTION){

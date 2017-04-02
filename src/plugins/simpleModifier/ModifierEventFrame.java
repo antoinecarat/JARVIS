@@ -5,7 +5,9 @@ import java.awt.HeadlessException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -55,7 +57,12 @@ public class ModifierEventFrame extends JFrame {
 			//TODO: retrieve value of the field with reflect
 			try {
 				Method m = Event.class.getDeclaredMethod("get"+upFirstChar(labels[i].getText()));
-				textFields[i].setText(m.invoke(event).toString());
+				if(fields[i].getType().equals(Date.class)){
+					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+					textFields[i].setText(formatter.format(m.invoke(event)));
+				} else {
+					textFields[i].setText(m.invoke(event).toString());
+				}
 			} catch (NoSuchMethodException | SecurityException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

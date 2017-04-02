@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -29,6 +31,8 @@ public class ModifyListener implements ActionListener {
 		Class<?> cl;
 		Method method;
 		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		
 		for (int i = 0 ; i < fieldsContent.size() ; ++i) {
 			String content = fieldsContent.get(i);
 			String field = fields[i].getName();
@@ -37,12 +41,15 @@ public class ModifyListener implements ActionListener {
 				method = event.getClass().getMethod("set"+upFirstChar(field), cl);
 				
 				if(cl.equals(Date.class)){
-					method.invoke(event, new Date(content));
+					method.invoke(event, formatter.parse(content));
 				}else{
 					method.invoke(event, content);
 				}
 
 			} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
+				e1.printStackTrace();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			

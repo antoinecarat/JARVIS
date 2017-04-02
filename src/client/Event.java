@@ -1,4 +1,5 @@
 package client;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -199,7 +200,10 @@ public class Event implements Comparable<Event>, IEvent {
 
 	@Override
 	public String toString() {
-		return "(" + dateDebut.getDay()+ ":" + dateDebut.getMonth() + ":" + dateDebut.getYear() + ") " + name + " [" + type + "]";
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		
+		return "(" + formatter.format(dateDebut) + ") " + name + " [" + type + "]";
 	}
 
 	@Override

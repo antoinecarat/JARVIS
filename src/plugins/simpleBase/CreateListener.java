@@ -6,13 +6,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import client.Event;
-import client.Frequence;
-import client.IEvent;
 
 public class CreateListener implements ActionListener {
 
@@ -36,12 +35,18 @@ public class CreateListener implements ActionListener {
 			Object contents[] = new Object[fields.length];
 			Class<?> paramTypes[] = new Class<?>[fields.length];
 			
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			
 			for (int i = 0 ; i < fields.length ; ++i) {
 				paramTypes[i] = fields[i].getType();
-				System.out.println("Content: " + fieldsContent.get(i) + " ; Expected: " + paramTypes[i] + " ; Class: " + fieldsContent.get(i).getClass()); 
 				
 				if (paramTypes[i].equals(Date.class)){
-					contents[i] = new Date(fieldsContent.get(i));
+					try {
+						contents[i] = formatter.parse(fieldsContent.get(i));
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				} else {
 					contents[i] = (String) fieldsContent.get(i);
 				}
