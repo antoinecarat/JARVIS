@@ -1,12 +1,12 @@
 package plugins.simpleBase;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
-import java.awt.Label;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import client.Event;
@@ -41,6 +42,7 @@ public class AgendaFrame extends JFrame {
 	JLabel[] labels;
 	JTextField[] textFields;
 	List<IPrinter> running_printers;
+	JScrollPane scroll;
 	
 	
 
@@ -88,6 +90,7 @@ public class AgendaFrame extends JFrame {
 			textFields[i] = new JTextField();
 			createEvent.add(textFields[i]);
 		}
+
 		
 		JPanel create = new JPanel(new FlowLayout());
 		JButton createButton = new JButton("Create new Event");
@@ -123,14 +126,20 @@ public class AgendaFrame extends JFrame {
 		//PrintPanel
 		gbc_printPanel.gridx = 2;
 		gbc_printPanel.gridy = 0;
-		gbc_printPanel.gridheight = 9;
+		gbc_printPanel.gridheight = fields.length;
 		gbc_printPanel.gridwidth = nbPrinters;
-		gb.setConstraints(printAgenda, gbc_printPanel);
-		this.add(printAgenda);
+		
+		scroll = new JScrollPane();
+		scroll.setPreferredSize(new Dimension(600, 200));
+		scroll.setViewportView(printAgenda);
+		gb.setConstraints(scroll, gbc_printPanel);
+		this.add(scroll);
+	
+
 		
 		//CreateButtons
 		gbc_createButton.gridx = 1;
-		gbc_createButton.gridy = 10;
+		gbc_createButton.gridy = fields.length + 1;
 		gbc_createButton.gridheight = 1;
 		gbc_createButton.gridwidth = 1;
 		gb.setConstraints(create, gbc_createButton);
@@ -138,11 +147,12 @@ public class AgendaFrame extends JFrame {
 		
 		//PrintButtons
 		gbc_printButtons.gridx = 2;
-		gbc_printButtons.gridy = 10;
+		gbc_printButtons.gridy = fields.length + 1;
 		gbc_printButtons.gridheight = 1;
 		gbc_printButtons.gridwidth = nbPrinters;
 		gb.setConstraints(printers, gbc_printButtons);
 		this.add(printers);
+		
 		
 	}
 
@@ -151,6 +161,7 @@ public class AgendaFrame extends JFrame {
 	}
 
 	public void refreshPrinter() {
+		this.remove(scroll);
 		this.remove(printAgenda);
 		
 		if(this.printer == null){
@@ -158,9 +169,12 @@ public class AgendaFrame extends JFrame {
 		} else {
 			this.printAgenda = printer.display(agenda, this);
 		}
-		
+		scroll = new JScrollPane();
 		gb.setConstraints(printAgenda, gbc_printPanel);
-		this.add(printAgenda);
+		scroll.setPreferredSize(new Dimension(600, 200));
+		scroll.setViewportView(printAgenda);
+		gb.setConstraints(scroll, gbc_printPanel);
+		this.add(scroll);
 		this.revalidate();
 		this.repaint();
 	}
