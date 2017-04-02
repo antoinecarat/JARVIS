@@ -1,4 +1,5 @@
 name: DeleteEventModifier
+verbose: Delete
 about: Delete an event in the agenda
 class: plugins.deleteEventModifier.DeleteEventModifier
 interface: platform.plugins.IModifier

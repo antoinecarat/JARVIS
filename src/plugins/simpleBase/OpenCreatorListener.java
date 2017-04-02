@@ -25,7 +25,6 @@ public class OpenCreatorListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.creator = (ICreator) Platform.loadPlugin(list.get(index), ICreator.class);
-		System.out.println("Creator: " + creator);
 		this.creator.create(this.frame);
 		frame.refreshPrinter();
 	}

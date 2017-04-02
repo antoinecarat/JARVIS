@@ -87,7 +87,7 @@ public class AgendaFrame extends JFrame {
 		}
 		
 		for(int i=0; i<listCreators.size(); ++i){
-			JButton button = new JButton(listCreators.get(i).getProperties().get("name"));
+			JButton button = new JButton(listCreators.get(i).getProperties().get("verbose"));
 			button.addActionListener(new OpenCreatorListener(this, listCreators, i));
 			createEvent.add(button);
 		}
@@ -101,7 +101,7 @@ public class AgendaFrame extends JFrame {
 		JPanel printers = new JPanel(new FlowLayout());
 		JButton ip;
 		for(int i = 0; i < listPrinters.size() ; ++i){
-			ip = new JButton(listPrinters.get(i).getProperties().get("name"));
+			ip = new JButton(listPrinters.get(i).getProperties().get("verbose"));
 			ip.addActionListener(new ChangePrinterListener(this, i));
 			printers.add(ip);
 		}
@@ -181,7 +181,6 @@ public class AgendaFrame extends JFrame {
 	public void changePrinter(int index) {
 		List<IPluginDescriptor> listPluginDescriptor;
 		try {
-			System.out.println("Refreshing printer");
 			listPluginDescriptor = Platform.getExtensions(IPrinter.class);
 			this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
 		} catch (ClassNotFoundException e) {

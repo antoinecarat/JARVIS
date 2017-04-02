@@ -1,4 +1,5 @@
 name: MonthPrinter
+verbose: Mois
 about: display only events of the current month
 class: plugins.monthPrinter.MonthPrinter
 interface: platform.plugins.IPrinter

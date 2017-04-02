@@ -44,7 +44,7 @@ public class ModifierPrinter implements IPrinter{
 				buttons = new JPanel();
 				int i = 0;
 				for (IPluginDescriptor iPluginDescriptor : modifiers) {
-					button = new JButton(iPluginDescriptor.getProperties().get("name"));
+					button = new JButton(iPluginDescriptor.getProperties().get("verbose"));
 					button.addActionListener(new ModifierListener(i, modifiers, frame, event));
 					buttons.add(button);
 					buttons.setLayout(subGrid);

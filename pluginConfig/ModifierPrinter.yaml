@@ -1,4 +1,5 @@
 name: ModifierPrinter
+verbose: Editer
 about: Allows to modify events (not only printing it)
 class: plugins.modifierPrinter.ModifierPrinter
 interface: platform.plugins.IPrinter
