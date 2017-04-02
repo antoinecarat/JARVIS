@@ -2,6 +2,7 @@ name: JARVIS
 description: JARVIS is a framework that manage plugins.
 plugins:
   - plugins.simpleBase.Base
+  - plugins.simpleCreator.SimpleCreator
   - plugins.simplePrinter.SimplePrinter
   - plugins.monthPrinter.MonthPrinter
   - plugins.simpleModifier.SimpleModifier

@@ -1,4 +1,4 @@
-package plugins.simpleBase;
+package plugins.simpleCreator;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,14 +12,17 @@ import java.util.Date;
 import java.util.List;
 
 import client.Event;
+import plugins.simpleBase.AgendaFrame;
 
 public class CreateListener implements ActionListener {
 
-	AgendaFrame frame;
+	CreationFrame frame;
+	AgendaFrame aFrame;
 	
-	public CreateListener(AgendaFrame frame) {
+	public CreateListener(CreationFrame frame, AgendaFrame aFrame) {
 		super();
 		this.frame = frame;
+		this.aFrame = aFrame;
 	}
 
 	@Override
@@ -58,9 +61,8 @@ public class CreateListener implements ActionListener {
 				Constructor<Event> m = Event.class.getConstructor(paramTypes);
 				event = m.newInstance(contents);
 				
-				frame.getAgenda().addEvent(event);
-				frame.clearFields();
-				frame.refreshPrinter();
+				aFrame.getAgenda().addEvent(event);
+				aFrame.refreshPrinter();
 				
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException e1) {

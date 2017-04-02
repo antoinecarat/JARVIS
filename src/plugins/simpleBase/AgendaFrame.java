@@ -24,7 +24,9 @@ import client.Event;
 import client.IAgenda;
 import platform.IPluginDescriptor;
 import platform.Platform;
+import platform.plugins.ICreator;
 import platform.plugins.IPrinter;
+import plugins.simpleCreator.CreateListener;
 
 public class AgendaFrame extends JFrame {
 
@@ -39,6 +41,7 @@ public class AgendaFrame extends JFrame {
 	
 	GridBagLayout gb;
 	int nbPrinters;
+	int nbCreators;
 	JLabel[] labels;
 	JTextField[] textFields;
 	List<IPrinter> running_printers;
@@ -62,14 +65,18 @@ public class AgendaFrame extends JFrame {
 		this.createEvent = new JPanel();
 		Field[] fields = Event.class.getDeclaredFields();
 		createEvent.setLayout(new GridLayout(fields.length, 2));
+		//TODO: button per creator
 		
-		List<IPluginDescriptor> listPluginDescriptor = Platform.getExtensions(IPrinter.class);
-		nbPrinters = listPluginDescriptor.size();
+		
+		List<IPluginDescriptor> listPrinters = Platform.getExtensions(IPrinter.class);
+		nbPrinters = listPrinters.size();
+		List<IPluginDescriptor> listCreators = Platform.getExtensions(ICreator.class);
+		nbCreators = listCreators.size();
 		
 		Map<String, Object> prop = new HashMap<String, Object>();
 		prop.put("default", "True");
 		List<IPluginDescriptor> defaults = Platform.getExtensions(IPrinter.class, prop);
-		IPluginDescriptor defaultPrinter = defaults.size() > 0 ? defaults.get(0) : listPluginDescriptor.get(0);
+		IPluginDescriptor defaultPrinter = defaults.size() > 0 ? defaults.get(0) : listPrinters.get(0);
 		this.printer = (IPrinter) Platform.loadPlugin(defaultPrinter, IPrinter.class);
 
 		
@@ -79,28 +86,22 @@ public class AgendaFrame extends JFrame {
 			this.printAgenda = printer.display(agenda, this);
 		}
 		
-		labels = new JLabel[fields.length];
-		for (int i = 0; i < fields.length; ++i){
-			labels[i] = new JLabel(fields[i].getName());
-		}
-		
-		textFields = new JTextField[labels.length];
-		for(int i=0; i < labels.length; ++i){
-			createEvent.add(labels[i]);
-			textFields[i] = new JTextField();
-			createEvent.add(textFields[i]);
+		for(int i=0; i<listCreators.size(); ++i){
+			JButton button = new JButton(listCreators.get(i).getProperties().get("name"));
+			button.addActionListener(new OpenCreatorListener(this, listCreators, i));
+			createEvent.add(button);
 		}
 
 		
-		JPanel create = new JPanel(new FlowLayout());
+		/*JPanel create = new JPanel(new FlowLayout());
 		JButton createButton = new JButton("Create new Event");
 		createButton.addActionListener(new CreateListener(this));
-		create.add(createButton);
+		create.add(createButton);*/
 		
 		JPanel printers = new JPanel(new FlowLayout());
 		JButton ip;
-		for(int i = 0; i < listPluginDescriptor.size() ; ++i){
-			ip = new JButton(listPluginDescriptor.get(i).getProperties().get("name"));
+		for(int i = 0; i < listPrinters.size() ; ++i){
+			ip = new JButton(listPrinters.get(i).getProperties().get("name"));
 			ip.addActionListener(new ChangePrinterListener(this, i));
 			printers.add(ip);
 		}
@@ -118,8 +119,8 @@ public class AgendaFrame extends JFrame {
 		//CreatePanel
 		gbc_createPanel.gridx = 0;
 		gbc_createPanel.gridy = 0;
-		gbc_createPanel.gridheight = fields.length;
-		gbc_createPanel.gridwidth = 2;
+		gbc_createPanel.gridheight = nbCreators;
+		gbc_createPanel.gridwidth = 1;
 		gb.setConstraints(createEvent, gbc_createPanel);
 		this.add(createEvent);
 		
@@ -130,20 +131,18 @@ public class AgendaFrame extends JFrame {
 		gbc_printPanel.gridwidth = nbPrinters;
 		
 		scroll = new JScrollPane();
-		scroll.setPreferredSize(new Dimension(600, 200));
+		scroll.setPreferredSize(new Dimension(650, 200));
 		scroll.setViewportView(printAgenda);
 		gb.setConstraints(scroll, gbc_printPanel);
 		this.add(scroll);
 	
-
-		
 		//CreateButtons
-		gbc_createButton.gridx = 1;
+		/*gbc_createButton.gridx = 1;
 		gbc_createButton.gridy = fields.length + 1;
 		gbc_createButton.gridheight = 1;
 		gbc_createButton.gridwidth = 1;
 		gb.setConstraints(create, gbc_createButton);
-		this.add(create);
+		this.add(create);*/
 		
 		//PrintButtons
 		gbc_printButtons.gridx = 2;
@@ -171,7 +170,7 @@ public class AgendaFrame extends JFrame {
 		}
 		scroll = new JScrollPane();
 		gb.setConstraints(printAgenda, gbc_printPanel);
-		scroll.setPreferredSize(new Dimension(600, 200));
+		scroll.setPreferredSize(new Dimension(650, 200));
 		scroll.setViewportView(printAgenda);
 		gb.setConstraints(scroll, gbc_printPanel);
 		this.add(scroll);
@@ -179,18 +178,6 @@ public class AgendaFrame extends JFrame {
 		this.repaint();
 	}
 	
-	public List<String> getFieldsContent(){
-		List<String> content = new ArrayList<String>();
-		for (JTextField t : textFields){
-			if(t.getText().length()>0){
-				content.add(t.getText());
-			}
-		}
-		
-		return content;
-		
-	}
-
 	public void changePrinter(int index) {
 		List<IPluginDescriptor> listPluginDescriptor;
 		try {
@@ -202,15 +189,5 @@ public class AgendaFrame extends JFrame {
 			e.printStackTrace();
 		}
 	}
-
-	public void clearFields() {
-		for (JTextField t : textFields){
-			if(t.getText().length()>0){
-				t.setText("");
-			}
-		}
-	}
-	
-	
 	
 }
