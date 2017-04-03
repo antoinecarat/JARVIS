@@ -18,7 +18,6 @@ import platform.plugins.IAutorun;
 public class Platform {
 
 	private static List<IPluginDescriptor> pluginDescript;
-//	private static List<>
 	
 	public static List<IPluginDescriptor> getPluginDescript() {
 		return pluginDescript;
@@ -38,13 +37,7 @@ public class Platform {
 
 				obj.run();
 			}
-		}
-		
-		
-		
-//		for (IPluginDescriptor p : pluginDescript) {
-//			System.out.println(((Observable)p).countObservers());
-//		}
+		}		
 	}
 
 	public static List<IPluginDescriptor> getExtensions(Class<?> need) throws ClassNotFoundException {
