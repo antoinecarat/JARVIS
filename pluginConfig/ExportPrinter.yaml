@@ -1,0 +1,8 @@
+name: ExportPrinter
+verbose: Export
+about: Export events in yaml file
+class: plugins.exportPrinter.ExportPrinter
+interface: platform.plugins.IPrinter
+autorun: "False"
+singleton: "True"
+default: "False"
