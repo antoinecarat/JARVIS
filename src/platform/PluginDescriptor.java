@@ -61,7 +61,4 @@ public class PluginDescriptor extends Observable implements IPluginDescriptor {
 		instances.add(o);
 	}
 	
-	
-	//TODO : singleton
-	
 }
