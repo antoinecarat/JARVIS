@@ -9,3 +9,4 @@ plugins:
   - plugins.deleteEventModifier.DeleteEventModifier
   - plugins.modifierPrinter.ModifierPrinter
   - plugins.monitoring.Monitoring
+  - plugins.exportPrinter.ExportPrinter
