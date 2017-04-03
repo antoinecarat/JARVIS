@@ -52,7 +52,7 @@ public class Event implements Comparable<Event>, IEvent {
 
 	@Override
 	public void setStartDate(Date startDate) throws IllegalArgumentException{
-		if(startDate.compareTo(endDate) >= 0 ){
+		if(startDate.compareTo(endDate) <= 0 ){
 			this.startDate = startDate;
 		}else{
 			throw new IllegalArgumentException();
@@ -69,15 +69,11 @@ public class Event implements Comparable<Event>, IEvent {
 
 	@Override
 	public void setEndDate(Date dateEnd) throws IllegalArgumentException{
-		//if(startDate != null){
-			if(dateEnd.compareTo(startDate) >= 0 ){
-				this.endDate = dateEnd;
-			}else{
-				throw new IllegalArgumentException();
-			}
-		//}else{
-		//	this.endDate = dateEnd;
-		//}
+		if(dateEnd.compareTo(startDate) >= 0 ){
+			this.endDate = dateEnd;
+		}else{
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	@Override

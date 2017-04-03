@@ -32,8 +32,7 @@ public class ModifyListener implements ActionListener {
 		Method method;
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		if (fieldsContent.size() == fields.length){
-			try {
+		try {
 	
 				for (int i = 0 ; i < fieldsContent.size() ; ++i) {
 					String content = fieldsContent.get(i);
@@ -41,7 +40,6 @@ public class ModifyListener implements ActionListener {
 					
 					cl = fields[i].getType();
 					method = event.getClass().getMethod("set"+upFirstChar(field), cl);
-					
 					if(cl.equals(Date.class)){
 						method.invoke(event, formatter.parse(content));
 					}else{
@@ -49,7 +47,8 @@ public class ModifyListener implements ActionListener {
 					}
 				}
 				frame.dispose();
-			} catch (InvocationTargetException e1){
+		} catch (InvocationTargetException e1){
+			System.out.println("kek");
 				try {
 					throw e1.getCause();
 				} catch (IllegalArgumentException e11){
@@ -57,9 +56,8 @@ public class ModifyListener implements ActionListener {
 				} catch (Throwable e2) {
 					e2.printStackTrace();
 				}
-			} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | ParseException e1) {
+		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | ParseException e1) {
 				e1.printStackTrace();
-			}
 		}
 	}
 	
