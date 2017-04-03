@@ -18,6 +18,9 @@ import client.IEvent;
 import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
 
+/**
+ * Plugin to export the collection events.
+ */
 public class ExportYamlPrinter implements IPrinter{
 	
 	private IAgenda a;
@@ -52,6 +55,10 @@ public class ExportYamlPrinter implements IPrinter{
 		return panel;
 	}
 	
+	/**
+	 * Creates the new file .yaml that will contain the export. 
+	 * @param filename the name of the new file
+	 */
 	protected void createYaml(String filename){
 		try {
 			Map<Integer, Object> data = new HashMap<Integer, Object>();
@@ -72,14 +79,25 @@ public class ExportYamlPrinter implements IPrinter{
 		}
 	}
 	
+	/**
+	 * Returns button for open the browser.
+	 * @return button for the browser
+	 */
 	protected JButton getBrowseButton(){
 		return this.browseButton;
 	}
-	
+
+	/**
+	 * Returns button for export events collection.
+	 * @return button for the export
+	 */
 	protected JButton getExportButton(){
 		return this.exportButton;
 	}
-	
+	/**
+	 * getFileTextFiled, 
+	 * @return
+	 */
 	protected JTextField getFileTextField(){
 		return this.fileTextField;
 	}

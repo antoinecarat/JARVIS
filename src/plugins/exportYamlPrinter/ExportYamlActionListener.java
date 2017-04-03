@@ -13,6 +13,10 @@ public class ExportYamlActionListener implements ActionListener {
 		this.exportPrinter = ep;
 	}
 	
+	/**
+	 *  Exports the events collection and display if the export went well.
+	 * @param e  
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource().equals(exportPrinter.getBrowseButton())){

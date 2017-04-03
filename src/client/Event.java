@@ -2,7 +2,6 @@ package client;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class Event implements Comparable<Event>, IEvent {
 
 	String name;
@@ -52,15 +51,15 @@ public class Event implements Comparable<Event>, IEvent {
 
 	@Override
 	public void setDateStart(Date dateStart) throws IllegalArgumentException{
-//		if(dateEnd != null){
-//			if(dateStart.compareTo(dateEnd) >= 0 ){
-//				this.dateStart = dateStart;
-//			}else{
-//				throw new IllegalArgumentException();
-//			}
-//		}else{
+		//if(dateEnd != null){
+		//	if(dateStart.compareTo(dateEnd) >= 0 ){
+		//		this.dateStart = dateStart;
+		//	}else{
+		//		throw new IllegalArgumentException();
+		//	}
+		//}else{
 			this.dateStart = dateStart;
-//		}
+		//}
 	}
 
 

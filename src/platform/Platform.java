@@ -14,14 +14,27 @@ import org.yaml.snakeyaml.Yaml;
 import client.UnassignableException;
 import platform.plugins.IAutorun;
 
+/**
+ *  Platform,
+ *
+ *
+ */
 public class Platform {
 
 	private static List<IPluginDescriptor> pluginDescript;
 	
+	/**
+	 * 
+	 * @return 
+	 */
 	public static List<IPluginDescriptor> getPluginDescript() {
 		return pluginDescript;
 	}
 
+	/**
+	 * 
+	 * @param pluginDescript
+	 */
 	public static void setPluginDescript(List<IPluginDescriptor> pluginDescript) {
 		Platform.pluginDescript = pluginDescript;
 	}
@@ -39,6 +52,12 @@ public class Platform {
 		}		
 	}
 
+	/**
+	 * 
+	 * @param need
+	 * @return
+	 * @throws ClassNotFoundException
+	 */
 	public static List<IPluginDescriptor> getExtensions(Class<?> need) throws ClassNotFoundException {
 
 		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
@@ -55,6 +74,13 @@ public class Platform {
 		return plugins;
 	}
 	
+	/**
+	 * 
+	 * @param need
+	 * @param properties
+	 * @return 
+	 * @throws ClassNotFoundException
+	 */
 	public static List<IPluginDescriptor> getExtensions(Class<?> need, Map<String, Object> properties) throws ClassNotFoundException {
 
 		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
@@ -78,6 +104,10 @@ public class Platform {
 		return plugins;
 	}
 
+	/**
+	 * 
+	 * @throws FileNotFoundException
+	 */
 	private static void loadPluginDescriptors() throws FileNotFoundException {
 
 		
@@ -104,6 +134,12 @@ public class Platform {
 		}
 	}
 
+	/**
+	 * 
+	 * @param iPluginDescriptor
+	 * @param need
+	 * @return
+	 */
 	public static Object loadPlugin(IPluginDescriptor iPluginDescriptor, Class<?> need) {
 		
 		Object obj = null;
