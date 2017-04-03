@@ -28,16 +28,6 @@ public class Monitoring implements IAutorun, Observer {
 	    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    
 	    Object[][] data = new Object[Platform.getPluginDescript().size()][3];
-//	    int i=0;
-//	    for (IPluginDescriptor p : Platform.getPluginDescript()){
-//	    	
-////	    	((PluginDescriptor)p).setObserver(this);
-//	    	
-//	    	
-//	    	data[i][0] = p.getProperties().get("name");
-//	    	data[i][1] = p.getState();
-//	    	++i;
-//	    }
 	    
 	    List<IPluginDescriptor> l = Platform.getPluginDescript();
 	    
@@ -50,7 +40,14 @@ public class Monitoring implements IAutorun, Observer {
 	    }
 	    
 		Object[] titles = {"Name", "State", "# Instances"};
-		this.table = new JTable(data, titles);
+
+		this.table = new JTable(data, titles){
+	        private static final long serialVersionUID = 1L;
+
+	        public boolean isCellEditable(int row, int column) {                
+	                return false;               
+	        };
+		};
 		
 	    frame.add(table);
 	    
@@ -80,7 +77,14 @@ public class Monitoring implements IAutorun, Observer {
 	    
 	    Object[] titles = {"Name", "State", "# Instances"};
 		this.frame.remove(this.table);
-		this.table = new JTable(data, titles);
+		
+		this.table = new JTable(data, titles){
+	        private static final long serialVersionUID = 1L;
+
+	        public boolean isCellEditable(int row, int column) {                
+	                return false;               
+	        };
+		};		
 		this.frame.add(this.table);
 		this.frame.revalidate();
 		this.frame.repaint();
