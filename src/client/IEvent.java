@@ -23,25 +23,25 @@ public interface IEvent {
 	 * Returns the start date of the event.
 	 * @return the start date of the event
 	 */
-	Date getDateStart();
+	Date getStartDate();
 
 	/**
 	 * Changes the start date of the event.
 	 * @param dateStart the new date start 
 	 */
-	void setDateStart(Date dateStart);
+	void setStartDate(Date startDate);
 
 	/**
 	 * Returns the end date of the event.
 	 * @return the end date of the event
 	 */
-	Date getDateEnd();
+	Date getEndDate();
 
 	/**
 	 * Changes the end date of the event.
 	 * @param dateEnd the new end date
 	 */
-	void setDateEnd(Date dateEnd);
+	void setEndDate(Date endDate);
 
 	/**
 	 * Returns the type of the event.

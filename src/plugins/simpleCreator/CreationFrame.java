@@ -2,6 +2,7 @@ package plugins.simpleCreator;
 
 import java.awt.GridLayout;
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class CreationFrame extends JFrame{
 	
 	public CreationFrame(AgendaFrame a) {
 		
-		this.setTitle("Agenda JARVIS");
+		this.setTitle("Create a new event");
 		this.setSize(400, 600);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -33,10 +34,13 @@ public class CreationFrame extends JFrame{
 		
 		Field[] fields = Event.class.getDeclaredFields();
 		this.setLayout(new GridLayout(fields.length+1, 2));
-		
 		labels = new JLabel[fields.length];
 		for (int i = 0; i < fields.length; ++i){
-			labels[i] = new JLabel(fields[i].getName());
+			if (fields[i].getType().equals(Date.class)){
+				labels[i] = new JLabel(fields[i].getName() + " (dd/MM/yyyy)");
+			} else {
+				labels[i] = new JLabel(fields[i].getName());
+			}
 		}
 		
 		this.textFields = new JTextField[labels.length];
