@@ -23,8 +23,8 @@ public class MonthPrinter implements IPrinter{
 		panel.setLayout(grid);
 		
 		for (IEvent event : a.getEvents()) {
-			if((event.getDateDebut().getMonth() == today.getMonth()) &&
-				event.getDateDebut().getYear() == today.getYear()){
+			if((event.getDateStart().getMonth() == today.getMonth()) &&
+				event.getDateStart().getYear() == today.getYear()){
 				
 				label = new JLabel(event.toString());
 				panel.add(label);

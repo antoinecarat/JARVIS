@@ -8,13 +8,13 @@ public interface IEvent {
 
 	void setName(String name);
 
-	Date getDateDebut();
+	Date getDateStart();
 
-	void setDateDebut(Date dateDebut);
+	void setDateStart(Date dateStart);
 
-	Date getDateFin();
+	Date getDateEnd();
 
-	void setDateFin(Date dateFin);
+	void setDateEnd(Date dateEnd);
 
 	String getType();
 
@@ -24,9 +24,9 @@ public interface IEvent {
 
 	void setDescription(String description);
 
-	String getLieu();
+	String getLocation();
 
-	void setLieu(String lieu);
+	void setLocation(String location);
 	
 	String toString();
 	
