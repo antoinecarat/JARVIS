@@ -14,7 +14,7 @@ public class ExportYamlActionListener implements ActionListener {
 	}
 	
 	/**
-	 *  Exports the events collection and display if the export went well.
+	 * Exports the events collection and display if the export went well.
 	 * @param e  
 	 */
 	@Override
