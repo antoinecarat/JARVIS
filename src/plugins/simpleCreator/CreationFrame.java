@@ -29,7 +29,7 @@ public class CreationFrame extends JFrame{
 		this.setResizable(false);
 		
 		Field[] fields = Event.class.getDeclaredFields();
-		this.setLayout(new GridLayout(fields.length, 2));
+		this.setLayout(new GridLayout(fields.length+1, 2));
 		
 		labels = new JLabel[fields.length];
 		for (int i = 0; i < fields.length; ++i){
