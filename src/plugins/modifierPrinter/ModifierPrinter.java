@@ -17,7 +17,12 @@ import plugins.simpleBase.AgendaFrame;
 import plugins.simpleModifier.ModifierListener;
 
 public class ModifierPrinter implements IPrinter{
-
+	/**
+	 * Returns events display with buttons for each modifier.
+	 * @param a the agenda to which the events collection 
+	 * @param frame the application JPanel for refreshing
+	 * @return the new JPanel with the events collection
+	 */
 	public JPanel display(IAgenda a, AgendaFrame frame) {
 		
 		JPanel panel = new JPanel();
