@@ -4,14 +4,14 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import org.yaml.snakeyaml.Yaml;
 
 import client.IAgenda;
 import client.IEvent;
@@ -58,15 +58,27 @@ public class ExportYamlPrinter implements IPrinter{
 			
 			int cpt = 0;
 			
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			PrintWriter writer = new PrintWriter(filename);
+			
 			for (IEvent e : a.getEvents()) {
-				data.put(cpt, (Object)e);
+				//data.put(cpt, (Object)e);
+				writer.println(Integer.toString(cpt) + ": ");
+				writer.println("  name: " + e.getName());
+				writer.println("  startDate: " + formatter.format(e.getStartDate()));
+				writer.println("  endDate: " + formatter.format(e.getEndDate()));
+				writer.println("  type: " + e.getType());
+				writer.println("  descritpion: " + e.getDescription());
+				writer.println("  lociation: " + e.getLocation());
 				++cpt;
 			}
+			writer.close();
 			
 //			write in the file
-			Yaml yaml = new Yaml();
-			FileWriter writer = new FileWriter(filename);
-			yaml.dump(data, writer);
+			//Yaml yaml = new Yaml();
+			//FileWriter writer = new FileWriter(filename);
+			//yaml.dump(data, writer);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

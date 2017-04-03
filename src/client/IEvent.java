@@ -8,13 +8,13 @@ public interface IEvent {
 
 	void setName(String name);
 
-	Date getDateStart();
+	Date getStartDate();
 
-	void setDateStart(Date dateStart);
+	void setStartDate(Date startDate);
 
-	Date getDateEnd();
+	Date getEndDate();
 
-	void setDateEnd(Date dateEnd);
+	void setEndDate(Date endDate);
 
 	String getType();
 
@@ -33,4 +33,5 @@ public interface IEvent {
 	int compareTo(Event e);
 
 	boolean equals(Object obj);
+
 }
