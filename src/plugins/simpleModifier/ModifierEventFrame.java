@@ -79,10 +79,10 @@ public class ModifierEventFrame extends JFrame {
 			
 			this.add(textFields[i]);
 		}
-		JButton cancel = new JButton("Annuler");
+		JButton cancel = new JButton("Cancel");
 		cancel.addActionListener(new QuitListener(this));
 		this.add(cancel);
-		JButton accept = new JButton("Confirmer");
+		JButton accept = new JButton("Confirm");
 		accept.addActionListener(new ModifyListener(this, event));
 		this.add(accept);
 		
