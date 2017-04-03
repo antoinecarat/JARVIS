@@ -12,9 +12,8 @@ import platform.Platform;
 import platform.PluginDescriptor;
 import platform.PluginState;
 import platform.plugins.IAutorun;
-import platform.plugins.IMonitoring;
 
-public class Monitoring implements IMonitoring, IAutorun, Observer {
+public class Monitoring implements IAutorun, Observer {
 
 	private JFrame frame;
 	private JTable table;
