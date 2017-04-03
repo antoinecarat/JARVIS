@@ -20,6 +20,7 @@ public class Monitoring implements IAutorun, Observer {
 	private JFrame frame;
 	private JTable table;
 
+	
 	public void run() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 
 		frame = new JFrame();

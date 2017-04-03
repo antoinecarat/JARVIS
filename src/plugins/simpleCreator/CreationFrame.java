@@ -14,16 +14,20 @@ import javax.swing.JTextField;
 import client.Event;
 import plugins.simpleBase.AgendaFrame;
 
+/**
+ * Frame for create a new event.
+ */
 public class CreationFrame extends JFrame{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	JLabel[] labels;
 	JTextField[] textFields;
 	
+	/**
+	 * Constructor  
+	 * @param a the application JPanel for refreshing
+	 */
 	public CreationFrame(AgendaFrame a) {
 		
 		this.setTitle("Create a new event");
@@ -59,6 +63,10 @@ public class CreationFrame extends JFrame{
 	
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<String> getFieldsContent(){
 		List<String> content = new ArrayList<String>();
 		for (JTextField t : this.textFields){
@@ -70,6 +78,9 @@ public class CreationFrame extends JFrame{
 		return content;
 	}
 	
+	/**
+	 * Clear each fileds when the new event is validate
+	 */
 	public void clearFields() {
 		for (JTextField t : this.textFields){
 			if(t.getText().length()>0){

@@ -12,7 +12,13 @@ import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
 
 public class MonthPrinter implements IPrinter{
-
+	
+	/**
+	 * Returns events display for the month.
+	 * @param a the agenda to which the events collection 
+	 * @param frame the application JPanel for refreshing
+	 * @return the new JPanel with the events collection
+	 */
 	@SuppressWarnings("deprecation")
 	public JPanel display(IAgenda a, AgendaFrame frame) {
 		

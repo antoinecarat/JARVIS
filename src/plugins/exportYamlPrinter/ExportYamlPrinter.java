@@ -106,6 +106,7 @@ public class ExportYamlPrinter implements IPrinter{
 	protected JButton getExportButton(){
 		return this.exportButton;
 	}
+	
 	/**
 	 * Returns textField which contains the file path.
 	 * @return textField

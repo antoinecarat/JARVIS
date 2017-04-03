@@ -12,7 +12,7 @@ import plugins.simpleBase.AgendaFrame;
  */
 public interface IPrinter {
 	/**
-	 * Returns event display.
+	 * Returns events display.
 	 * @param a the agenda to which the events collection 
 	 * @param frame the application JPanel for refreshing
 	 * @return the new JPanel with the events collection
