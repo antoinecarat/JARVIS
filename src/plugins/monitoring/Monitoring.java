@@ -12,7 +12,9 @@ import platform.Platform;
 import platform.PluginDescriptor;
 import platform.PluginState;
 import platform.plugins.IAutorun;
-
+/**
+ * Gives an overview of the plugins state
+ */
 public class Monitoring implements IAutorun, Observer {
 
 	private JFrame frame;

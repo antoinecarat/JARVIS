@@ -24,12 +24,11 @@ import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.plugins.ICreator;
 import platform.plugins.IPrinter;
-
+/**
+ * This is the frame delivered by Base plugin.
+ */
 public class AgendaFrame extends JFrame {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	
 	IAgenda agenda;
@@ -137,10 +136,17 @@ public class AgendaFrame extends JFrame {
 		this.add(printers);
 	}
 
+	/**
+	 * Returns the agenda.
+	 * @return agenda
+	 */
 	public IAgenda getAgenda() {
 		return this.agenda;
 	}
 
+	/**
+	 * Refreshes printer graphic object.
+	 */
 	public void refreshPrinter() {
 		this.remove(scroll);
 		this.remove(printAgenda);
@@ -160,6 +166,10 @@ public class AgendaFrame extends JFrame {
 		this.repaint();
 	}
 	
+	/**
+	 * Switch printer.
+	 * @param index the index of the new printer.
+	 */
 	public void changePrinter(int index) {
 		List<IPluginDescriptor> listPluginDescriptor;
 		try {

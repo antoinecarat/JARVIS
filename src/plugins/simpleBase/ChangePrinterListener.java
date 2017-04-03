@@ -2,7 +2,9 @@ package plugins.simpleBase;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * Manages the change of printer
+ */
 public class ChangePrinterListener implements ActionListener {
 
 	AgendaFrame frame;

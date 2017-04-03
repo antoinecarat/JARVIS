@@ -15,25 +15,23 @@ import client.UnassignableException;
 import platform.plugins.IAutorun;
 
 /**
- *  Platform,
- *
- *
+ *  Defines a static platform which can manage plugins.
  */
 public class Platform {
 
 	private static List<IPluginDescriptor> pluginDescript;
 	
 	/**
-	 * 
-	 * @return 
+	 * Returns the pluginDescriptor list.
+	 * @return pluginDescript the list of pluginDescriptor.
 	 */
 	public static List<IPluginDescriptor> getPluginDescript() {
 		return pluginDescript;
 	}
 
 	/**
-	 * 
-	 * @param pluginDescript
+	 * Sets the pluginDescriptor list.
+	 * @param pluginDescript the new pluginDescriptor list.
 	 */
 	public static void setPluginDescript(List<IPluginDescriptor> pluginDescript) {
 		Platform.pluginDescript = pluginDescript;
@@ -53,9 +51,9 @@ public class Platform {
 	}
 
 	/**
-	 * 
-	 * @param need
-	 * @return
+	 * Returns the list of plugins that should implement the need class.
+	 * @param need the class which should be implemented.
+	 * @return plugins the list of plugins that should implement need.
 	 * @throws ClassNotFoundException
 	 */
 	public static List<IPluginDescriptor> getExtensions(Class<?> need) throws ClassNotFoundException {
@@ -75,10 +73,10 @@ public class Platform {
 	}
 	
 	/**
-	 * 
-	 * @param need
-	 * @param properties
-	 * @return 
+	 * Returns the list of plugins that should implement the need class.
+	 * @param need the class which should be implemented.
+	 * @param properties the map of properties to be matched.
+	 * @return plugins the list of plugins that should implement need.
 	 * @throws ClassNotFoundException
 	 */
 	public static List<IPluginDescriptor> getExtensions(Class<?> need, Map<String, Object> properties) throws ClassNotFoundException {
@@ -105,7 +103,7 @@ public class Platform {
 	}
 
 	/**
-	 * 
+	 * Loads all the pluginDescriptors corresponding to plugins listed in config.yaml.
 	 * @throws FileNotFoundException
 	 */
 	private static void loadPluginDescriptors() throws FileNotFoundException {
@@ -135,10 +133,10 @@ public class Platform {
 	}
 
 	/**
-	 * 
-	 * @param iPluginDescriptor
-	 * @param need
-	 * @return
+	 * Loads a instance of a plugin.
+	 * @param iPluginDescriptor the pluginDescriptor which should be loaded.
+	 * @param need the class which should be implemented by the plugin.
+	 * @return obj the instance of the plugin.
 	 */
 	public static Object loadPlugin(IPluginDescriptor iPluginDescriptor, Class<?> need) {
 		

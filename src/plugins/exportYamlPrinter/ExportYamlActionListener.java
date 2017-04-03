@@ -14,7 +14,7 @@ public class ExportYamlActionListener implements ActionListener {
 	}
 	
 	/**
-	 *  Exports the events collection and display if the export went well.
+	 * Exports the events collection and display if the export went well.
 	 * @param e  
 	 */
 	@Override
@@ -43,9 +43,6 @@ public class ExportYamlActionListener implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Export done successfully.");
 			exportPrinter.getFileTextField().setText("");
 			exportPrinter.getExportButton().setEnabled(false);
-		}
-		
-		
-		
+		}		
 	}
 }

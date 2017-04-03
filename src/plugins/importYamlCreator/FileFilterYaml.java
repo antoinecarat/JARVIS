@@ -4,6 +4,9 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
+/**
+ * Describes which files should be shown in the file browser. 
+ */
 public class FileFilterYaml extends FileFilter{
 	private String description;
 	private String extension;

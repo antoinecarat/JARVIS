@@ -19,7 +19,7 @@ import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
 
 /**
- * Plugin to export the collection events.
+ * Plugin to export the events collection.
  */
 public class ExportYamlPrinter implements IPrinter{
 	
@@ -92,23 +92,23 @@ public class ExportYamlPrinter implements IPrinter{
 	}
 	
 	/**
-	 * Returns button for open the browser.
-	 * @return button for the browser
+	 * Returns button for openning the browser.
+	 * @return button Browse
 	 */
 	protected JButton getBrowseButton(){
 		return this.browseButton;
 	}
 
 	/**
-	 * Returns button for export events collection.
-	 * @return button for the export
+	 * Returns button for exporting events collection.
+	 * @return button Export
 	 */
 	protected JButton getExportButton(){
 		return this.exportButton;
 	}
 	/**
-	 * getFileTextFiled, 
-	 * @return
+	 * Returns textField which contains the file path.
+	 * @return textField
 	 */
 	protected JTextField getFileTextField(){
 		return this.fileTextField;
