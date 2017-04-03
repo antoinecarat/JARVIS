@@ -13,7 +13,7 @@ import platform.PluginDescriptor;
 import platform.PluginState;
 import platform.plugins.IAutorun;
 /**
- * Gives an overview of the plugins state
+ * Gives an overview of the plugins state and running instances
  */
 public class Monitoring implements IAutorun, Observer {
 

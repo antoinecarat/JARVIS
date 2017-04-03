@@ -25,12 +25,11 @@ import client.IAgenda;
 import platform.plugins.ICreator;
 import plugins.simpleBase.AgendaFrame;
 
+/**
+ * Imports the events collection and display if the import went well.
+ */
 public class ImportYamlCreator  implements ICreator {
 
-	/**
-	 * Imports the events collection and display if the import went well.
-	 * @param e 
-	 */  
 	@Override
 	public void create(AgendaFrame a) {
 		JFileChooser fc = new JFileChooser();

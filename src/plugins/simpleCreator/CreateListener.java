@@ -13,6 +13,9 @@ import java.util.List;
 import client.Event;
 import plugins.simpleBase.AgendaFrame;
 
+/**
+ * Creates an event with the content of fields.
+ */
 public class CreateListener implements ActionListener {
 
 	CreationFrame frame;

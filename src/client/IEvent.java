@@ -27,7 +27,7 @@ public interface IEvent {
 
 	/**
 	 * Changes the start date of the event.
-	 * @param dateStart the new date start 
+	 * @param startDate the new date start 
 	 */
 	void setStartDate(Date startDate);
 
@@ -39,7 +39,7 @@ public interface IEvent {
 
 	/**
 	 * Changes the end date of the event.
-	 * @param dateEnd the new end date
+	 * @param endDate the new end date
 	 */
 	void setEndDate(Date endDate);
 

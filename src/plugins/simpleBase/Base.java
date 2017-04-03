@@ -9,7 +9,6 @@ import client.IAgenda;
 import platform.plugins.IAutorun;
 /**
  * Defines the agenda application which is calling other plugins.
- *
  */
 public class Base implements IAutorun{
 

@@ -3,6 +3,9 @@ package plugins.simpleCreator;
 import platform.plugins.ICreator;
 import plugins.simpleBase.AgendaFrame;
 
+/**
+ * Creates a new event by filling fields.
+ */
 public class SimpleCreator implements ICreator {
 
 	@Override

@@ -13,6 +13,9 @@ import java.util.Date;
 import client.Event;
 import client.IEvent;
 
+/**
+ * Modifies the event with the content of fields.
+ */
 public class ModifyListener implements ActionListener {
 
 	ModifierEventFrame frame;

@@ -9,7 +9,7 @@ import platform.Platform;
 import platform.plugins.ICreator;
 
 /**
- * Manages the openning of creators
+ * Manages the opening of creators
  */
 public class OpenCreatorListener implements ActionListener {
 
