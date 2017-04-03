@@ -1,6 +1,5 @@
 package client;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -9,46 +8,11 @@ public class Event implements Comparable<Event>, IEvent {
 	String name;
 	Date dateDebut;
 	Date dateFin;
-	//String mail;
-	//String tel;
-	//Frequence frequence;
 	String type;
 	String description;
-	String lieu;
-	//ArrayList<String> participants;
+	String lieu;	
 	
-	
-	public Event(String name, Date dateDebut, Date dateFin, String type, String description, String lieu) {
-		super();
-		this.name = name;
-		this.dateDebut = dateDebut;
-		this.dateFin = dateFin;
-		this.type = type;
-		this.description = description;
-		this.lieu = lieu;
-	}
-
-	public Event() {
-		super();
-	}
-	
-	public Event(String name, Date dateDebut, String mail, String tel, Frequence frequence, String type,
-			String description, String lieu, ArrayList<String> participants) {
-		super();
-		this.name = name;
-		this.dateDebut = dateDebut;
-		this.dateFin = endOfDay(dateDebut);
-		//this.mail = mail;
-		//this.tel = tel;
-		//this.frequence = frequence;
-		this.type = type;
-		this.description = description;
-		this.lieu = lieu;
-		//this.participants = participants;
-	}
-	
-	public Event(String name, Date dateDebut, Date dateFin, String mail, String tel, Frequence frequence, String type,
-			String description, String lieu, ArrayList<String> participants) {
+	public Event(String name, Date dateDebut, Date dateFin, String type, String description, String lieu) throws IllegalArgumentException{
 		super();
 		this.name = name;
 		this.dateDebut = dateDebut;
@@ -56,23 +20,16 @@ public class Event implements Comparable<Event>, IEvent {
 		if(dateFin.compareTo(dateDebut) >= 0 ){
 			this.dateFin = dateFin;
 		}else{
-			throw new IllegalArgumentException("DateFin isn't a valide value");
+			throw new IllegalArgumentException();
 		}
 		
-		//this.mail = mail;
-		//this.tel = tel;
-		//this.frequence = frequence;
-		//this.type = type;
+		this.type = type;
 		this.description = description;
 		this.lieu = lieu;
-		//this.participants = participants;
 	}
 
-	Date endOfDay(Date date){
-		
-		Date end = new Date(date.getYear(), date.getMonth(), date.getDate(), 23, 59, 59);
-		
-		return end;
+	public Event() {
+		super();
 	}
 
 	@Override
@@ -94,8 +51,12 @@ public class Event implements Comparable<Event>, IEvent {
 
 
 	@Override
-	public void setDateDebut(Date dateDebut) {
-		this.dateDebut = dateDebut;
+	public void setDateDebut(Date dateDebut) throws IllegalArgumentException{
+		if(dateFin.compareTo(dateDebut) >= 0 ){
+			this.dateDebut = dateDebut;
+		}else{
+			throw new IllegalArgumentException();
+		}	
 	}
 
 
@@ -106,44 +67,13 @@ public class Event implements Comparable<Event>, IEvent {
 
 
 	@Override
-	public void setDateFin(Date dateFin) {
-		this.dateFin = dateFin;
+	public void setDateFin(Date dateFin) throws IllegalArgumentException{
+		if(dateFin.compareTo(dateDebut) >= 0 ){
+			this.dateFin = dateFin;
+		}else{
+			throw new IllegalArgumentException();
+		}
 	}
-	
-	/* 
-	@Override
-	public String getMail() {
-		return mail;
-	}
-
-	@Override
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	
-	@Override
-	public String getTel() {
-		return tel;
-	}
-
-
-	@Override
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-
-	
-	@Override
-	public Frequence getFrequence() {
-		return frequence;
-	}
-
-	@Override
-	public void setFrequence(Frequence frequence) {
-		this.frequence = frequence;
-	}
-	*/
 	
 	@Override
 	public String getType() {
@@ -174,17 +104,6 @@ public class Event implements Comparable<Event>, IEvent {
 	public void setLieu(String lieu) {
 		this.lieu = lieu;
 	}
-
-	/*
-	@Override
-	public ArrayList<String> getParticipants() {
-		return participants;
-	}
-
-	@Override
-	public void setParticipants(ArrayList<String> participants) {
-		this.participants = participants;
-	}*/
 
 	@Override
 	public int compareTo(Event e) {

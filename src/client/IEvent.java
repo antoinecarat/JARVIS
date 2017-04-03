@@ -1,6 +1,5 @@
 package client;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public interface IEvent {
@@ -17,18 +16,6 @@ public interface IEvent {
 
 	void setDateFin(Date dateFin);
 
-	/*String getMail();
-
-	void setMail(String mail);
-
-	String getTel();
-
-	void setTel(String tel);
-
-	Frequence getFrequence();
-
-	void setFrequence(Frequence frequence);*/
-
 	String getType();
 
 	void setType(String type);
@@ -40,10 +27,6 @@ public interface IEvent {
 	String getLieu();
 
 	void setLieu(String lieu);
-
-	/*ArrayList<String> getParticipants();
-
-	void setParticipants(ArrayList<String> participants);*/
 	
 	String toString();
 	

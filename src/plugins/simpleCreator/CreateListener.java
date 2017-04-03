@@ -34,7 +34,7 @@ public class CreateListener implements ActionListener {
 			Field fields[] = Event.class.getDeclaredFields();
 			Object contents[] = new Object[fields.length];
 			Class<?> paramTypes[] = new Class<?>[fields.length];
-			
+			Constructor<Event> m;
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			try {
 				
@@ -51,14 +51,23 @@ public class CreateListener implements ActionListener {
 				
 				Event event;
 				
-				Constructor<Event> m = Event.class.getConstructor(paramTypes);
+				m = Event.class.getConstructor(paramTypes);
+		
 				event = m.newInstance(contents);
 				
 				aFrame.getAgenda().addEvent(event);
 				aFrame.refreshPrinter();
+				frame.dispose();
 				
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | NoSuchMethodException | SecurityException e1) {
+			} catch (InvocationTargetException e1){
+				try {
+					throw e1.getCause();
+				} catch (IllegalArgumentException e11){
+					System.out.println("Wrong Date value");
+				} catch (Throwable e2) {
+					e2.printStackTrace();
+				}
+			} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException e1) {
 			} catch (ParseException e1) {
 				System.out.println("Wrong date format");
 			}
