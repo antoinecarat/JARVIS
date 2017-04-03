@@ -1,7 +1,7 @@
-name: ExportPrinter
-verbose: Export
+name: ExportYamlPrinter
+verbose: Export yaml
 about: Export events in yaml file
-class: plugins.exportPrinter.ExportPrinter
+class: plugins.exportYamlPrinter.ExportYamlPrinter
 interface: platform.plugins.IPrinter
 autorun: "False"
 singleton: "True"
