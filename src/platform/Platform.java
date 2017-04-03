@@ -83,7 +83,9 @@ public class Platform {
 		
 		InputStream input = new FileInputStream(new File("config.yaml"));
 	    Yaml yaml = new Yaml();
-	    Map<String, Object> map = (Map<String, Object>) yaml.load(input);
+	    @SuppressWarnings("unchecked")
+		Map<String, Object> map = (Map<String, Object>) yaml.load(input);
+		@SuppressWarnings("unchecked")
 		List<String> plugins = (List<String>) map.get("plugins");
 
 		IPluginDescriptor desc;
@@ -94,6 +96,7 @@ public class Platform {
 			String pluginFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
 			
 			InputStream pluginConf = new FileInputStream(new File(pluginFile));
+			@SuppressWarnings("unchecked")
 			Map<String, String> prop = (Map<String, String>) yaml.load(pluginConf);
 			desc = new PluginDescriptor(prop);
 			pluginDescript.add(desc);

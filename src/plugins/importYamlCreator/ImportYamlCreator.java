@@ -40,7 +40,7 @@ public class ImportYamlCreator  implements ICreator {
 			    
 //			    add every event in yaml file
 			    for (Object event : map.values()) {
-			    	agenda.addEvent((IEvent)event);					
+			    	agenda.addEvent((IEvent)event);
 				}
 			    
 			    JOptionPane.showMessageDialog(null, "Import done successfully.");

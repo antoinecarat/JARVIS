@@ -13,6 +13,7 @@ import plugins.simpleBase.AgendaFrame;
 
 public class MonthPrinter implements IPrinter{
 
+	@SuppressWarnings("deprecation")
 	public JPanel display(IAgenda a, AgendaFrame frame) {
 		
 		JPanel panel = new JPanel();

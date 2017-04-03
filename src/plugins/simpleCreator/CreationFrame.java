@@ -39,11 +39,11 @@ public class CreationFrame extends JFrame{
 			labels[i] = new JLabel(fields[i].getName());
 		}
 		
-		textFields = new JTextField[labels.length];
+		this.textFields = new JTextField[labels.length];
 		for(int i=0; i < labels.length; ++i){
 			this.add(labels[i]);
-			textFields[i] = new JTextField();
-			this.add(textFields[i]);
+			this.textFields[i] = new JTextField();
+			this.add(this.textFields[i]);
 		}
 
 		JButton cancel = new JButton("Cancel");
@@ -57,18 +57,17 @@ public class CreationFrame extends JFrame{
 	
 	public List<String> getFieldsContent(){
 		List<String> content = new ArrayList<String>();
-		for (JTextField t : textFields){
+		for (JTextField t : this.textFields){
 			if(t.getText().length()>0){
 				content.add(t.getText());
 			}
 		}
 		
 		return content;
-		
 	}
 	
 	public void clearFields() {
-		for (JTextField t : textFields){
+		for (JTextField t : this.textFields){
 			if(t.getText().length()>0){
 				t.setText("");
 			}
@@ -78,5 +77,4 @@ public class CreationFrame extends JFrame{
 	public JLabel[] getLabels() {
 		return this.labels;
 	}
-
 }
