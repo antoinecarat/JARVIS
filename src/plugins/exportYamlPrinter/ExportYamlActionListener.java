@@ -1,14 +1,15 @@
-package plugins.exportPrinter;
+package plugins.exportYamlPrinter;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
-public class ExportActionListener implements ActionListener {
-	private ExportPrinter exportPrinter;
+public class ExportYamlActionListener implements ActionListener {
+	private ExportYamlPrinter exportPrinter;
 	
-	protected ExportActionListener(ExportPrinter ep){
+	protected ExportYamlActionListener(ExportYamlPrinter ep){
 		this.exportPrinter = ep;
 	}
 	
@@ -17,14 +18,27 @@ public class ExportActionListener implements ActionListener {
 		if(e.getSource().equals(exportPrinter.getBrowseButton())){
 			JFileChooser fc = new JFileChooser();
 			int result = fc.showSaveDialog(null);
+			
 			if(result == JFileChooser.APPROVE_OPTION){
 				String filename = fc.getSelectedFile().toString();
-				filename = filename + ".yaml";
+				
+				if(!filename.contains(".yaml")){
+					filename = filename + ".yaml";
+				}
+				
 				System.out.println(filename);
 				exportPrinter.getFileTextField().setText(filename);
+				
+				exportPrinter.getExportButton().setEnabled(true);
 			}
+			
 		}else if(e.getSource().equals(exportPrinter.getExportButton())){
+			
 			exportPrinter.createYaml(exportPrinter.getFileTextField().getText());
+			
+			JOptionPane.showMessageDialog(null, "Export done successfully.");
+			exportPrinter.getFileTextField().setText("");
+			exportPrinter.getExportButton().setEnabled(false);
 		}
 		
 		

@@ -1,4 +1,4 @@
-package plugins.exportPrinter;
+package plugins.exportYamlPrinter;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -18,7 +18,7 @@ import client.IEvent;
 import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
 
-public class ExportPrinter implements IPrinter{
+public class ExportYamlPrinter implements IPrinter{
 	
 	private IAgenda a;
 	
@@ -36,9 +36,12 @@ public class ExportPrinter implements IPrinter{
 		this.exportButton = new JButton("Export to yaml");
 		this.fileTextField = new JTextField(35);
 		
-		ActionListener actionListener = new ExportActionListener(this);
+		ActionListener actionListener = new ExportYamlActionListener(this);
 		this.browseButton.addActionListener(actionListener);
 		this.exportButton.addActionListener(actionListener);
+		
+		this.fileTextField.setEditable(false);
+		this.exportButton.setEnabled(false);
 		
 		panel.add(fileTextField);
 		panel.add(browseButton);

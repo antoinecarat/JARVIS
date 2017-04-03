@@ -1,0 +1,7 @@
+name: ImportYamlCreator
+verbose: Import yaml
+about: Create events from yaml file
+class: plugins.importYamlCreator.ImportYamlCreator
+interface: platform.plugins.ICreator
+autorun: "False"
+singleton: "False"
