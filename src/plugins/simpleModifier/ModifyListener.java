@@ -56,10 +56,7 @@ public class ModifyListener implements ActionListener {
 			} catch (Throwable e2) {
 				e2.printStackTrace();
 			}
-		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException e1) {
-			e1.printStackTrace();
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
+		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | ParseException e1) {
 			e1.printStackTrace();
 		}
 	}

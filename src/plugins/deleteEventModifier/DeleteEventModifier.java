@@ -1,6 +1,5 @@
 package plugins.deleteEventModifier;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import client.IAgenda;

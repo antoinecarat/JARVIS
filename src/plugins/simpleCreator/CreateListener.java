@@ -73,10 +73,7 @@ public class CreateListener implements ActionListener {
 			}
 
 		} else {
-			//TODO: Replace it with a JDialog.
 			System.out.println("Fill fields please.");
-			//JDialog dial = new JDialog(frame, "Fill fields please.", true);
-			//dial.setVisible(true);
 		}
 	}
 

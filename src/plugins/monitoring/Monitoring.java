@@ -19,12 +19,12 @@ public class Monitoring implements IAutorun, Observer {
 	private JTable table;
 
 	public void run() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		//System.out.println(Platform.getPluginDescript());
+
 		frame = new JFrame();
 	    frame.setTitle("Monitoring");
 	    frame.setSize(300, 400);
 		frame.setLocation(900, 100);
-	    //frame.setLocationRelativeTo(null);
+
 	    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    
 	    Object[][] data = new Object[Platform.getPluginDescript().size()][3];

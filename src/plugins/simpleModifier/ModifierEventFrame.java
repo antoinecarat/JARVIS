@@ -21,6 +21,11 @@ import plugins.simpleBase.AgendaFrame;
 
 public class ModifierEventFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	JTextField[] textFields;
 	
 	IEvent event;
@@ -63,17 +68,7 @@ public class ModifierEventFrame extends JFrame {
 				} else {
 					textFields[i].setText(m.invoke(event).toString());
 				}
-			} catch (NoSuchMethodException | SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
+			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				e.printStackTrace();
 			}
 			

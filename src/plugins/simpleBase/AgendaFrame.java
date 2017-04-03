@@ -1,6 +1,5 @@
 package plugins.simpleBase;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -8,7 +7,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +24,14 @@ import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.plugins.ICreator;
 import platform.plugins.IPrinter;
-import plugins.simpleCreator.CreateListener;
 
 public class AgendaFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	IAgenda agenda;
 	JPanel createEvent;
 	JPanel printAgenda;
@@ -164,7 +166,6 @@ public class AgendaFrame extends JFrame {
 			listPluginDescriptor = Platform.getExtensions(IPrinter.class);
 			this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

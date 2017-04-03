@@ -1,6 +1,5 @@
 package plugins.simpleCreator;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import client.Event;
@@ -17,6 +15,11 @@ import plugins.simpleBase.AgendaFrame;
 
 public class CreationFrame extends JFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	JLabel[] labels;
 	JTextField[] textFields;
 	

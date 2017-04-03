@@ -1,10 +1,5 @@
 package plugins.simpleModifier;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
 import client.IAgenda;
 import client.IEvent;
 import platform.plugins.IModifier;
