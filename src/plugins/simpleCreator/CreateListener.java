@@ -30,7 +30,7 @@ public class CreateListener implements ActionListener {
 		
 		List<String> fieldsContent = frame.getFieldsContent();
 		
-		if (fieldsContent.size() > 0){
+		if (fieldsContent.size() > frame.getLabels().length){
 			
 			Class<?> cl;
 			Method method;

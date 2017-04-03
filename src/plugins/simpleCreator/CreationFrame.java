@@ -71,5 +71,9 @@ public class CreationFrame extends JFrame{
 			}
 		}
 	}
+	
+	public JLabel[] getLabels() {
+		return this.labels;
+	}
 
 }

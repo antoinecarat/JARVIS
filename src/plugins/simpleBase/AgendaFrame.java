@@ -56,7 +56,6 @@ public class AgendaFrame extends JFrame {
 		this.setTitle("Agenda JARVIS");
 		this.setSize(800, 600);
 		this.setLocation(0, 100);
-		//this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		gb = new GridBagLayout();
@@ -65,8 +64,6 @@ public class AgendaFrame extends JFrame {
 		this.createEvent = new JPanel();
 		Field[] fields = Event.class.getDeclaredFields();
 		createEvent.setLayout(new GridLayout(fields.length, 2));
-		//TODO: button per creator
-		
 		
 		List<IPluginDescriptor> listPrinters = Platform.getExtensions(IPrinter.class);
 		nbPrinters = listPrinters.size();
@@ -78,7 +75,6 @@ public class AgendaFrame extends JFrame {
 		List<IPluginDescriptor> defaults = Platform.getExtensions(IPrinter.class, prop);
 		IPluginDescriptor defaultPrinter = defaults.size() > 0 ? defaults.get(0) : listPrinters.get(0);
 		this.printer = (IPrinter) Platform.loadPlugin(defaultPrinter, IPrinter.class);
-
 		
 		if(this.printer == null){
 			this.printAgenda = new JPanel();
@@ -91,12 +87,6 @@ public class AgendaFrame extends JFrame {
 			button.addActionListener(new OpenCreatorListener(this, listCreators, i));
 			createEvent.add(button);
 		}
-
-		
-		/*JPanel create = new JPanel(new FlowLayout());
-		JButton createButton = new JButton("Create new Event");
-		createButton.addActionListener(new CreateListener(this));
-		create.add(createButton);*/
 		
 		JPanel printers = new JPanel(new FlowLayout());
 		JButton ip;
@@ -135,14 +125,6 @@ public class AgendaFrame extends JFrame {
 		scroll.setViewportView(printAgenda);
 		gb.setConstraints(scroll, gbc_printPanel);
 		this.add(scroll);
-	
-		//CreateButtons
-		/*gbc_createButton.gridx = 1;
-		gbc_createButton.gridy = fields.length + 1;
-		gbc_createButton.gridheight = 1;
-		gbc_createButton.gridwidth = 1;
-		gb.setConstraints(create, gbc_createButton);
-		this.add(create);*/
 		
 		//PrintButtons
 		gbc_printButtons.gridx = 2;
@@ -151,8 +133,6 @@ public class AgendaFrame extends JFrame {
 		gbc_printButtons.gridwidth = nbPrinters;
 		gb.setConstraints(printers, gbc_printButtons);
 		this.add(printers);
-		
-		
 	}
 
 	public IAgenda getAgenda() {
