@@ -129,8 +129,16 @@ public class Platform {
 			InputStream pluginConf = new FileInputStream(new File(pluginFile));
 			@SuppressWarnings("unchecked")
 			Map<String, String> prop = (Map<String, String>) yaml.load(pluginConf);
-			desc = new PluginDescriptor(prop);
-			pluginDescript.add(desc);
+			
+			if (prop.containsKey("name") && prop.containsKey("about")
+				&& prop.containsKey("class") && prop.containsKey("interface")
+				&& prop.containsKey("autorun") && prop.containsKey("singleton")){
+				
+				desc = new PluginDescriptor(prop);
+				pluginDescript.add(desc);
+			} else {
+				System.out.println("Missing essential property in " + pluginFile);
+			}
 			
 		}
 	}
