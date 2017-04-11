@@ -2,8 +2,8 @@ package plugins.simpleCreator;
 
 import java.awt.GridLayout;
 import java.lang.reflect.Field;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import client.Event;
-import plugins.simpleBase.AgendaFrame;
+import client.IAgenda;
 
 /**
  * Frame for create a new event.
@@ -26,9 +26,8 @@ public class CreationFrame extends JFrame{
 	
 	/**
 	 * Constructor  
-	 * @param a the application JPanel for refreshing
 	 */
-	public CreationFrame(AgendaFrame a) {
+	public CreationFrame(IAgenda a) {
 		
 		this.setTitle("Create a new event");
 		this.setSize(400, 600);

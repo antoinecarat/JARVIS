@@ -17,5 +17,5 @@ public interface IPrinter {
 	 * @param frame the application JPanel for refreshing
 	 * @return the new JPanel with the events collection
 	 */
-	JPanel display(IAgenda a, AgendaFrame frame);
+	JPanel display(IAgenda a);
 }

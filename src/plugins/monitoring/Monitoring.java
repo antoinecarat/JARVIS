@@ -7,12 +7,12 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
+import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.PluginDescriptor;
 import platform.PluginState;
 import platform.plugins.IAutorun;
-import platform.plugins.IPlugin;
 
 public class Monitoring implements IAutorun, Observer, IPlugin {
 

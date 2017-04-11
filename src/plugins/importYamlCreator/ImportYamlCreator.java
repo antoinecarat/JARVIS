@@ -22,6 +22,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import client.Event;
 import client.IAgenda;
+import platform.Platform;
 import platform.plugins.ICreator;
 import plugins.simpleBase.AgendaFrame;
 
@@ -31,7 +32,7 @@ import plugins.simpleBase.AgendaFrame;
 public class ImportYamlCreator  implements ICreator {
 
 	@Override
-	public void create(AgendaFrame a) {
+	public void create(IAgenda agenda) {
 		JFileChooser fc = new JFileChooser();
 		fc.setMultiSelectionEnabled(false);
 		fc.setFileFilter(new FileFilterYaml());
@@ -47,8 +48,6 @@ public class ImportYamlCreator  implements ICreator {
 				
 			    @SuppressWarnings("unchecked")
 				Map<String, Object> map = (Map<String, Object>) yaml.load(input);
-
-			    IAgenda agenda = a.getAgenda();
 			    
 //			    add every event in yaml file
 			    for (Object value : map.values()) {
@@ -76,6 +75,7 @@ public class ImportYamlCreator  implements ICreator {
 					agenda.addEvent(event);
 				}
 			    JOptionPane.showMessageDialog(null, "Import done successfully.");
+			    Platform.raiseEvent("event.added");
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (NoSuchMethodException e) {

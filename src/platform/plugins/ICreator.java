@@ -1,6 +1,6 @@
 package platform.plugins;
 
-import plugins.simpleBase.AgendaFrame;
+import client.IAgenda;
 
 /**
  * Plugin that is of type "creator". 
@@ -12,6 +12,6 @@ public interface ICreator {
 	 * Creates a new event for a agenda.
 	 * @param a the agenda to which the event is add
 	 */
-	void create(AgendaFrame a);
+	void create(IAgenda a);
 	
 }

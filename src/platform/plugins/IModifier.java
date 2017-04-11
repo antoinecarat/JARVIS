@@ -16,6 +16,6 @@ public interface IModifier {
 	 * @param a the agenda to which the event is modify
 	 * @param e the event modifies
 	 */
-	void modify(AgendaFrame frame, IAgenda a, IEvent e);
+	void modify(IAgenda a, IEvent e);
 	
 }

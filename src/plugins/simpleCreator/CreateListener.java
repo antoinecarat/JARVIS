@@ -11,7 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 import client.Event;
-import plugins.simpleBase.AgendaFrame;
+import client.IAgenda;
+import platform.Platform;
 
 /**
  * Creates an event with the content of fields.
@@ -19,12 +20,12 @@ import plugins.simpleBase.AgendaFrame;
 public class CreateListener implements ActionListener {
 
 	CreationFrame frame;
-	AgendaFrame aFrame;
+	IAgenda a;
 	
-	public CreateListener(CreationFrame frame, AgendaFrame aFrame) {
+	public CreateListener(CreationFrame frame, IAgenda a) {
 		super();
 		this.frame = frame;
-		this.aFrame = aFrame;
+		this.a = a;
 	}
 
 	@Override
@@ -58,8 +59,8 @@ public class CreateListener implements ActionListener {
 		
 				event = m.newInstance(contents);
 				
-				aFrame.getAgenda().addEvent(event);
-				aFrame.refreshPrinter();
+				a.addEvent(event);
+				Platform.raiseEvent("event.added");
 				frame.dispose();
 				
 			} catch (InvocationTargetException e1){

@@ -1,4 +1,4 @@
-package platform.plugins;
+package platform;
 
 public interface IPlugin {
 

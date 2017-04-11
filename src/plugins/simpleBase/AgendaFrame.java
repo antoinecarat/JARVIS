@@ -80,7 +80,7 @@ public class AgendaFrame extends JFrame {
 		if(this.printer == null){
 			this.printAgenda = new JPanel();
 		} else {
-			this.printAgenda = printer.display(agenda, this);
+			this.printAgenda = printer.display(agenda);
 		}
 		
 		for(int i=0; i<listCreators.size(); ++i){
@@ -154,7 +154,7 @@ public class AgendaFrame extends JFrame {
 		if(this.printer == null){
 			this.printAgenda = new JPanel();
 		} else {
-			this.printAgenda = printer.display(agenda, this);
+			this.printAgenda = printer.display(agenda);
 		}
 		scroll = new JScrollPane();
 		gb.setConstraints(printAgenda, gbc_printPanel);

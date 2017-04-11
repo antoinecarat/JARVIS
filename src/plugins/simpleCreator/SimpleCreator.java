@@ -1,16 +1,16 @@
 package plugins.simpleCreator;
 
+import client.IAgenda;
+import platform.IPlugin;
+import platform.Platform;
 import platform.plugins.ICreator;
-import platform.plugins.IPlugin;
-import plugins.simpleBase.AgendaFrame;
 
 public class SimpleCreator implements ICreator, IPlugin {
 
 	@Override
-	public void create(AgendaFrame a) {
+	public void create(IAgenda a) {
 		CreationFrame popup = new CreationFrame(a);
 		popup.setVisible(true);
-		a.refreshPrinter();
 	}
 
 	@Override

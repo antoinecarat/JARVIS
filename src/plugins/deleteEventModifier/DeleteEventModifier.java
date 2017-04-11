@@ -2,8 +2,9 @@ package plugins.deleteEventModifier;
 
 import javax.swing.JOptionPane;
 
+import platform.IPlugin;
+import platform.Platform;
 import platform.plugins.IModifier;
-import platform.plugins.IPlugin;
 import plugins.simpleBase.AgendaFrame;
 import client.IAgenda;
 import client.IEvent;
@@ -20,13 +21,13 @@ public class DeleteEventModifier implements IModifier, IPlugin {
 	 * @param a the agenda to which the event is delete
 	 * @param e the event deletes
 	 */
-	public void modify(AgendaFrame frame, IAgenda a, IEvent e) {
-		if (JOptionPane.showConfirmDialog(frame, "Do you really want to remove it?", "Confirmation window", JOptionPane.YES_NO_OPTION) 
+	public void modify(IAgenda a, IEvent e) {
+		if (JOptionPane.showConfirmDialog(null, "Do you really want to remove it?", "Confirmation window", JOptionPane.YES_NO_OPTION) 
 				== JOptionPane.YES_OPTION){
 			if(!a.getEvents().remove(e)){
 				throw new IllegalArgumentException();
 			}
-			frame.refreshPrinter();
+			Platform.raiseEvent("event.removed");
 		}
 		
 	}

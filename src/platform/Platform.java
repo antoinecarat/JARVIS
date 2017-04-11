@@ -14,7 +14,6 @@ import org.yaml.snakeyaml.Yaml;
 
 import client.UnassignableException;
 import platform.plugins.IAutorun;
-import platform.plugins.IPlugin;
 
 /**
  *  Defines a static platform which can manage plugins.

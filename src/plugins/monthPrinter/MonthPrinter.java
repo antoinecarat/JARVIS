@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import platform.plugins.IPlugin;
+import platform.IPlugin;
 import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
 import client.IAgenda;
@@ -21,7 +21,7 @@ public class MonthPrinter implements IPrinter, IPlugin {
 	 * @return the new JPanel with the events collection
 	 */
 
-	public JPanel display(IAgenda a, AgendaFrame frame) {
+	public JPanel display(IAgenda a) {
 		
 		JPanel panel = new JPanel();
 		JLabel label;

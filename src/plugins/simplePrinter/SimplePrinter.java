@@ -5,7 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import platform.plugins.IPlugin;
+import platform.IPlugin;
 import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
 import client.IAgenda;
@@ -13,7 +13,7 @@ import client.IEvent;
 
 public class SimplePrinter implements IPrinter, IPlugin {
 
-	public JPanel display(IAgenda a, AgendaFrame frame) {
+	public JPanel display(IAgenda a) {
 		
 		JPanel panel = new JPanel();
 		JLabel label;

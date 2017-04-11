@@ -7,10 +7,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.plugins.IModifier;
-import platform.plugins.IPlugin;
 import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
 import plugins.simpleModifier.ModifierListener;
@@ -25,7 +25,7 @@ public class ModifierPrinter implements IPrinter, IPlugin{
 	 * @param frame the application JPanel for refreshing
 	 * @return the new JPanel with the events collection
 	 */
-	public JPanel display(IAgenda a, AgendaFrame frame) {
+	public JPanel display(IAgenda a) {
 		
 		JPanel panel = new JPanel();
 		JPanel buttons = null; 
@@ -52,7 +52,7 @@ public class ModifierPrinter implements IPrinter, IPlugin{
 				int i = 0;
 				for (IPluginDescriptor iPluginDescriptor : modifiers) {
 					button = new JButton(iPluginDescriptor.getProperties().get("verbose"));
-					ModifierListener listener = new ModifierListener(i, modifiers, frame, event);
+					ModifierListener listener = new ModifierListener(i, modifiers, a, event);
 					
 					button.addActionListener(listener);
 					buttons.add(button);

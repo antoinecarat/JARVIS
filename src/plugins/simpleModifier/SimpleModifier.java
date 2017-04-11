@@ -1,17 +1,16 @@
 package plugins.simpleModifier;
 
+import platform.IPlugin;
 import platform.plugins.IModifier;
-import platform.plugins.IPlugin;
 import plugins.simpleBase.AgendaFrame;
 import client.IAgenda;
 import client.IEvent;
 
 public class SimpleModifier implements IModifier, IPlugin {
 
-	public void modify(AgendaFrame frame, IAgenda a, IEvent e) {
-		ModifierEventFrame popup = new ModifierEventFrame(frame, e);
+	public void modify(IAgenda a, IEvent e) {
+		ModifierEventFrame popup = new ModifierEventFrame(e);
 		popup.setVisible(true);
-		frame.refreshPrinter();
 	}
 
 	@Override

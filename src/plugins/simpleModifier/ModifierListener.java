@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import client.IAgenda;
 import client.IEvent;
 import platform.IPluginDescriptor;
 import platform.Platform;
@@ -18,14 +19,14 @@ public class ModifierListener implements ActionListener{
 	IModifier modifier;
 	List<IPluginDescriptor> list;
 	int index;
-	AgendaFrame frame;
+	IAgenda agenda;
 	IEvent event;
 
-	public ModifierListener(int index, List<IPluginDescriptor> list, AgendaFrame frame, IEvent event) {
+	public ModifierListener(int index, List<IPluginDescriptor> list, IAgenda agenda, IEvent event) {
 		super();
 		this.index = index;
 		this.list = list;
-		this.frame = frame;
+		this.agenda = agenda;
 		this.event = event;
 	}
 
@@ -33,7 +34,7 @@ public class ModifierListener implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		this.modifier = (IModifier) Platform.loadPlugin(list.get(index), IModifier.class);
 		if (modifier != null){
-			this.modifier.modify(frame, frame.getAgenda(), event);
+			this.modifier.modify(agenda, event);
 		}
 	}
 

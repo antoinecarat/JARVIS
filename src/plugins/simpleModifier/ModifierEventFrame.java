@@ -16,7 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import client.Event;
+import client.IAgenda;
 import client.IEvent;
+import platform.Platform;
 import plugins.simpleBase.AgendaFrame;
 
 /**
@@ -33,12 +35,9 @@ public class ModifierEventFrame extends JFrame {
 	Method method;
 	JLabel[] labels;
 	
-	AgendaFrame frame;
-
 	
-	public ModifierEventFrame(AgendaFrame frame, IEvent event) throws HeadlessException {
+	public ModifierEventFrame(IEvent event) throws HeadlessException {
 		super();
-		this.frame = frame;
 		this.event = event;
 		
 		this.setTitle("Modify the event");
@@ -59,7 +58,7 @@ public class ModifierEventFrame extends JFrame {
 		for(int i=0; i < labels.length; ++i){
 			this.add(labels[i]);
 			textFields[i] = new JTextField();
-			//TODO: retrieve value of the field with reflect
+			
 			try {
 				Method m = Event.class.getDeclaredMethod("get"+upFirstChar(labels[i].getText()));
 				if(fields[i].getType().equals(Date.class)){
@@ -97,7 +96,7 @@ public class ModifierEventFrame extends JFrame {
 	
 	@Override
 	public void dispose() {
-		frame.refreshPrinter();
+		Platform.raiseEvent("event.modified");
 		super.dispose();
 	}
 	

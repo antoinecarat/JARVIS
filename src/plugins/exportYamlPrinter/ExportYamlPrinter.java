@@ -30,7 +30,7 @@ public class ExportYamlPrinter implements IPrinter{
 	JTextField fileTextField;
 	
 	@Override
-	public JPanel display(IAgenda a, AgendaFrame frame) {
+	public JPanel display(IAgenda a) {
 		this.a = a;
 		
 		JPanel panel = new JPanel();
