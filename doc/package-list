@@ -1,0 +1,13 @@
+client
+platform
+platform.plugins
+plugins.deleteEventModifier
+plugins.exportYamlPrinter
+plugins.importYamlCreator
+plugins.modifierPrinter
+plugins.monitoring
+plugins.monthPrinter
+plugins.simpleBase
+plugins.simpleCreator
+plugins.simpleModifier
+plugins.simplePrinter

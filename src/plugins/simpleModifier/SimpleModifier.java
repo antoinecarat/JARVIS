@@ -8,7 +8,6 @@ import client.IEvent;
 
 public class SimpleModifier implements IModifier, IPlugin {
 
-	@Override
 	public void modify(AgendaFrame frame, IAgenda a, IEvent e) {
 		ModifierEventFrame popup = new ModifierEventFrame(frame, e);
 		popup.setVisible(true);

@@ -8,6 +8,9 @@ import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.plugins.ICreator;
 
+/**
+ * Manages the opening of creators
+ */
 public class OpenCreatorListener implements ActionListener {
 
 	AgendaFrame frame;

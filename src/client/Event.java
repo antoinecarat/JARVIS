@@ -6,8 +6,8 @@ import java.util.Date;
 public class Event implements Comparable<Event>, IEvent {
 
 	String name;
-	Date dateStart;
-	Date dateEnd;
+	Date startDate;
+	Date endDate;
 	String type;
 	String description;
 	String location;	
@@ -15,10 +15,10 @@ public class Event implements Comparable<Event>, IEvent {
 	public Event(String name, Date dateStart, Date dateFin, String type, String description, String location) throws IllegalArgumentException{
 		super();
 		this.name = name;
-		this.dateStart = dateStart;
+		this.startDate = dateStart;
 		
 		if(dateFin.compareTo(dateStart) >= 0 ){
-			this.dateEnd = dateFin;
+			this.endDate = dateFin;
 		}else{
 			throw new IllegalArgumentException();
 		}
@@ -45,31 +45,32 @@ public class Event implements Comparable<Event>, IEvent {
 
 
 	@Override
-	public Date getDateStart() {
-		return dateStart;
+	public Date getStartDate() {
+		return startDate;
 	}
 
 
 	@Override
-	public void setDateStart(Date dateDebut) throws IllegalArgumentException{
-		if(dateEnd.compareTo(dateDebut) >= 0 ){
-			this.dateStart = dateDebut;
+	public void setStartDate(Date startDate) throws IllegalArgumentException{
+		if(startDate.compareTo(endDate) <= 0 ){
+			this.startDate = startDate;
 		}else{
 			throw new IllegalArgumentException();
-		}	
+		}
+
 	}
 
 
 	@Override
-	public Date getDateEnd() {
-		return dateEnd;
+	public Date getEndDate() {
+		return endDate;
 	}
 
 
 	@Override
-	public void setDateEnd(Date dateEnd) throws IllegalArgumentException{
-		if(dateEnd.compareTo(dateStart) >= 0 ){
-			this.dateEnd = dateEnd;
+	public void setEndDate(Date dateEnd) throws IllegalArgumentException{
+		if(dateEnd.compareTo(startDate) >= 0 ){
+			this.endDate = dateEnd;
 		}else{
 			throw new IllegalArgumentException();
 		}
@@ -108,7 +109,7 @@ public class Event implements Comparable<Event>, IEvent {
 	@Override
 	public int compareTo(Event e) {
 		
-		int compareDate = dateStart.compareTo(e.getDateStart());
+		int compareDate = startDate.compareTo(e.getStartDate());
 		
 		if( compareDate == 0){
 			return name.compareTo(e.getName());
@@ -122,7 +123,7 @@ public class Event implements Comparable<Event>, IEvent {
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		
-		return "(" + formatter.format(dateStart) + ") " + name + " [" + type + "]";
+		return "(" + formatter.format(startDate) + ") " + name + " [" + type + "]";
 	}
 
 	@Override
@@ -130,7 +131,7 @@ public class Event implements Comparable<Event>, IEvent {
 		
 		IEvent e = (IEvent) obj;
 		
-		return this.dateStart.equals(e.getDateStart()) && this.name.equals(e.getName());
+		return this.startDate.equals(e.getStartDate()) && this.name.equals(e.getName());
 	}
 
 

@@ -4,6 +4,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,13 +13,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.yaml.snakeyaml.Yaml;
-
 import client.IAgenda;
 import client.IEvent;
 import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
 
+/**
+ * Plugin to export the events collection.
+ */
 public class ExportYamlPrinter implements IPrinter{
 	
 	private IAgenda a;
@@ -52,34 +55,62 @@ public class ExportYamlPrinter implements IPrinter{
 		return panel;
 	}
 	
+	/**
+	 * Creates the new file .yaml that will contain the export. 
+	 * @param filename the name of the new file
+	 */
 	protected void createYaml(String filename){
 		try {
 			Map<Integer, Object> data = new HashMap<Integer, Object>();
 			
 			int cpt = 0;
 			
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			PrintWriter writer = new PrintWriter(filename);
+			
 			for (IEvent e : a.getEvents()) {
-				data.put(cpt, (Object)e);
+				//data.put(cpt, (Object)e);
+				writer.println(Integer.toString(cpt) + ": ");
+				writer.println("  name: " + e.getName());
+				writer.println("  startDate: " + formatter.format(e.getStartDate()));
+				writer.println("  endDate: " + formatter.format(e.getEndDate()));
+				writer.println("  type: " + e.getType());
+				writer.println("  descritpion: " + e.getDescription());
+				writer.println("  lociation: " + e.getLocation());
 				++cpt;
 			}
+			writer.close();
 			
 //			write in the file
-			Yaml yaml = new Yaml();
-			FileWriter writer = new FileWriter(filename);
-			yaml.dump(data, writer);
+			//Yaml yaml = new Yaml();
+			//FileWriter writer = new FileWriter(filename);
+			//yaml.dump(data, writer);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Returns button for openning the browser.
+	 * @return button Browse
+	 */
 	protected JButton getBrowseButton(){
 		return this.browseButton;
 	}
-	
+
+	/**
+	 * Returns button for exporting events collection.
+	 * @return button Export
+	 */
 	protected JButton getExportButton(){
 		return this.exportButton;
 	}
 	
+	/**
+	 * Returns textField which contains the file path.
+	 * @return textField
+	 */
 	protected JTextField getFileTextField(){
 		return this.fileTextField;
 	}

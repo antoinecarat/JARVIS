@@ -10,6 +10,9 @@ import platform.Platform;
 import platform.plugins.IModifier;
 import plugins.simpleBase.AgendaFrame;
 
+/**
+ * Manages the call of a modifier
+ */
 public class ModifierListener implements ActionListener{
 
 	IModifier modifier;

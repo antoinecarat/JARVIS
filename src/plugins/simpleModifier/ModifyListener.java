@@ -13,6 +13,9 @@ import java.util.Date;
 import client.Event;
 import client.IEvent;
 
+/**
+ * Modifies the event with the content of fields.
+ */
 public class ModifyListener implements ActionListener {
 
 	ModifierEventFrame frame;
@@ -33,31 +36,31 @@ public class ModifyListener implements ActionListener {
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		try {
-
-			for (int i = 0 ; i < fieldsContent.size() ; ++i) {
-				String content = fieldsContent.get(i);
-				String field = fields[i].getName();
-				
-				cl = fields[i].getType();
-				method = event.getClass().getMethod("set"+upFirstChar(field), cl);
-				
-				if(cl.equals(Date.class)){
-					method.invoke(event, formatter.parse(content));
-				}else{
-					method.invoke(event, content);
+	
+				for (int i = 0 ; i < fieldsContent.size() ; ++i) {
+					String content = fieldsContent.get(i);
+					String field = fields[i].getName();
+					
+					cl = fields[i].getType();
+					method = event.getClass().getMethod("set"+upFirstChar(field), cl);
+					if(cl.equals(Date.class)){
+						method.invoke(event, formatter.parse(content));
+					}else{
+						method.invoke(event, content);
+					}
 				}
-			}
-			frame.dispose();
+				frame.dispose();
 		} catch (InvocationTargetException e1){
-			try {
-				throw e1.getCause();
-			} catch (IllegalArgumentException e11){
-				System.out.println("Wrong Date value");
-			} catch (Throwable e2) {
-				e2.printStackTrace();
-			}
+			System.out.println("kek");
+				try {
+					throw e1.getCause();
+				} catch (IllegalArgumentException e11){
+					System.out.println("Wrong Date value");
+				} catch (Throwable e2) {
+					e2.printStackTrace();
+				}
 		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | ParseException e1) {
-			e1.printStackTrace();
+				e1.printStackTrace();
 		}
 	}
 	

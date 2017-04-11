@@ -2,6 +2,7 @@ package plugins.simpleCreator;
 
 import java.awt.GridLayout;
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,19 +14,23 @@ import javax.swing.JTextField;
 import client.Event;
 import plugins.simpleBase.AgendaFrame;
 
+/**
+ * Frame for create a new event.
+ */
 public class CreationFrame extends JFrame{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	JLabel[] labels;
 	JTextField[] textFields;
 	
+	/**
+	 * Constructor  
+	 * @param a the application JPanel for refreshing
+	 */
 	public CreationFrame(AgendaFrame a) {
 		
-		this.setTitle("Agenda JARVIS");
+		this.setTitle("Create a new event");
 		this.setSize(400, 600);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -33,17 +38,20 @@ public class CreationFrame extends JFrame{
 		
 		Field[] fields = Event.class.getDeclaredFields();
 		this.setLayout(new GridLayout(fields.length+1, 2));
-		
 		labels = new JLabel[fields.length];
 		for (int i = 0; i < fields.length; ++i){
-			labels[i] = new JLabel(fields[i].getName());
+			if (fields[i].getType().equals(Date.class)){
+				labels[i] = new JLabel(fields[i].getName() + " (dd/MM/yyyy)");
+			} else {
+				labels[i] = new JLabel(fields[i].getName());
+			}
 		}
 		
-		textFields = new JTextField[labels.length];
+		this.textFields = new JTextField[labels.length];
 		for(int i=0; i < labels.length; ++i){
 			this.add(labels[i]);
-			textFields[i] = new JTextField();
-			this.add(textFields[i]);
+			this.textFields[i] = new JTextField();
+			this.add(this.textFields[i]);
 		}
 
 		JButton cancel = new JButton("Cancel");
@@ -55,20 +63,26 @@ public class CreationFrame extends JFrame{
 	
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<String> getFieldsContent(){
 		List<String> content = new ArrayList<String>();
-		for (JTextField t : textFields){
+		for (JTextField t : this.textFields){
 			if(t.getText().length()>0){
 				content.add(t.getText());
 			}
 		}
 		
 		return content;
-		
 	}
 	
+	/**
+	 * Clear each fileds when the new event is validate
+	 */
 	public void clearFields() {
-		for (JTextField t : textFields){
+		for (JTextField t : this.textFields){
 			if(t.getText().length()>0){
 				t.setText("");
 			}
@@ -78,5 +92,4 @@ public class CreationFrame extends JFrame{
 	public JLabel[] getLabels() {
 		return this.labels;
 	}
-
 }

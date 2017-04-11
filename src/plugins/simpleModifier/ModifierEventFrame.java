@@ -19,11 +19,11 @@ import client.Event;
 import client.IEvent;
 import plugins.simpleBase.AgendaFrame;
 
+/**
+ * Frame for modifying an event.
+ */
 public class ModifierEventFrame extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	JTextField[] textFields;

@@ -3,6 +3,10 @@ package plugins.simpleModifier;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Closes the frame.
+ *
+ */
 public class QuitListener implements ActionListener {
 
 	

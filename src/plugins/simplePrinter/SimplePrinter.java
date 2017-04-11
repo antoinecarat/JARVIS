@@ -13,7 +13,6 @@ import client.IEvent;
 
 public class SimplePrinter implements IPrinter, IPlugin {
 
-	@Override
 	public JPanel display(IAgenda a, AgendaFrame frame) {
 		
 		JPanel panel = new JPanel();

@@ -2,7 +2,6 @@ package client;
 import java.util.Collection;
 import java.util.TreeSet;
 
-
 public class Agenda implements IAgenda{
 	
 	String name;
@@ -26,7 +25,7 @@ public class Agenda implements IAgenda{
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public Collection<IEvent> getEvents() {
 		return events;
 	}

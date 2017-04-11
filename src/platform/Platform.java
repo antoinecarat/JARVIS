@@ -16,16 +16,27 @@ import client.UnassignableException;
 import platform.plugins.IAutorun;
 import platform.plugins.IPlugin;
 
+/**
+ *  Defines a static platform which can manage plugins.
+ */
 public class Platform {
 
 	private static Map<String, List<IPlugin>> eventSubscribers = null;
 	
 	private static List<IPluginDescriptor> pluginDescript;
 	
+	/**
+	 * Returns the pluginDescriptor list.
+	 * @return pluginDescript the list of pluginDescriptor.
+	 */
 	public static List<IPluginDescriptor> getPluginDescript() {
 		return pluginDescript;
 	}
 
+	/**
+	 * Sets the pluginDescriptor list.
+	 * @param pluginDescript the new pluginDescriptor list.
+	 */
 	public static void setPluginDescript(List<IPluginDescriptor> pluginDescript) {
 		Platform.pluginDescript = pluginDescript;
 	}
@@ -43,6 +54,12 @@ public class Platform {
 		}		
 	}
 
+	/**
+	 * Returns the list of plugins that should implement the need class.
+	 * @param need the class which should be implemented.
+	 * @return plugins the list of plugins that should implement need.
+	 * @throws ClassNotFoundException
+	 */
 	public static List<IPluginDescriptor> getExtensions(Class<?> need) throws ClassNotFoundException {
 
 		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
@@ -59,6 +76,13 @@ public class Platform {
 		return plugins;
 	}
 	
+	/**
+	 * Returns the list of plugins that should implement the need class.
+	 * @param need the class which should be implemented.
+	 * @param properties the map of properties to be matched.
+	 * @return plugins the list of plugins that should implement need.
+	 * @throws ClassNotFoundException
+	 */
 	public static List<IPluginDescriptor> getExtensions(Class<?> need, Map<String, Object> properties) throws ClassNotFoundException {
 
 		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
@@ -82,12 +106,18 @@ public class Platform {
 		return plugins;
 	}
 
+	/**
+	 * Loads all the pluginDescriptors corresponding to plugins listed in config.yaml.
+	 * @throws FileNotFoundException
+	 */
 	private static void loadPluginDescriptors() throws FileNotFoundException {
 
 		
 		InputStream input = new FileInputStream(new File("config.yaml"));
 	    Yaml yaml = new Yaml();
-	    Map<String, Object> map = (Map<String, Object>) yaml.load(input);
+	    @SuppressWarnings("unchecked")
+		Map<String, Object> map = (Map<String, Object>) yaml.load(input);
+		@SuppressWarnings("unchecked")
 		List<String> plugins = (List<String>) map.get("plugins");
 
 		IPluginDescriptor desc;
@@ -98,6 +128,7 @@ public class Platform {
 			String pluginFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
 			
 			InputStream pluginConf = new FileInputStream(new File(pluginFile));
+			@SuppressWarnings("unchecked")
 			Map<String, String> prop = (Map<String, String>) yaml.load(pluginConf);
 			desc = new PluginDescriptor(prop);
 			pluginDescript.add(desc);
@@ -105,6 +136,12 @@ public class Platform {
 		}
 	}
 
+	/**
+	 * Loads a instance of a plugin.
+	 * @param iPluginDescriptor the pluginDescriptor which should be loaded.
+	 * @param need the class which should be implemented by the plugin.
+	 * @return obj the instance of the plugin.
+	 */
 	public static Object loadPlugin(IPluginDescriptor iPluginDescriptor, Class<?> need) {
 		
 		Object obj = null;

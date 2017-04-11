@@ -13,8 +13,14 @@ import client.IAgenda;
 import client.IEvent;
 
 public class MonthPrinter implements IPrinter, IPlugin {
+	
+	/**
+	 * Returns events display for the month.
+	 * @param a the agenda to which the events collection 
+	 * @param frame the application JPanel for refreshing
+	 * @return the new JPanel with the events collection
+	 */
 
-	@Override
 	public JPanel display(IAgenda a, AgendaFrame frame) {
 		
 		JPanel panel = new JPanel();
@@ -25,8 +31,8 @@ public class MonthPrinter implements IPrinter, IPlugin {
 		panel.setLayout(grid);
 		
 		for (IEvent event : a.getEvents()) {
-			if((event.getDateStart().getMonth() == today.getMonth()) &&
-				event.getDateStart().getYear() == today.getYear()){
+			if((event.getStartDate().getMonth() == today.getMonth()) &&
+				event.getStartDate().getYear() == today.getYear()){
 				
 				label = new JLabel(event.toString());
 				panel.add(label);
