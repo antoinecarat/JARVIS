@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -13,9 +14,12 @@ import org.yaml.snakeyaml.Yaml;
 
 import client.UnassignableException;
 import platform.plugins.IAutorun;
+import platform.plugins.IPlugin;
 
 public class Platform {
 
+	private static Map<String, List<IPlugin>> eventSubscribers = null;
+	
 	private static List<IPluginDescriptor> pluginDescript;
 	
 	public static List<IPluginDescriptor> getPluginDescript() {
@@ -141,5 +145,28 @@ public class Platform {
 			}
 		}
 		return obj;
+	}
+
+	public static void subscribeEvent(String event, IPlugin plugin){
+		if (eventSubscribers == null){
+			eventSubscribers = new HashMap<String, List<IPlugin>>();
+		}
+		if (eventSubscribers.get(event) == null){
+			List<IPlugin> list = new ArrayList<IPlugin>();
+			list.add(plugin);
+			eventSubscribers.put(event, list);
+		} else {
+			eventSubscribers.get(event).add(plugin);
+		}
+	}
+	
+	public static void raiseEvent(String event){
+		for (String key : eventSubscribers.keySet()){
+			if (key.equals(event)){
+				for (IPlugin plugin : eventSubscribers.get(key)){
+					plugin.handleEvent(event);
+				}
+			}
+		}
 	}
 }

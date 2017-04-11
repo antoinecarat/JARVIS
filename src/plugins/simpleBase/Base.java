@@ -3,13 +3,15 @@ package plugins.simpleBase;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import platform.plugins.IAutorun;
+import platform.plugins.IPlugin;
 import client.Agenda;
 import client.Event;
 import client.IAgenda;
-import platform.plugins.IAutorun;
 
-public class Base implements IAutorun{
+public class Base implements IAutorun, IPlugin {
 
+	@Override
 	public void run() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		IAgenda agenda = new Agenda();
 		
@@ -33,6 +35,12 @@ public class Base implements IAutorun{
 		AgendaFrame frame = new AgendaFrame(agenda);
 		
 		frame.setVisible(true);
+		
+	}
+
+	@Override
+	public void handleEvent(String event) {
+		// TODO Auto-generated method stub
 		
 	}
 }

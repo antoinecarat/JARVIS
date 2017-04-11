@@ -12,12 +12,14 @@ import platform.Platform;
 import platform.PluginDescriptor;
 import platform.PluginState;
 import platform.plugins.IAutorun;
+import platform.plugins.IPlugin;
 
-public class Monitoring implements IAutorun, Observer {
+public class Monitoring implements IAutorun, Observer, IPlugin {
 
 	private JFrame frame;
 	private JTable table;
 
+	@Override
 	public void run() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 
 		frame = new JFrame();
@@ -88,6 +90,12 @@ public class Monitoring implements IAutorun, Observer {
 		this.frame.add(this.table);
 		this.frame.revalidate();
 		this.frame.repaint();
+	}
+
+	@Override
+	public void handleEvent(String event) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

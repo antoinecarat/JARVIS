@@ -2,12 +2,13 @@ package plugins.deleteEventModifier;
 
 import javax.swing.JOptionPane;
 
+import platform.plugins.IModifier;
+import platform.plugins.IPlugin;
+import plugins.simpleBase.AgendaFrame;
 import client.IAgenda;
 import client.IEvent;
-import platform.plugins.IModifier;
-import plugins.simpleBase.AgendaFrame;
 
-public class DeleteEventModifier implements IModifier{
+public class DeleteEventModifier implements IModifier, IPlugin {
 
 	public void modify(AgendaFrame frame, IAgenda a, IEvent e) {
 		
@@ -18,6 +19,12 @@ public class DeleteEventModifier implements IModifier{
 			}
 			frame.refreshPrinter();
 		}
+		
+	}
+
+	@Override
+	public void handleEvent(String event) {
+		// TODO Auto-generated method stub
 		
 	}
 }

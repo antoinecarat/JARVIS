@@ -7,17 +7,19 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import client.IAgenda;
-import client.IEvent;
 import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.plugins.IModifier;
+import platform.plugins.IPlugin;
 import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
 import plugins.simpleModifier.ModifierListener;
+import client.IAgenda;
+import client.IEvent;
 
-public class ModifierPrinter implements IPrinter{
+public class ModifierPrinter implements IPrinter, IPlugin{
 
+	@Override
 	public JPanel display(IAgenda a, AgendaFrame frame) {
 		
 		JPanel panel = new JPanel();
@@ -60,6 +62,12 @@ public class ModifierPrinter implements IPrinter{
 		}
 		
 		return panel;
+	}
+
+	@Override
+	public void handleEvent(String event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
