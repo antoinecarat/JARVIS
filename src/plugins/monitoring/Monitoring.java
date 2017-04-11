@@ -14,13 +14,13 @@ import platform.PluginDescriptor;
 import platform.PluginState;
 import platform.plugins.IAutorun;
 
-public class Monitoring implements IAutorun, Observer, IPlugin {
+public class Monitoring extends Thread implements IAutorun, Observer, IPlugin {
 
 	private JFrame frame;
 	private JTable table;
 
 	@Override
-	public void run() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public void run() {
 
 		frame = new JFrame();
 	    frame.setTitle("Monitoring");
@@ -78,7 +78,9 @@ public class Monitoring implements IAutorun, Observer, IPlugin {
 	    }
 	    
 	    Object[] titles = {"Name", "State", "# Instances"};
-		this.frame.remove(this.table);
+		if (this.table != null) {
+			this.frame.remove(this.table);
+		}
 		
 		this.table = new JTable(data, titles){
 	        private static final long serialVersionUID = 1L;

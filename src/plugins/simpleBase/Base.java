@@ -1,5 +1,6 @@
 package plugins.simpleBase;
 
+import java.awt.HeadlessException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -12,12 +13,14 @@ import client.IAgenda;
 /**
  * Defines the agenda application which is calling other plugins.
  */
-public class Base implements IAutorun, IPlugin {
+public class Base extends Thread implements IAutorun, IPlugin {
 
 	AgendaFrame frame;
 	
 	@Override
-	public void run() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public void run() {
+		
+		//TODO: use agenda as a plugin
 		IAgenda agenda = new Agenda();
 		
 		
@@ -37,9 +40,14 @@ public class Base implements IAutorun, IPlugin {
 			e.printStackTrace();
 		}
 			
-		frame = new AgendaFrame(agenda);
+		try {
+			frame = new AgendaFrame(agenda);
+			frame.setVisible(true);
+		} catch (HeadlessException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		frame.setVisible(true);
 		Platform.subscribeEvent("event.added", this);
 		Platform.subscribeEvent("event.modified", this);
 		Platform.subscribeEvent("event.removed", this);

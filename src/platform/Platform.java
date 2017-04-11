@@ -46,9 +46,9 @@ public class Platform {
 		// Run autoruns
 		for (IPluginDescriptor plugin : pluginDescript) {
 			if(plugin.getProperties().get("autorun").equals("True")){
-				IAutorun obj = (IAutorun) loadPlugin(plugin, IAutorun.class);
-
-				obj.run();
+				Thread obj = (Thread) loadPlugin(plugin, IAutorun.class);
+				
+				obj.start();
 			}
 		}		
 	}
