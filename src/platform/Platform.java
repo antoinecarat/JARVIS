@@ -164,9 +164,11 @@ public class Platform {
 					throw new UnassignableException();
 				}
 				iPluginDescriptor.setState(PluginState.RUNNING);
+				raiseEvent("plugin.launched");
 				
 			} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 				iPluginDescriptor.setState(PluginState.FAILED);
+				raiseEvent("plugin.crashed");
 			}
 		} else if (iPluginDescriptor.getState() == PluginState.RUNNING) {
 			if (iPluginDescriptor.getProperties().get("singleton").equals("True")){
@@ -181,10 +183,12 @@ public class Platform {
 					}else{
 						throw new UnassignableException();
 					}
-					iPluginDescriptor.setState(PluginState.RUNNING);
+					//iPluginDescriptor.setState(PluginState.RUNNING);
+					raiseEvent("plugin.launched");
 					
 				} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 					iPluginDescriptor.setState(PluginState.FAILED);
+					raiseEvent("plugin.crashed");
 				}
 			}
 		}
@@ -205,6 +209,9 @@ public class Platform {
 	}
 	
 	public static void raiseEvent(String event){
+		if (eventSubscribers == null){
+			eventSubscribers = new HashMap<String, List<IPlugin>>();
+		}
 		for (String key : eventSubscribers.keySet()){
 			if (key.equals(event)){
 				for (IPlugin plugin : eventSubscribers.get(key)){

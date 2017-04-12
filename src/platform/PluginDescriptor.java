@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-public class PluginDescriptor extends Observable implements IPluginDescriptor {
+public class PluginDescriptor implements IPluginDescriptor {
 	
 	private Map<String, String> properties;
 	
@@ -38,17 +38,10 @@ public class PluginDescriptor extends Observable implements IPluginDescriptor {
 
 	public void setState(PluginState state) {
 		this.state = state;
-		
-		this.setChanged();
-		this.notifyObservers(state);
 	}
 
 	public String toString() {
 		return "PluginDescriptor [properties=" + properties + ", state=" + state + "]";
-	}
-
-	public void setObserver(Observer o){
-		this.addObserver(o);
 	}
 
 	@Override

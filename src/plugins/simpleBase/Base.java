@@ -3,6 +3,7 @@ package plugins.simpleBase;
 import java.awt.HeadlessException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
 
 import platform.IPlugin;
 import platform.Platform;
@@ -51,14 +52,14 @@ public class Base extends Thread implements IAutorun, IPlugin {
 		Platform.subscribeEvent("event.added", this);
 		Platform.subscribeEvent("event.modified", this);
 		Platform.subscribeEvent("event.removed", this);
-		Platform.subscribeEvent("printer.changed", this);
+		//Platform.subscribeEvent("printer.changed", this);
 	}
 
 	@Override
 	public void handleEvent(String event) {
-		//String cat = event.split(".")[0];
-		//if (cat.equals("event")){
+		String cat = event.split(Pattern.quote("."))[0];
+		if (cat.equals("event")){
 			frame.refreshPrinter();
-		//}
+		}
 	}
 }

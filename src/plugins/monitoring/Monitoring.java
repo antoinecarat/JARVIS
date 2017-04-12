@@ -3,6 +3,7 @@ package plugins.monitoring;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.regex.Pattern;
 
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -14,7 +15,7 @@ import platform.PluginDescriptor;
 import platform.PluginState;
 import platform.plugins.IAutorun;
 
-public class Monitoring extends Thread implements IAutorun, Observer, IPlugin {
+public class Monitoring extends Thread implements IAutorun, IPlugin {
 
 	private JFrame frame;
 	private JTable table;
@@ -38,7 +39,7 @@ public class Monitoring extends Thread implements IAutorun, Observer, IPlugin {
 	    	data[i][1] = l.get(i).getState();
 	    	data[i][2] = l.get(i).getInstances().size();
 	    	
-	    	((PluginDescriptor)Platform.getPluginDescript().get(i)).setObserver(this);
+	    	//((PluginDescriptor)Platform.getPluginDescript().get(i)).setObserver(this);
 	    }
 	    
 		Object[] titles = {"Name", "State", "# Instances"};
@@ -54,50 +55,43 @@ public class Monitoring extends Thread implements IAutorun, Observer, IPlugin {
 	    frame.add(table);
 	    
 	    frame.setVisible(true);
-
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		Object[][] data = new Object[Platform.getPluginDescript().size()][3];
-	    int i=0;
 	    
-	    for (IPluginDescriptor p : Platform.getPluginDescript()){
-	    	if (p.getProperties().get("name")
-	    			.equals(((IPluginDescriptor) o).getProperties().get("name"))){
-	    		data[i][0] = p.getProperties().get("name");
-		    	data[i][1] = (PluginState) arg;
-		    	data[i][2] = p.getInstances().size();
-		    	
-	    	} else {
-	    		data[i][0] = p.getProperties().get("name");
-		    	data[i][1] = p.getState();
-		    	data[i][2] = p.getInstances().size();
-	    	}	    	
-	    	++i;
-	    }
+	    Platform.subscribeEvent("plugin.launched", this);
+	    Platform.subscribeEvent("plugin.crashed", this);
+	    Platform.subscribeEvent("plugin.killed", this);
 	    
-	    Object[] titles = {"Name", "State", "# Instances"};
-		if (this.table != null) {
-			this.frame.remove(this.table);
-		}
-		
-		this.table = new JTable(data, titles){
-	        private static final long serialVersionUID = 1L;
-
-	        public boolean isCellEditable(int row, int column) {                
-	                return false;               
-	        };
-		};		
-		this.frame.add(this.table);
-		this.frame.revalidate();
-		this.frame.repaint();
 	}
 
 	@Override
 	public void handleEvent(String event) {
-		// TODO Auto-generated method stub
-		
+		String cat = event.split(Pattern.quote("."))[0];
+		if (cat.equals("plugin")){
+			Object[][] data = new Object[Platform.getPluginDescript().size()][3];
+		    int i=0;
+		    
+		    for (IPluginDescriptor p : Platform.getPluginDescript()){
+		    	data[i][0] = p.getProperties().get("name");
+			    data[i][1] = p.getState();
+			    data[i][2] = p.getInstances().size();   	
+		    	++i;
+		    }
+		    
+		    Object[] titles = {"Name", "State", "# Instances"};
+			if (this.table != null) {
+				this.frame.remove(this.table);
+			}
+			
+			this.table = new JTable(data, titles){
+		        private static final long serialVersionUID = 1L;
+	
+		        public boolean isCellEditable(int row, int column) {                
+		                return false;               
+		        };
+			};		
+			this.frame.add(this.table);
+			this.frame.revalidate();
+			this.frame.repaint();
+		}
 	}
 	
 }
