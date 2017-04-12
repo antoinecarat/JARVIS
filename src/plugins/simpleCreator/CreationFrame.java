@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -17,7 +18,7 @@ import client.IAgenda;
 /**
  * Frame for create a new event.
  */
-public class CreationFrame extends JFrame{
+public class CreationFrame extends JDialog{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -30,6 +31,7 @@ public class CreationFrame extends JFrame{
 	public CreationFrame(IAgenda a) {
 		
 		this.setTitle("Create a new event");
+		this.setModal(true);
 		this.setSize(400, 600);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

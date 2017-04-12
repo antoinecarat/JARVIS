@@ -47,7 +47,6 @@ public class Platform {
 		for (IPluginDescriptor plugin : pluginDescript) {
 			if(plugin.getProperties().get("autorun").equals("True")){
 				Thread obj = (Thread) loadPlugin(plugin, IAutorun.class);
-				
 				obj.start();
 			}
 		}		
@@ -142,7 +141,7 @@ public class Platform {
 			
 		}
 	}
-
+	
 	/**
 	 * Loads a instance of a plugin.
 	 * @param iPluginDescriptor the pluginDescriptor which should be loaded.
@@ -151,40 +150,41 @@ public class Platform {
 	 */
 	public static Object loadPlugin(IPluginDescriptor iPluginDescriptor, Class<?> need) {
 		
-		Object obj = null;
+		IPlugin obj = null;
 		
 		if(iPluginDescriptor.getState() == PluginState.AVAILABLE){
 			try {
 				Class<?> cl = Class.forName(iPluginDescriptor.getProperties().get("class"));
 				
 				if(need.isAssignableFrom(cl)){
-					obj = cl.newInstance();
+					obj = (IPlugin) cl.newInstance();
 					iPluginDescriptor.addInstance(obj);
+					iPluginDescriptor.setState(PluginState.RUNNING);
+					raiseEvent("plugin.launched");
 				}else{
 					throw new UnassignableException();
 				}
-				iPluginDescriptor.setState(PluginState.RUNNING);
-				raiseEvent("plugin.launched");
-				
+								
 			} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 				iPluginDescriptor.setState(PluginState.FAILED);
 				raiseEvent("plugin.crashed");
 			}
 		} else if (iPluginDescriptor.getState() == PluginState.RUNNING) {
 			if (iPluginDescriptor.getProperties().get("singleton").equals("True")){
-				return iPluginDescriptor.getInstances().get(0);
+				obj = iPluginDescriptor.getInstances().get(0);
+				raiseEvent("plugin.launched");
 			} else {
 				try {
 					Class<?> cl = Class.forName(iPluginDescriptor.getProperties().get("class"));
 					
 					if(need.isAssignableFrom(cl)){
-						obj = cl.newInstance();
+						obj = (IPlugin) cl.newInstance();
 						iPluginDescriptor.addInstance(obj);
+						raiseEvent("plugin.launched");
 					}else{
 						throw new UnassignableException();
 					}
 					//iPluginDescriptor.setState(PluginState.RUNNING);
-					raiseEvent("plugin.launched");
 					
 				} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 					iPluginDescriptor.setState(PluginState.FAILED);
@@ -192,7 +192,29 @@ public class Platform {
 				}
 			}
 		}
+		System.out.println(obj);
 		return obj;
+	}
+	
+	public static void killPlugin(IPlugin plugin){
+		for (IPluginDescriptor pluginsDesc : pluginDescript){
+			if (plugin.getClass().getName().equals(pluginsDesc.getProperties().get("class"))){
+				pluginsDesc.getInstances().remove(plugin);
+				if (pluginsDesc.getInstances().size() == 0){
+					pluginsDesc.setState(PluginState.AVAILABLE);
+				}
+				Platform.raiseEvent("plugin.killed");
+				/*for (IPlugin instance : pluginsDesc.getInstances()){
+					if (instance == plugin){
+						System.out.println("Instance found");
+						plugin = null;
+						Platform.raiseEvent("plugin.killed");
+					} else {
+						System.out.println("Instance not found");
+					}
+				}*/
+			}
+		}
 	}
 
 	public static void subscribeEvent(String event, IPlugin plugin){

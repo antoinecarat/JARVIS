@@ -2,6 +2,9 @@ package plugins.simpleBase;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import platform.IPlugin;
+import platform.Platform;
 /**
  * Manages the change of printer
  */

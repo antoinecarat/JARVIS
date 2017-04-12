@@ -61,8 +61,7 @@ public class CreateListener implements ActionListener {
 				
 				a.addEvent(event);
 				Platform.raiseEvent("event.added");
-				frame.dispose();
-				
+				frame.dispose();			
 			} catch (InvocationTargetException e1){
 				try {
 					throw e1.getCause();

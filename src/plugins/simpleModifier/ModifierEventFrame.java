@@ -11,20 +11,19 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import client.Event;
-import client.IAgenda;
-import client.IEvent;
 import platform.Platform;
-import plugins.simpleBase.AgendaFrame;
+import client.Event;
+import client.IEvent;
 
 /**
  * Frame for modifying an event.
  */
-public class ModifierEventFrame extends JFrame {
+public class ModifierEventFrame extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,6 +39,7 @@ public class ModifierEventFrame extends JFrame {
 		super();
 		this.event = event;
 		
+		this.setModal(true);
 		this.setTitle("Modify the event");
 		this.setSize(400, 600);
 		this.setLocationRelativeTo(null);

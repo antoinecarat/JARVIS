@@ -2,7 +2,6 @@ package plugins.exportYamlPrinter;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -13,15 +12,15 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import platform.IPlugin;
+import platform.plugins.IPrinter;
 import client.IAgenda;
 import client.IEvent;
-import platform.plugins.IPrinter;
-import plugins.simpleBase.AgendaFrame;
 
 /**
  * Plugin to export the events collection.
  */
-public class ExportYamlPrinter implements IPrinter{
+public class ExportYamlPrinter implements IPrinter, IPlugin {
 	
 	private IAgenda a;
 	
@@ -113,5 +112,11 @@ public class ExportYamlPrinter implements IPrinter{
 	 */
 	protected JTextField getFileTextField(){
 		return this.fileTextField;
+	}
+
+	@Override
+	public void handleEvent(String event) {
+		// TODO Auto-generated method stub
+		
 	}
 }

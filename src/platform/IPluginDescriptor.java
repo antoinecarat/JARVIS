@@ -47,12 +47,12 @@ public interface IPluginDescriptor {
 	 * Returns a list of instances of the plugin
 	 * @return list of instances
 	 */
-	List<Object> getInstances();
+	List<IPlugin> getInstances();
 	
 	/**
 	 * Adds a new instance of this plugin
 	 * @param o the new instance 
 	 */
-	void addInstance(Object o);
+	void addInstance(IPlugin o);
 	
 }

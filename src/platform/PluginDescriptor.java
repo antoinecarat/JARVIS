@@ -12,11 +12,11 @@ public class PluginDescriptor implements IPluginDescriptor {
 	
 	private PluginState state;
 	
-	private List<Object> instances;
+	private List<IPlugin> instances;
 	
 	public PluginDescriptor(Map<String, String> prop) {
 		this.properties = prop;
-		this.instances = new ArrayList<Object>();
+		this.instances = new ArrayList<IPlugin>();
 		this.state = PluginState.AVAILABLE;
 	}
 	
@@ -45,12 +45,12 @@ public class PluginDescriptor implements IPluginDescriptor {
 	}
 
 	@Override
-	public List<Object> getInstances() {
+	public List<IPlugin> getInstances() {
 		return instances;
 	}
 
 	@Override
-	public void addInstance(Object o) {
+	public void addInstance(IPlugin o) {
 		instances.add(o);
 	}
 	

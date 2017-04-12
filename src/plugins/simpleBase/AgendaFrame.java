@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 
 import client.Event;
 import client.IAgenda;
+import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.plugins.ICreator;
@@ -81,6 +82,7 @@ public class AgendaFrame extends JFrame {
 			this.printAgenda = new JPanel();
 		} else {
 			this.printAgenda = printer.display(agenda);
+			Platform.raiseEvent("plugin.launched");
 		}
 		
 		for(int i=0; i<listCreators.size(); ++i){
@@ -173,6 +175,7 @@ public class AgendaFrame extends JFrame {
 	public void changePrinter(int index) {
 		List<IPluginDescriptor> listPluginDescriptor;
 		try {
+			Platform.killPlugin((IPlugin) this.printer);
 			listPluginDescriptor = Platform.getExtensions(IPrinter.class);
 			this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
 		} catch (ClassNotFoundException e) {

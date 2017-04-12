@@ -22,7 +22,11 @@ public class Monitoring extends Thread implements IAutorun, IPlugin {
 
 	@Override
 	public void run() {
-
+				
+	    Platform.subscribeEvent("plugin.launched", this);
+	    Platform.subscribeEvent("plugin.crashed", this);
+	    Platform.subscribeEvent("plugin.killed", this);
+	    
 		frame = new JFrame();
 	    frame.setTitle("Monitoring");
 	    frame.setSize(300, 400);
@@ -55,10 +59,6 @@ public class Monitoring extends Thread implements IAutorun, IPlugin {
 	    frame.add(table);
 	    
 	    frame.setVisible(true);
-	    
-	    Platform.subscribeEvent("plugin.launched", this);
-	    Platform.subscribeEvent("plugin.crashed", this);
-	    Platform.subscribeEvent("plugin.killed", this);
 	    
 	}
 

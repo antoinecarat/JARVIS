@@ -20,16 +20,16 @@ import javax.swing.JOptionPane;
 
 import org.yaml.snakeyaml.Yaml;
 
-import client.Event;
-import client.IAgenda;
+import platform.IPlugin;
 import platform.Platform;
 import platform.plugins.ICreator;
-import plugins.simpleBase.AgendaFrame;
+import client.Event;
+import client.IAgenda;
 
 /**
  * Imports the events collection and display if the import went well.
  */
-public class ImportYamlCreator  implements ICreator {
+public class ImportYamlCreator  implements ICreator, IPlugin {
 
 	@Override
 	public void create(IAgenda agenda) {
@@ -101,5 +101,11 @@ public class ImportYamlCreator  implements ICreator {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public void handleEvent(String event) {
+		// TODO Auto-generated method stub
+		
 	}
 }

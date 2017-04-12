@@ -45,14 +45,12 @@ public class Base extends Thread implements IAutorun, IPlugin {
 			frame = new AgendaFrame(agenda);
 			frame.setVisible(true);
 		} catch (HeadlessException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		Platform.subscribeEvent("event.added", this);
 		Platform.subscribeEvent("event.modified", this);
 		Platform.subscribeEvent("event.removed", this);
-		//Platform.subscribeEvent("printer.changed", this);
 	}
 
 	@Override

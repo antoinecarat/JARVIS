@@ -4,12 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import client.IAgenda;
-import client.IEvent;
+import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.plugins.IModifier;
-import plugins.simpleBase.AgendaFrame;
+import client.IAgenda;
+import client.IEvent;
 
 /**
  * Manages the call of a modifier
@@ -36,6 +36,7 @@ public class ModifierListener implements ActionListener{
 		if (modifier != null){
 			this.modifier.modify(agenda, event);
 		}
+		Platform.killPlugin((IPlugin) this.modifier);
 	}
 
 }
