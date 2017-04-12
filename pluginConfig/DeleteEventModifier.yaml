@@ -5,3 +5,4 @@ class: plugins.deleteEventModifier.DeleteEventModifier
 interface: platform.plugins.IModifier
 autorun: "False"
 singleton: "True"
+killable: "True"

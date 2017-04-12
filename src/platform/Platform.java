@@ -131,7 +131,8 @@ public class Platform {
 			
 			if (prop.containsKey("name") && prop.containsKey("about")
 				&& prop.containsKey("class") && prop.containsKey("interface")
-				&& prop.containsKey("autorun") && prop.containsKey("singleton")){
+				&& prop.containsKey("autorun") && prop.containsKey("singleton")
+				&& prop.containsKey("killable")){
 				
 				desc = new PluginDescriptor(prop);
 				pluginDescript.add(desc);
@@ -192,27 +193,19 @@ public class Platform {
 				}
 			}
 		}
-		System.out.println(obj);
 		return obj;
 	}
 	
 	public static void killPlugin(IPlugin plugin){
 		for (IPluginDescriptor pluginsDesc : pluginDescript){
 			if (plugin.getClass().getName().equals(pluginsDesc.getProperties().get("class"))){
-				pluginsDesc.getInstances().remove(plugin);
-				if (pluginsDesc.getInstances().size() == 0){
-					pluginsDesc.setState(PluginState.AVAILABLE);
-				}
-				Platform.raiseEvent("plugin.killed");
-				/*for (IPlugin instance : pluginsDesc.getInstances()){
-					if (instance == plugin){
-						System.out.println("Instance found");
-						plugin = null;
-						Platform.raiseEvent("plugin.killed");
-					} else {
-						System.out.println("Instance not found");
+				if (pluginsDesc.getProperties().get("killable").equals("True")){
+					pluginsDesc.getInstances().remove(plugin);
+					if (pluginsDesc.getInstances().size() == 0){
+						pluginsDesc.setState(PluginState.AVAILABLE);
 					}
-				}*/
+					Platform.raiseEvent("plugin.killed");
+				}
 			}
 		}
 	}

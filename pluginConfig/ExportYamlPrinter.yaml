@@ -6,3 +6,4 @@ interface: platform.plugins.IPrinter
 autorun: "False"
 singleton: "True"
 default: "False"
+killable: "True"

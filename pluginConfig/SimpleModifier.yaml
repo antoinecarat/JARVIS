@@ -5,3 +5,4 @@ class: plugins.simpleModifier.SimpleModifier
 interface: platform.plugins.IModifier
 autorun: "False"
 singleton: "True"
+killable: "True"

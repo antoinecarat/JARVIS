@@ -4,3 +4,4 @@ class: plugins.monitoring.Monitoring
 interface: platform.plugins.IMonitoring
 autorun: "True"
 singleton: "True"
+killable: "True"

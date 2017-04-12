@@ -5,3 +5,4 @@ class: plugins.importYamlCreator.ImportYamlCreator
 interface: platform.plugins.ICreator
 autorun: "False"
 singleton: "False"
+killable: "True"

@@ -5,3 +5,4 @@ class: plugins.simpleCreator.SimpleCreator
 interface: platform.plugins.ICreator
 autorun: "False"
 singleton: "False"
+killable: "True"
