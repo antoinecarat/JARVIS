@@ -1,8 +1,8 @@
 name: MonthPrinter
 verbose: Month
 about: display only events of the current month
-class: plugins.monthPrinter.MonthPrinter
-interface: platform.plugins.IPrinter
+class: plugins.simpleBase.monthPrinter.MonthPrinter
+interface: plugins.simpleBase.IPrinter
 autorun: false
 default: false
 singleton: true

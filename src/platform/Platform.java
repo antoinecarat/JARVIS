@@ -12,9 +12,6 @@ import java.util.regex.Pattern;
 
 import org.yaml.snakeyaml.Yaml;
 
-import client.UnassignableException;
-import platform.plugins.IAutorun;
-
 /**
  *  Defines a static platform which can manage plugins.
  */
@@ -43,6 +40,7 @@ public class Platform {
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, FileNotFoundException {		
 
 		loadPluginDescriptors();
+		
 		// Run autoruns
 		for (IPluginDescriptor plugin : pluginDescript) {
 			if(plugin.getProperties().get("autorun").equals(true)){
@@ -58,7 +56,7 @@ public class Platform {
 	 * @return plugins the list of plugins that should implement need.
 	 * @throws ClassNotFoundException
 	 */
-	public static List<IPluginDescriptor> getExtensions(Class<?> need) throws ClassNotFoundException {
+	public static List<IPluginDescriptor> getPlugins(Class<?> need) throws ClassNotFoundException {
 
 		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
 		
@@ -81,7 +79,7 @@ public class Platform {
 	 * @return plugins the list of plugins that should implement need.
 	 * @throws ClassNotFoundException
 	 */
-	public static List<IPluginDescriptor> getExtensions(Class<?> need, Map<String, Object> properties) throws ClassNotFoundException {
+	public static List<IPluginDescriptor> getPlugins(Class<?> need, Map<String, Object> properties) throws ClassNotFoundException {
 
 		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
 		
@@ -108,41 +106,53 @@ public class Platform {
 	 * Loads all the pluginDescriptors corresponding to plugins listed in config.yaml.
 	 * @throws FileNotFoundException
 	 */
+	@SuppressWarnings("unchecked")
 	private static void loadPluginDescriptors() throws FileNotFoundException {
-
-		
 		InputStream input = new FileInputStream(new File("config.yaml"));
 	    Yaml yaml = new Yaml();
-	    @SuppressWarnings("unchecked")
+	    pluginDescript = new ArrayList<IPluginDescriptor>();
+	    
 		Map<String, Object> map = (Map<String, Object>) yaml.load(input);
-		@SuppressWarnings("unchecked")
-		List<String> plugins = (List<String>) map.get("plugins");
-
-		IPluginDescriptor desc;
-		pluginDescript = new ArrayList<IPluginDescriptor>();
+		List<String> applis = (List<String>) map.get("autoruns");
 		
-		for (String p : plugins) {
+		for (String p : applis) {
 			String[] tmp = p.split(Pattern.quote("."));
 			String pluginFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
 			
-			InputStream pluginConf = new FileInputStream(new File(pluginFile));
-			@SuppressWarnings("unchecked")
-			Map<String, Object> prop = (Map<String, Object>) yaml.load(pluginConf);
-			
-			if (prop.containsKey("name") && prop.containsKey("about")
-				&& prop.containsKey("class") && prop.containsKey("interface")
-				&& prop.containsKey("autorun") && prop.containsKey("singleton")
-				&& prop.containsKey("killable")){
-				
-				desc = new PluginDescriptor(prop);
-				pluginDescript.add(desc);
-			} else {
-				System.out.println("Missing essential property in " + pluginFile);
-			}
-			
+			loadPluginDescriptorFromFile(pluginFile);
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	private static void loadPluginDescriptorFromFile(String pluginFile) {
+		Yaml yaml = new Yaml();
+		InputStream pluginConf;
+		
+		try {
+			pluginConf = new FileInputStream(new File(pluginFile));
+			Map<String, Object> prop = (Map<String, Object>) yaml.load(pluginConf);
+			if (prop.containsKey("name") && prop.containsKey("about")
+					&& prop.containsKey("class") && prop.containsKey("interface")
+					&& prop.containsKey("autorun") && prop.containsKey("singleton") 
+					&& prop.containsKey("killable")){
+					
+					if (prop.containsKey("dependencies")){
+						for(String d : (List<String>) prop.get("dependencies")){
+							String[] tmp = d.split(Pattern.quote("."));
+							String depFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
+							loadPluginDescriptorFromFile(depFile);
+						}
+						prop.remove("dependencies");
+					}
+					pluginDescript.add(new PluginDescriptor(prop));
+			} else {
+				System.out.println("Missing essential property in " + pluginFile);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Loads a instance of a plugin.
 	 * @param iPluginDescriptor the pluginDescriptor which should be loaded.

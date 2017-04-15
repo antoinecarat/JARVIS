@@ -5,3 +5,12 @@ interface: platform.plugins.IAutorun
 autorun: true
 singleton: true
 killable: false
+dependencies: 
+  - plugins.simpleBase.simpleCreator.SimpleCreator
+  - plugins.simpleBase.simplePrinter.SimplePrinter
+  - plugins.simpleBase.monthPrinter.MonthPrinter
+  - plugins.simpleBase.simpleModifier.SimpleModifier
+  - plugins.simpleBase.deleteEventModifier.DeleteEventModifier
+  - plugins.simpleBase.modifierPrinter.ModifierPrinter
+  - plugins.simpleBase.exportYamlPrinter.ExportYamlPrinter
+  - plugins.simpleBase.importYamlCreator.ImportYamlCreator

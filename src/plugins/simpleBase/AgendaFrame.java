@@ -18,13 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import client.Event;
-import client.IAgenda;
 import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
-import platform.plugins.ICreator;
-import platform.plugins.IPrinter;
 /**
  * This is the frame delivered by Base plugin.
  */
@@ -67,16 +63,19 @@ public class AgendaFrame extends JFrame {
 		Field[] fields = Event.class.getDeclaredFields();
 		createEvent.setLayout(new GridLayout(fields.length, 2));
 		
-		List<IPluginDescriptor> listPrinters = Platform.getExtensions(IPrinter.class);
+		List<IPluginDescriptor> listPrinters = Platform.getPlugins(IPrinter.class);
 		nbPrinters = listPrinters.size();
-		List<IPluginDescriptor> listCreators = Platform.getExtensions(ICreator.class);
+		List<IPluginDescriptor> listCreators = Platform.getPlugins(ICreator.class);
 		nbCreators = listCreators.size();
 		
 		Map<String, Object> prop = new HashMap<String, Object>();
 		prop.put("default", true);
-		List<IPluginDescriptor> defaults = Platform.getExtensions(IPrinter.class, prop);
-		IPluginDescriptor defaultPrinter = defaults.size() > 0 ? defaults.get(0) : listPrinters.get(0);
-		this.printer = (IPrinter) Platform.loadPlugin(defaultPrinter, IPrinter.class);
+		
+		if (nbPrinters > 0){
+			List<IPluginDescriptor> defaults = Platform.getPlugins(IPrinter.class, prop);
+			IPluginDescriptor defaultPrinter = defaults.size() > 0 ? defaults.get(0) : listPrinters.get(0);
+			this.printer = (IPrinter) Platform.loadPlugin(defaultPrinter, IPrinter.class);
+		}
 		
 		if(this.printer == null){
 			this.printAgenda = new JPanel();
@@ -176,7 +175,7 @@ public class AgendaFrame extends JFrame {
 		List<IPluginDescriptor> listPluginDescriptor;
 		try {
 			Platform.killPlugin((IPlugin) this.printer);
-			listPluginDescriptor = Platform.getExtensions(IPrinter.class);
+			listPluginDescriptor = Platform.getPlugins(IPrinter.class);
 			this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

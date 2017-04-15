@@ -5,12 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 
+import platform.IAutorun;
 import platform.IPlugin;
 import platform.Platform;
-import platform.plugins.IAutorun;
-import client.Agenda;
-import client.Event;
-import client.IAgenda;
 /**
  * Defines the agenda application which is calling other plugins.
  */

@@ -1,8 +1,8 @@
 name: ExportYamlPrinter
 verbose: Export yaml
 about: Export events in yaml file
-class: plugins.exportYamlPrinter.ExportYamlPrinter
-interface: platform.plugins.IPrinter
+class: plugins.simpleBase.exportYamlPrinter.ExportYamlPrinter
+interface: plugins.simpleBase.IPrinter
 autorun: false
 singleton: true
 default: false
