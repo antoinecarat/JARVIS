@@ -17,6 +17,7 @@ import plugins.simpleBase.IModifier;
 import plugins.simpleBase.IPrinter;
 import plugins.simpleBase.simpleModifier.ModifierListener;
 
+
 public class ModifierPrinter implements IPrinter, IPlugin{
 
 	/**

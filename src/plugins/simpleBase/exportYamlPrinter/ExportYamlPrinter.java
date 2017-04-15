@@ -17,6 +17,7 @@ import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IPrinter;
 
+
 /**
  * Plugin to export the events collection.
  */

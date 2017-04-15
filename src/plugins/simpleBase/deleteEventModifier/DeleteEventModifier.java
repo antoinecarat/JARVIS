@@ -8,6 +8,7 @@ import plugins.simpleBase.AgendaFrame;
 import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IModifier;
+
 /**
  * Plugin to delete a event. 
  */
