@@ -1,4 +1,4 @@
-package plugins.simplePrinter;
+package plugins.simpleBase.simplePrinter;
 
 import java.awt.GridLayout;
 
@@ -6,8 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import platform.IPlugin;
-import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
+import plugins.simpleBase.IPrinter;
 import client.IAgenda;
 import client.IEvent;
 

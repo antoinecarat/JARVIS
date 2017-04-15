@@ -1,4 +1,4 @@
-package plugins.exportYamlPrinter;
+package plugins.simpleBase.exportYamlPrinter;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import platform.IPlugin;
-import platform.plugins.IPrinter;
+import plugins.simpleBase.IPrinter;
 import client.IAgenda;
 import client.IEvent;
 

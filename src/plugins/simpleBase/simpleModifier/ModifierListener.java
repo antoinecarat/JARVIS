@@ -1,4 +1,4 @@
-package plugins.simpleModifier;
+package plugins.simpleBase.simpleModifier;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +7,7 @@ import java.util.List;
 import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
-import platform.plugins.IModifier;
+import plugins.simpleBase.IModifier;
 import client.IAgenda;
 import client.IEvent;
 

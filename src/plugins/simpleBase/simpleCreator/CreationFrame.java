@@ -1,4 +1,4 @@
-package plugins.simpleCreator;
+package plugins.simpleBase.simpleCreator;
 
 import java.awt.GridLayout;
 import java.lang.reflect.Field;

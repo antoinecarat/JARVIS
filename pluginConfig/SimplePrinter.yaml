@@ -1,8 +1,8 @@
 name: SimplePrinter
 verbose: All
 about: Print toString() of all events
-class: plugins.simplePrinter.SimplePrinter
-interface: platform.plugins.IPrinter
+class: plugins.simpleBase.simplePrinter.SimplePrinter
+interface: plugins.simpleBase.IPrinter
 autorun: false
 default: false
 singleton: true

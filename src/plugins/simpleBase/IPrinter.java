@@ -1,9 +1,8 @@
-package platform.plugins;
+package plugins.simpleBase;
 
 import javax.swing.JPanel;
 
 import client.IAgenda;
-import plugins.simpleBase.AgendaFrame;
 
 /**
  * 

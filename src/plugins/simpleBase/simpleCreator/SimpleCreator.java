@@ -1,9 +1,9 @@
-package plugins.simpleCreator;
+package plugins.simpleBase.simpleCreator;
 
 import client.IAgenda;
 import platform.IPlugin;
 import platform.Platform;
-import platform.plugins.ICreator;
+import plugins.simpleBase.ICreator;
 
 public class SimpleCreator implements ICreator, IPlugin {
 

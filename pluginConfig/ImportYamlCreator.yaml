@@ -1,8 +1,8 @@
 name: ImportYamlCreator
 verbose: Import yaml
 about: Create events from yaml file
-class: plugins.importYamlCreator.ImportYamlCreator
-interface: platform.plugins.ICreator
+class: plugins.simpleBase.importYamlCreator.ImportYamlCreator
+interface: plugins.simpleBase.ICreator
 autorun: false
 singleton: true
 killable: true

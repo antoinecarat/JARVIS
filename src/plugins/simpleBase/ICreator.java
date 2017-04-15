@@ -1,4 +1,4 @@
-package platform.plugins;
+package plugins.simpleBase;
 
 import client.IAgenda;
 

@@ -1,4 +1,4 @@
-package plugins.simpleCreator;
+package plugins.simpleBase.simpleCreator;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

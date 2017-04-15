@@ -1,4 +1,4 @@
-package plugins.monthPrinter;
+package plugins.simpleBase.monthPrinter;
 
 import java.awt.GridLayout;
 import java.util.Date;
@@ -7,8 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import platform.IPlugin;
-import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
+import plugins.simpleBase.IPrinter;
 import client.IAgenda;
 import client.IEvent;
 

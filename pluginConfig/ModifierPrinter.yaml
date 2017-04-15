@@ -1,8 +1,8 @@
 name: ModifierPrinter
 verbose: Edit
 about: Allows to modify events (not only printing it)
-class: plugins.modifierPrinter.ModifierPrinter
-interface: platform.plugins.IPrinter
+class: plugins.simpleBase.modifierPrinter.ModifierPrinter
+interface: plugins.simpleBase.IPrinter
 autorun: false
 default: true
 singleton: true

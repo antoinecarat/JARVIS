@@ -1,4 +1,4 @@
-package plugins.importYamlCreator;
+package plugins.simpleBase.importYamlCreator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,7 +22,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import platform.IPlugin;
 import platform.Platform;
-import platform.plugins.ICreator;
+import plugins.simpleBase.ICreator;
 import client.Event;
 import client.IAgenda;
 

@@ -8,12 +8,12 @@ import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
+import platform.IAutorun;
 import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.PluginDescriptor;
 import platform.PluginState;
-import platform.plugins.IAutorun;
 
 public class Monitoring extends Thread implements IAutorun, IPlugin {
 

@@ -1,8 +1,8 @@
 name: SimpleCreator
 verbose: New Event
 about: Create an event by filling fields
-class: plugins.simpleCreator.SimpleCreator
-interface: platform.plugins.ICreator
+class: plugins.simpleBase.simpleCreator.SimpleCreator
+interface: plugins.simpleBase.ICreator
 autorun: false
 singleton: false
 killable: true

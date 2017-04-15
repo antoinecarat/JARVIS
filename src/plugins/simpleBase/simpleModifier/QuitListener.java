@@ -1,14 +1,19 @@
-package plugins.simpleCreator;
+package plugins.simpleBase.simpleModifier;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 /**
  * Closes the frame.
+ *
  */
 public class QuitListener implements ActionListener {
-	private CreationFrame frame;
 
-	public QuitListener(CreationFrame frame) {
+	
+	
+	private ModifierEventFrame frame;
+
+	public QuitListener(ModifierEventFrame frame) {
 		this.frame = frame;
 	}
 
@@ -16,4 +21,5 @@ public class QuitListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		this.frame.dispose();
 	}
+
 }

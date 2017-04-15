@@ -1,8 +1,8 @@
-package plugins.simpleModifier;
+package plugins.simpleBase.simpleModifier;
 
 import platform.IPlugin;
-import platform.plugins.IModifier;
 import plugins.simpleBase.AgendaFrame;
+import plugins.simpleBase.IModifier;
 import client.IAgenda;
 import client.IEvent;
 

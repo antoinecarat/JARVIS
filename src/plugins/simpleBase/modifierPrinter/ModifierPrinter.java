@@ -1,4 +1,4 @@
-package plugins.modifierPrinter;
+package plugins.simpleBase.modifierPrinter;
 
 import java.awt.GridLayout;
 import java.util.List;
@@ -10,10 +10,10 @@ import javax.swing.JPanel;
 import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
-import platform.plugins.IModifier;
-import platform.plugins.IPrinter;
 import plugins.simpleBase.AgendaFrame;
-import plugins.simpleModifier.ModifierListener;
+import plugins.simpleBase.IModifier;
+import plugins.simpleBase.IPrinter;
+import plugins.simpleBase.simpleModifier.ModifierListener;
 import client.IAgenda;
 import client.IEvent;
 
@@ -39,7 +39,7 @@ public class ModifierPrinter implements IPrinter, IPlugin{
 
 		try {
 
-			modifiers = Platform.getExtensions(IModifier.class);
+			modifiers = Platform.getPlugins(IModifier.class);
 			
 			for (IEvent event : a.getEvents()) {
 				

@@ -1,4 +1,4 @@
-package plugins.simpleModifier;
+package plugins.simpleBase.simpleModifier;
 
 import java.awt.GridLayout;
 import java.awt.HeadlessException;

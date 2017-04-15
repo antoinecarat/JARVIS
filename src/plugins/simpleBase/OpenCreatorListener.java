@@ -7,7 +7,6 @@ import java.util.List;
 import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
-import platform.plugins.ICreator;
 
 /**
  * Manages the opening of creators

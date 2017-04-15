@@ -1,8 +1,7 @@
-package platform.plugins;
+package plugins.simpleBase;
 
 import client.IAgenda;
 import client.IEvent;
-import plugins.simpleBase.AgendaFrame;
 
 /**
  * Plugin that is of type "Modifier". 

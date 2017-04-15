@@ -1,4 +1,4 @@
-package plugins.importYamlCreator;
+package plugins.simpleBase.importYamlCreator;
 
 import java.io.File;
 

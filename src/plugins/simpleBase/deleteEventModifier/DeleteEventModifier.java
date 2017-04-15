@@ -1,11 +1,11 @@
-package plugins.deleteEventModifier;
+package plugins.simpleBase.deleteEventModifier;
 
 import javax.swing.JOptionPane;
 
 import platform.IPlugin;
 import platform.Platform;
-import platform.plugins.IModifier;
 import plugins.simpleBase.AgendaFrame;
+import plugins.simpleBase.IModifier;
 import client.IAgenda;
 import client.IEvent;
 /**
