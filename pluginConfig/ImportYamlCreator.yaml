@@ -3,6 +3,6 @@ verbose: Import yaml
 about: Create events from yaml file
 class: plugins.importYamlCreator.ImportYamlCreator
 interface: platform.plugins.ICreator
-autorun: "False"
-singleton: "False"
-killable: "True"
+autorun: false
+singleton: true
+killable: true

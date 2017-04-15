@@ -2,6 +2,6 @@ name: Base
 about: Just a simple Agenda application
 class: plugins.simpleBase.Base
 interface: platform.plugins.IAutorun
-autorun: "True"
-singleton: "True"
-killable: "False"
+autorun: true
+singleton: true
+killable: false

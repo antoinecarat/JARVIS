@@ -45,7 +45,7 @@ public class Platform {
 		loadPluginDescriptors();
 		// Run autoruns
 		for (IPluginDescriptor plugin : pluginDescript) {
-			if(plugin.getProperties().get("autorun").equals("True")){
+			if(plugin.getProperties().get("autorun").equals(true)){
 				Thread obj = (Thread) loadPlugin(plugin, IAutorun.class);
 				obj.start();
 			}
@@ -64,7 +64,7 @@ public class Platform {
 		
 		for (IPluginDescriptor plugin : pluginDescript) {
 			
-			String interfacePath = plugin.getProperties().get("interface");
+			String interfacePath = (String) plugin.getProperties().get("interface");
 
 			if(interfacePath.equals(need.getName())){
 				plugins.add(plugin);
@@ -87,7 +87,7 @@ public class Platform {
 		
 		for (IPluginDescriptor plugin : pluginDescript) {
 			
-			String interfacePath = plugin.getProperties().get("interface");
+			String interfacePath = (String) plugin.getProperties().get("interface");
 
 			if(interfacePath.equals(need.getName())){
 				
@@ -127,7 +127,7 @@ public class Platform {
 			
 			InputStream pluginConf = new FileInputStream(new File(pluginFile));
 			@SuppressWarnings("unchecked")
-			Map<String, String> prop = (Map<String, String>) yaml.load(pluginConf);
+			Map<String, Object> prop = (Map<String, Object>) yaml.load(pluginConf);
 			
 			if (prop.containsKey("name") && prop.containsKey("about")
 				&& prop.containsKey("class") && prop.containsKey("interface")
@@ -155,7 +155,7 @@ public class Platform {
 		
 		if(iPluginDescriptor.getState() == PluginState.AVAILABLE){
 			try {
-				Class<?> cl = Class.forName(iPluginDescriptor.getProperties().get("class"));
+				Class<?> cl = Class.forName((String) iPluginDescriptor.getProperties().get("class"));
 				
 				if(need.isAssignableFrom(cl)){
 					obj = (IPlugin) cl.newInstance();
@@ -171,12 +171,12 @@ public class Platform {
 				raiseEvent("plugin.crashed");
 			}
 		} else if (iPluginDescriptor.getState() == PluginState.RUNNING) {
-			if (iPluginDescriptor.getProperties().get("singleton").equals("True")){
+			if (iPluginDescriptor.getProperties().get("singleton").equals(true)){
 				obj = iPluginDescriptor.getInstances().get(0);
 				raiseEvent("plugin.launched");
 			} else {
 				try {
-					Class<?> cl = Class.forName(iPluginDescriptor.getProperties().get("class"));
+					Class<?> cl = Class.forName((String) iPluginDescriptor.getProperties().get("class"));
 					
 					if(need.isAssignableFrom(cl)){
 						obj = (IPlugin) cl.newInstance();
@@ -185,7 +185,6 @@ public class Platform {
 					}else{
 						throw new UnassignableException();
 					}
-					//iPluginDescriptor.setState(PluginState.RUNNING);
 					
 				} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 					iPluginDescriptor.setState(PluginState.FAILED);
@@ -199,12 +198,14 @@ public class Platform {
 	public static void killPlugin(IPlugin plugin){
 		for (IPluginDescriptor pluginsDesc : pluginDescript){
 			if (plugin.getClass().getName().equals(pluginsDesc.getProperties().get("class"))){
-				if (pluginsDesc.getProperties().get("killable").equals("True")){
-					pluginsDesc.getInstances().remove(plugin);
+				if (pluginsDesc.getProperties().get("killable").equals(true)){
+					pluginsDesc.removeInstance(plugin);
 					if (pluginsDesc.getInstances().size() == 0){
 						pluginsDesc.setState(PluginState.AVAILABLE);
 					}
 					Platform.raiseEvent("plugin.killed");
+				} else {
+					System.out.println("This plugin cannot be killed.");
 				}
 			}
 		}

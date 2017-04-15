@@ -8,23 +8,23 @@ import java.util.Observer;
 
 public class PluginDescriptor implements IPluginDescriptor {
 	
-	private Map<String, String> properties;
+	private Map<String, Object> properties;
 	
 	private PluginState state;
 	
 	private List<IPlugin> instances;
 	
-	public PluginDescriptor(Map<String, String> prop) {
+	public PluginDescriptor(Map<String, Object> prop) {
 		this.properties = prop;
 		this.instances = new ArrayList<IPlugin>();
 		this.state = PluginState.AVAILABLE;
 	}
 	
-	public Map<String, String> getProperties() {
+	public Map<String, Object> getProperties() {
 		return properties;
 	}
 	
-	public void addProperty(String key, String value){
+	public void addProperty(String key, Object value){
 		properties.put(key, value);
 	}
 	
@@ -52,6 +52,11 @@ public class PluginDescriptor implements IPluginDescriptor {
 	@Override
 	public void addInstance(IPlugin o) {
 		instances.add(o);
+	}
+	
+	@Override
+	public void removeInstance(IPlugin o) {
+		instances.remove(o);
 	}
 	
 }

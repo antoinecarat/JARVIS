@@ -3,7 +3,7 @@ verbose: Export yaml
 about: Export events in yaml file
 class: plugins.exportYamlPrinter.ExportYamlPrinter
 interface: platform.plugins.IPrinter
-autorun: "False"
-singleton: "True"
-default: "False"
-killable: "True"
+autorun: false
+singleton: true
+default: false
+killable: true

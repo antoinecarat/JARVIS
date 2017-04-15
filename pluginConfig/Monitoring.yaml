@@ -2,6 +2,6 @@ name: Monitoring
 about: monitor
 class: plugins.monitoring.Monitoring
 interface: platform.plugins.IMonitoring
-autorun: "True"
-singleton: "True"
-killable: "True"
+autorun: true
+singleton: true
+killable: true

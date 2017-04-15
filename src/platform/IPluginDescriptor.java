@@ -14,14 +14,14 @@ public interface IPluginDescriptor {
 	 * 				   autorun, singleton ...)
 	 * @return map of properties 
 	 */
-	Map<String, String> getProperties();
+	Map<String, Object> getProperties();
 
 	/**
 	 * Adds a new property of the plugin to the map 
 	 * @param key name of the property (name, verbose...)
 	 * @param value corresponding value 
 	 */
-	void addProperty(String key, String value);
+	void addProperty(String key, Object value);
 
 	/**
 	 * Removes a property of the plugin 
@@ -54,5 +54,7 @@ public interface IPluginDescriptor {
 	 * @param o the new instance 
 	 */
 	void addInstance(IPlugin o);
+
+	void removeInstance(IPlugin o);
 	
 }

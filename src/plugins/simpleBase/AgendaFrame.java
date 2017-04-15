@@ -73,7 +73,7 @@ public class AgendaFrame extends JFrame {
 		nbCreators = listCreators.size();
 		
 		Map<String, Object> prop = new HashMap<String, Object>();
-		prop.put("default", "True");
+		prop.put("default", true);
 		List<IPluginDescriptor> defaults = Platform.getExtensions(IPrinter.class, prop);
 		IPluginDescriptor defaultPrinter = defaults.size() > 0 ? defaults.get(0) : listPrinters.get(0);
 		this.printer = (IPrinter) Platform.loadPlugin(defaultPrinter, IPrinter.class);
@@ -86,7 +86,7 @@ public class AgendaFrame extends JFrame {
 		}
 		
 		for(int i=0; i<listCreators.size(); ++i){
-			JButton button = new JButton(listCreators.get(i).getProperties().get("verbose"));
+			JButton button = new JButton((String) listCreators.get(i).getProperties().get("verbose"));
 			button.addActionListener(new OpenCreatorListener(this, listCreators, i));
 			createEvent.add(button);
 		}
@@ -94,7 +94,7 @@ public class AgendaFrame extends JFrame {
 		JPanel printers = new JPanel(new FlowLayout());
 		JButton ip;
 		for(int i = 0; i < listPrinters.size() ; ++i){
-			ip = new JButton(listPrinters.get(i).getProperties().get("verbose"));
+			ip = new JButton((String) listPrinters.get(i).getProperties().get("verbose"));
 			ip.addActionListener(new ChangePrinterListener(this, i));
 			printers.add(ip);
 		}

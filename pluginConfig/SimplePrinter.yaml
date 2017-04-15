@@ -3,7 +3,7 @@ verbose: All
 about: Print toString() of all events
 class: plugins.simplePrinter.SimplePrinter
 interface: platform.plugins.IPrinter
-autorun: "False"
-default: "False"
-singleton: "True"
-killable: "True"
+autorun: false
+default: false
+singleton: true
+killable: true

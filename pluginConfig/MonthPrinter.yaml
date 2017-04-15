@@ -3,7 +3,7 @@ verbose: Month
 about: display only events of the current month
 class: plugins.monthPrinter.MonthPrinter
 interface: platform.plugins.IPrinter
-autorun: "False"
-default: "False"
-singleton: "True"
-killable: "True"
+autorun: false
+default: false
+singleton: true
+killable: true

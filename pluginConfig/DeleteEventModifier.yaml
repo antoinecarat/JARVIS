@@ -3,6 +3,6 @@ verbose: Delete
 about: Delete an event in the agenda
 class: plugins.deleteEventModifier.DeleteEventModifier
 interface: platform.plugins.IModifier
-autorun: "False"
-singleton: "True"
-killable: "True"
+autorun: false
+singleton: true
+killable: true

@@ -3,6 +3,6 @@ verbose: New Event
 about: Create an event by filling fields
 class: plugins.simpleCreator.SimpleCreator
 interface: platform.plugins.ICreator
-autorun: "False"
-singleton: "False"
-killable: "True"
+autorun: false
+singleton: false
+killable: true
