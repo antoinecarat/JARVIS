@@ -239,7 +239,8 @@ public class Platform {
 			eventSubscribers = new HashMap<String, List<IPlugin>>();
 		}
 		for (String key : eventSubscribers.keySet()){
-			if (key.equals(event)){
+			String cat = event.split(Pattern.quote("."))[0];
+			if (key.equals(event) || key.equals(cat)){
 				for (IPlugin plugin : eventSubscribers.get(key)){
 					plugin.handleEvent(event);
 				}

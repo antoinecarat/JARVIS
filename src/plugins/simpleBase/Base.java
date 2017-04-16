@@ -45,16 +45,11 @@ public class Base extends Thread implements IAutorun, IPlugin {
 			e.printStackTrace();
 		}
 		
-		Platform.subscribeEvent("event.added", this);
-		Platform.subscribeEvent("event.modified", this);
-		Platform.subscribeEvent("event.removed", this);
+		Platform.subscribeEvent("event", this);
 	}
 
 	@Override
 	public void handleEvent(String event) {
-		String cat = event.split(Pattern.quote("."))[0];
-		if (cat.equals("event")){
-			frame.refreshPrinter();
-		}
+		frame.refreshPrinter();
 	}
 }

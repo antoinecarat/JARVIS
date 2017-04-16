@@ -23,9 +23,7 @@ public class Monitoring extends Thread implements IAutorun, IPlugin {
 	@Override
 	public void run() {
 				
-	    Platform.subscribeEvent("plugin.launched", this);
-	    Platform.subscribeEvent("plugin.crashed", this);
-	    Platform.subscribeEvent("plugin.killed", this);
+	    Platform.subscribeEvent("plugin", this);
 	    
 		frame = new JFrame();
 	    frame.setTitle("Monitoring");
@@ -64,34 +62,30 @@ public class Monitoring extends Thread implements IAutorun, IPlugin {
 
 	@Override
 	public void handleEvent(String event) {
-		String cat = event.split(Pattern.quote("."))[0];
-		if (cat.equals("plugin")){
-			Object[][] data = new Object[Platform.getPluginDescript().size()][3];
-		    int i=0;
-		    
-		    for (IPluginDescriptor p : Platform.getPluginDescript()){
-		    	data[i][0] = p.getProperties().get("name");
-			    data[i][1] = p.getState();
-			    data[i][2] = p.getInstances().size();   	
-		    	++i;
-		    }
-		    
-		    Object[] titles = {"Name", "State", "# Instances"};
-			if (this.table != null) {
-				this.frame.remove(this.table);
-			}
-			
-			this.table = new JTable(data, titles){
-		        private static final long serialVersionUID = 1L;
-	
-		        public boolean isCellEditable(int row, int column) {                
-		                return false;               
-		        };
-			};		
-			this.frame.add(this.table);
-			this.frame.revalidate();
-			this.frame.repaint();
+		Object[][] data = new Object[Platform.getPluginDescript().size()][3];
+	    int i=0;
+	    
+	    for (IPluginDescriptor p : Platform.getPluginDescript()){
+	    	data[i][0] = p.getProperties().get("name");
+		    data[i][1] = p.getState();
+		    data[i][2] = p.getInstances().size();   	
+	    	++i;
+	    }
+	    
+	    Object[] titles = {"Name", "State", "# Instances"};
+		if (this.table != null) {
+			this.frame.remove(this.table);
 		}
+		
+		this.table = new JTable(data, titles){
+	        private static final long serialVersionUID = 1L;
+
+	        public boolean isCellEditable(int row, int column) {                
+	                return false;               
+	        };
+		};		
+		this.frame.add(this.table);
+		this.frame.revalidate();
+		this.frame.repaint();
 	}
-	
 }
