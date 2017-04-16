@@ -4,7 +4,7 @@ class: plugins.simpleBase.Base
 interface: platform.plugins.IAutorun
 autorun: true
 singleton: true
-killable: false
+killable: true
 dependencies: 
   - plugins.simpleBase.simpleCreator.SimpleCreator
   - plugins.simpleBase.simplePrinter.SimplePrinter

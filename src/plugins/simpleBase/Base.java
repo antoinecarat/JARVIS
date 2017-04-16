@@ -1,9 +1,13 @@
 package plugins.simpleBase;
 
 import java.awt.HeadlessException;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.regex.Pattern;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import platform.IAutorun;
 import platform.IPlugin;
@@ -39,8 +43,53 @@ public class Base extends Thread implements IAutorun, IPlugin {
 		}
 			
 		try {
-			frame = new AgendaFrame(agenda);
+			frame = new AgendaFrame(agenda, this);
 			frame.setVisible(true);
+			frame.addWindowListener(new WindowListener() {
+
+	            @Override
+	            public void windowClosing(WindowEvent e) {
+	                frame.setVisible(false);
+	                frame.dispose();
+	                Platform.killPlugin(frame.getPlugin());
+	            }
+
+				@Override
+				public void windowOpened(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowClosed(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowIconified(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowDeiconified(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowActivated(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void windowDeactivated(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+	        });
 		} catch (HeadlessException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
