@@ -44,17 +44,19 @@ public class AgendaFrame extends JFrame {
 	JTextField[] textFields;
 	List<IPrinter> running_printers;
 	JScrollPane scroll;
+
+	private IPlugin basePlugin;
 	
 	
 
-	public AgendaFrame(IAgenda agenda) throws HeadlessException, ClassNotFoundException {
+	public AgendaFrame(IAgenda agenda, IPlugin base) throws HeadlessException, ClassNotFoundException {
 		super();
 		this.agenda = agenda;
+		this.basePlugin = base;
 		
 		this.setTitle("Agenda JARVIS");
 		this.setSize(800, 600);
 		this.setLocation(0, 100);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		gb = new GridBagLayout();
 		this.setLayout(gb);
@@ -176,6 +178,10 @@ public class AgendaFrame extends JFrame {
 		Platform.killPlugin((IPlugin) this.printer);
 		listPluginDescriptor = Platform.getPlugins(IPrinter.class);
 		this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
+	}
+
+	public IPlugin getPlugin() {
+		return this.basePlugin;
 	}
 	
 }

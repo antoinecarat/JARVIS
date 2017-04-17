@@ -37,19 +37,6 @@ public class Platform {
 		Platform.pluginDescript = pluginDescript;
 	}
 
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, FileNotFoundException {		
-
-		loadPluginDescriptors();
-		
-		// Run autoruns
-		for (IPluginDescriptor plugin : pluginDescript) {
-			if(plugin.getProperties().get("autorun").equals(true)){
-				Thread obj = (Thread) loadPlugin(plugin, IAutorun.class);
-				obj.start();
-			}
-		}		
-	}
-
 	/**
 	 * Returns the list of plugins that should implement the need class.
 	 * @param need the class which should be implemented.
@@ -101,27 +88,36 @@ public class Platform {
 	}
 
 	/**
-	 * Loads all the pluginDescriptors corresponding to plugins listed in config.yaml.
-	 * @throws FileNotFoundException
+	 * Loads all the pluginDescriptors corresponding to plugins listed in config.yaml and their dependencies.
 	 */
 	@SuppressWarnings("unchecked")
-	private static void loadPluginDescriptors() throws FileNotFoundException {
-		InputStream input = new FileInputStream(new File("config.yaml"));
-	    Yaml yaml = new Yaml();
-	    pluginDescript = new ArrayList<IPluginDescriptor>();
-	    
-		Map<String, Object> map = (Map<String, Object>) yaml.load(input);
-		List<String> applis = (List<String>) map.get("autoruns");
-		
-		for (String p : applis) {
-			String[] tmp = p.split(Pattern.quote("."));
-			String pluginFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
+	private static void loadPluginDescriptors() {
+		try {
+			InputStream input = new FileInputStream(new File("config.yaml"));
+			Yaml yaml = new Yaml();
+		    pluginDescript = new ArrayList<IPluginDescriptor>();
+		    
+			Map<String, Object> map = (Map<String, Object>) yaml.load(input);
+			List<String> applis = (List<String>) map.get("autoruns");
 			
-			loadPluginDescriptorFromFile(pluginFile);
+			for (String p : applis) {
+				String[] tmp = p.split(Pattern.quote("."));
+				String pluginFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
+				
+				loadPluginDescriptorFromFile(pluginFile);
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Cannot find platform configuration file.");
+			//e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Loads the pluginDescriptor associated to the file.
+	 * @param pluginFile the plugin's configuration file.
+	 */
 	@SuppressWarnings("unchecked")
+<<<<<<< HEAD
 	private static void loadPluginDescriptorFromFile(String pluginFile) throws FileNotFoundException {
 		Yaml yaml = new Yaml();
 		InputStream pluginConf;
@@ -138,12 +134,43 @@ public class Platform {
 						String[] tmp = d.split(Pattern.quote("."));
 						String depFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
 						loadPluginDescriptorFromFile(depFile);
+=======
+	private static void loadPluginDescriptorFromFile(String pluginFile) {
+		try {
+			Yaml yaml = new Yaml();
+			InputStream pluginConf = new FileInputStream(new File(pluginFile));
+			Map<String, Object> prop = (Map<String, Object>) yaml.load(pluginConf);
+			if (prop.containsKey("name") && prop.containsKey("about")
+				&& prop.containsKey("class") && prop.containsKey("interface")
+				&& prop.containsKey("autorun") && prop.containsKey("singleton") 
+				&& prop.containsKey("killable")){
+				
+					if (prop.containsKey("dependencies")){
+						for(String d : (List<String>) prop.get("dependencies")){
+							String[] tmp = d.split(Pattern.quote("."));
+							String depFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
+							loadPluginDescriptorFromFile(depFile);
+						}
+						prop.remove("dependencies");
+>>>>>>> branch 'master' of https://github.com/cara-puce/JARVIS.git
 					}
+<<<<<<< HEAD
 					prop.remove("dependencies");
 				}
 				pluginDescript.add(new PluginDescriptor(prop));
 		} else {
 			System.out.println("Missing essential property in " + pluginFile);
+=======
+					pluginDescript.add(new PluginDescriptor(prop));
+					
+			} else {
+				throw new MissingPropertyException();
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Cannot find plugin configuration file (" + pluginFile + ").");
+		} catch (MissingPropertyException e) {
+			System.err.println("Missing essential property in " + pluginFile);
+>>>>>>> branch 'master' of https://github.com/cara-puce/JARVIS.git
 		}
 	}
 
@@ -177,7 +204,10 @@ public class Platform {
 		} else if (iPluginDescriptor.getState() == PluginState.RUNNING) {
 			if (iPluginDescriptor.getProperties().get("singleton").equals(true)){
 				obj = iPluginDescriptor.getInstances().get(0);
+<<<<<<< HEAD
 				raiseEvent("plugin.launched", null);
+=======
+>>>>>>> branch 'master' of https://github.com/cara-puce/JARVIS.git
 			} else {
 				try {
 					Class<?> cl = Class.forName((String) iPluginDescriptor.getProperties().get("class"));
@@ -213,16 +243,22 @@ public class Platform {
 					}
 					Platform.raiseEvent("plugin.killed", null);
 				} else {
-					System.out.println("This plugin cannot be killed.");
+					System.out.println("Cannot.");
 				}
 			}
 		}
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Add a plugin to an event's subscribers list.
 	 * @param event the event to be subscribed to.
 	 * @param plugin the plugin to be added to subscribers.
+=======
+	 * Adds a plugin to an event's subscribers list.
+	 * @param event The event to be subscribed to.
+	 * @param plugin The plugin subscribing.
+>>>>>>> branch 'master' of https://github.com/cara-puce/JARVIS.git
 	 */
 	public static void subscribeEvent(String event, IPlugin plugin){
 		if (eventSubscribers == null){
@@ -250,4 +286,18 @@ public class Platform {
 			}
 		}
 	}
+	
+	
+	public static void main(String[] args) {		
+
+		loadPluginDescriptors();
+		
+		for (IPluginDescriptor plugin : pluginDescript) {
+			if(plugin.getProperties().get("autorun").equals(true)){
+				Thread obj = (Thread) loadPlugin(plugin, IAutorun.class);
+				obj.start();
+			}
+		}		
+	}
+	
 }
