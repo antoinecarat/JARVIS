@@ -1,19 +1,17 @@
 package plugins.monitoring;
 
+import java.awt.FlowLayout;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.regex.Pattern;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 
 import platform.IAutorun;
 import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
-import platform.PluginDescriptor;
-import platform.PluginState;
 
 public class Monitoring extends Thread implements IAutorun, IPlugin {
 
@@ -29,7 +27,7 @@ public class Monitoring extends Thread implements IAutorun, IPlugin {
 	    frame.setTitle("Monitoring");
 	    frame.setSize(300, 400);
 		frame.setLocation(900, 100);
-
+		frame.setLayout(new FlowLayout());
 	    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    
 	    Object[][] data = new Object[Platform.getPluginDescript().size()][3];
@@ -40,8 +38,6 @@ public class Monitoring extends Thread implements IAutorun, IPlugin {
 	    	data[i][0] = l.get(i).getProperties().get("name");
 	    	data[i][1] = l.get(i).getState();
 	    	data[i][2] = l.get(i).getInstances().size();
-	    	
-	    	//((PluginDescriptor)Platform.getPluginDescript().get(i)).setObserver(this);
 	    }
 	    
 		Object[] titles = {"Name", "State", "# Instances"};
@@ -54,8 +50,11 @@ public class Monitoring extends Thread implements IAutorun, IPlugin {
 	        };
 		};
 		
+		JPanel logPane = new JPanel();
+	    logPane.add(new JButton("kek"));
+		
+	    frame.add(logPane);
 	    frame.add(table);
-	    
 	    frame.setVisible(true);
 	    
 	}

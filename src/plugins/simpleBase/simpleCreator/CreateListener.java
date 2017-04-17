@@ -60,7 +60,7 @@ public class CreateListener implements ActionListener {
 				event = m.newInstance(contents);
 				
 				a.addEvent(event);
-				Platform.raiseEvent("event.added");
+				Platform.raiseEvent("event.added", null);
 				frame.dispose();			
 			} catch (InvocationTargetException e1){
 				try {

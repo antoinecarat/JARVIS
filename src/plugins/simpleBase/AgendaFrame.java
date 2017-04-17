@@ -81,7 +81,7 @@ public class AgendaFrame extends JFrame {
 			this.printAgenda = new JPanel();
 		} else {
 			this.printAgenda = printer.display(agenda);
-			Platform.raiseEvent("plugin.launched");
+			Platform.raiseEvent("plugin.launched", null);
 		}
 		
 		for(int i=0; i<listCreators.size(); ++i){
@@ -173,13 +173,9 @@ public class AgendaFrame extends JFrame {
 	 */
 	public void changePrinter(int index) {
 		List<IPluginDescriptor> listPluginDescriptor;
-		try {
-			Platform.killPlugin((IPlugin) this.printer);
-			listPluginDescriptor = Platform.getPlugins(IPrinter.class);
-			this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		Platform.killPlugin((IPlugin) this.printer);
+		listPluginDescriptor = Platform.getPlugins(IPrinter.class);
+		this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
 	}
 	
 }

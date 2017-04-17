@@ -54,9 +54,8 @@ public class Platform {
 	 * Returns the list of plugins that should implement the need class.
 	 * @param need the class which should be implemented.
 	 * @return plugins the list of plugins that should implement need.
-	 * @throws ClassNotFoundException
 	 */
-	public static List<IPluginDescriptor> getPlugins(Class<?> need) throws ClassNotFoundException {
+	public static List<IPluginDescriptor> getPlugins(Class<?> need) {
 
 		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
 		
@@ -77,9 +76,8 @@ public class Platform {
 	 * @param need the class which should be implemented.
 	 * @param properties the map of properties to be matched.
 	 * @return plugins the list of plugins that should implement need.
-	 * @throws ClassNotFoundException
 	 */
-	public static List<IPluginDescriptor> getPlugins(Class<?> need, Map<String, Object> properties) throws ClassNotFoundException {
+	public static List<IPluginDescriptor> getPlugins(Class<?> need, Map<String, Object> properties) {
 
 		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
 		
@@ -124,32 +122,28 @@ public class Platform {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static void loadPluginDescriptorFromFile(String pluginFile) {
+	private static void loadPluginDescriptorFromFile(String pluginFile) throws FileNotFoundException {
 		Yaml yaml = new Yaml();
 		InputStream pluginConf;
 		
-		try {
-			pluginConf = new FileInputStream(new File(pluginFile));
-			Map<String, Object> prop = (Map<String, Object>) yaml.load(pluginConf);
-			if (prop.containsKey("name") && prop.containsKey("about")
-					&& prop.containsKey("class") && prop.containsKey("interface")
-					&& prop.containsKey("autorun") && prop.containsKey("singleton") 
-					&& prop.containsKey("killable")){
-					
-					if (prop.containsKey("dependencies")){
-						for(String d : (List<String>) prop.get("dependencies")){
-							String[] tmp = d.split(Pattern.quote("."));
-							String depFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
-							loadPluginDescriptorFromFile(depFile);
-						}
-						prop.remove("dependencies");
+		pluginConf = new FileInputStream(new File(pluginFile));
+		Map<String, Object> prop = (Map<String, Object>) yaml.load(pluginConf);
+		if (prop.containsKey("name") && prop.containsKey("about")
+				&& prop.containsKey("class") && prop.containsKey("interface")
+				&& prop.containsKey("autorun") && prop.containsKey("singleton") 
+				&& prop.containsKey("killable")){
+				
+				if (prop.containsKey("dependencies")){
+					for(String d : (List<String>) prop.get("dependencies")){
+						String[] tmp = d.split(Pattern.quote("."));
+						String depFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
+						loadPluginDescriptorFromFile(depFile);
 					}
-					pluginDescript.add(new PluginDescriptor(prop));
-			} else {
-				System.out.println("Missing essential property in " + pluginFile);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+					prop.remove("dependencies");
+				}
+				pluginDescript.add(new PluginDescriptor(prop));
+		} else {
+			System.out.println("Missing essential property in " + pluginFile);
 		}
 	}
 
@@ -171,19 +165,19 @@ public class Platform {
 					obj = (IPlugin) cl.newInstance();
 					iPluginDescriptor.addInstance(obj);
 					iPluginDescriptor.setState(PluginState.RUNNING);
-					raiseEvent("plugin.launched");
+					raiseEvent("plugin.launched", null);
 				}else{
 					throw new UnassignableException();
 				}
 								
 			} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 				iPluginDescriptor.setState(PluginState.FAILED);
-				raiseEvent("plugin.crashed");
+				raiseEvent("plugin.crashed", null);
 			}
 		} else if (iPluginDescriptor.getState() == PluginState.RUNNING) {
 			if (iPluginDescriptor.getProperties().get("singleton").equals(true)){
 				obj = iPluginDescriptor.getInstances().get(0);
-				raiseEvent("plugin.launched");
+				raiseEvent("plugin.launched", null);
 			} else {
 				try {
 					Class<?> cl = Class.forName((String) iPluginDescriptor.getProperties().get("class"));
@@ -191,20 +185,24 @@ public class Platform {
 					if(need.isAssignableFrom(cl)){
 						obj = (IPlugin) cl.newInstance();
 						iPluginDescriptor.addInstance(obj);
-						raiseEvent("plugin.launched");
+						raiseEvent("plugin.launched", null);
 					}else{
 						throw new UnassignableException();
 					}
 					
 				} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 					iPluginDescriptor.setState(PluginState.FAILED);
-					raiseEvent("plugin.crashed");
+					raiseEvent("plugin.crashed", null);
 				}
 			}
 		}
 		return obj;
 	}
 	
+	/**
+	 * Kills an instance of the plugin.
+	 * @param plugin the plugin to be killed.
+	 */
 	public static void killPlugin(IPlugin plugin){
 		for (IPluginDescriptor pluginsDesc : pluginDescript){
 			if (plugin.getClass().getName().equals(pluginsDesc.getProperties().get("class"))){
@@ -213,7 +211,7 @@ public class Platform {
 					if (pluginsDesc.getInstances().size() == 0){
 						pluginsDesc.setState(PluginState.AVAILABLE);
 					}
-					Platform.raiseEvent("plugin.killed");
+					Platform.raiseEvent("plugin.killed", null);
 				} else {
 					System.out.println("This plugin cannot be killed.");
 				}
@@ -221,6 +219,11 @@ public class Platform {
 		}
 	}
 
+	/**
+	 * Add a plugin to an event's subscribers list.
+	 * @param event the event to be subscribed to.
+	 * @param plugin the plugin to be added to subscribers.
+	 */
 	public static void subscribeEvent(String event, IPlugin plugin){
 		if (eventSubscribers == null){
 			eventSubscribers = new HashMap<String, List<IPlugin>>();
@@ -234,7 +237,7 @@ public class Platform {
 		}
 	}
 	
-	public static void raiseEvent(String event){
+	public static void raiseEvent(String event, List<Object> args){
 		if (eventSubscribers == null){
 			eventSubscribers = new HashMap<String, List<IPlugin>>();
 		}

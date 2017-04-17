@@ -38,33 +38,28 @@ public class ModifierPrinter implements IPrinter, IPlugin{
 		List<IPluginDescriptor> modifiers;
 		panel.setLayout(grid);
 
-		try {
-
-			modifiers = Platform.getPlugins(IModifier.class);
+		modifiers = Platform.getPlugins(IModifier.class);
+		
+		for (IEvent event : a.getEvents()) {
 			
-			for (IEvent event : a.getEvents()) {
-				
-				label = new JLabel(event.toString());
+			label = new JLabel(event.toString());
 
-				panel.add(label);
+			panel.add(label);
+			
+			subGrid = new GridLayout(1, modifiers.size());
+			buttons = new JPanel();
+			int i = 0;
+			for (IPluginDescriptor iPluginDescriptor : modifiers) {
+				button = new JButton((String) iPluginDescriptor.getProperties().get("verbose"));
+				ModifierListener listener = new ModifierListener(i, modifiers, a, event);
 				
-				subGrid = new GridLayout(1, modifiers.size());
-				buttons = new JPanel();
-				int i = 0;
-				for (IPluginDescriptor iPluginDescriptor : modifiers) {
-					button = new JButton((String) iPluginDescriptor.getProperties().get("verbose"));
-					ModifierListener listener = new ModifierListener(i, modifiers, a, event);
-					
-					button.addActionListener(listener);
-					buttons.add(button);
-					buttons.setLayout(subGrid);
-					++i;
-				}
-				
-				panel.add(buttons);
+				button.addActionListener(listener);
+				buttons.add(button);
+				buttons.setLayout(subGrid);
+				++i;
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			
+			panel.add(buttons);
 		}
 		
 		return panel;

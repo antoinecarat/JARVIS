@@ -28,7 +28,7 @@ public class DeleteEventModifier implements IModifier, IPlugin {
 			if(!a.getEvents().remove(e)){
 				throw new IllegalArgumentException();
 			}
-			Platform.raiseEvent("event.removed");
+			Platform.raiseEvent("event.removed", null);
 			Platform.killPlugin(this);
 		} else {
 			Platform.killPlugin(this);

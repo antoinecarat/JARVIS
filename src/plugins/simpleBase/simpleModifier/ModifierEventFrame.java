@@ -96,7 +96,7 @@ public class ModifierEventFrame extends JDialog {
 	
 	@Override
 	public void dispose() {
-		Platform.raiseEvent("event.modified");
+		Platform.raiseEvent("event.modified", null);
 		super.dispose();
 	}
 	

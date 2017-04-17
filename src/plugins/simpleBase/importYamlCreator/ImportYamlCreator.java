@@ -76,7 +76,7 @@ public class ImportYamlCreator  implements ICreator, IPlugin {
 					agenda.addEvent(event);
 				}
 			    JOptionPane.showMessageDialog(null, "Import done successfully.");
-			    Platform.raiseEvent("event.added");
+			    Platform.raiseEvent("event.added", null);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (NoSuchMethodException e) {
