@@ -7,6 +7,7 @@ import java.util.List;
 import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
+import platform.UnkillableException;
 
 /**
  * Manages the opening of creators
@@ -28,9 +29,15 @@ public class OpenCreatorListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.creator = (ICreator) Platform.loadPlugin(list.get(index), ICreator.class);
-		this.creator.create(this.frame.getAgenda());
-		Platform.killPlugin((IPlugin)this.creator);
-		//frame.refreshPrinter();
+		if (this.creator != null){
+			this.creator.create(this.frame.getAgenda());
+			try {
+				Platform.killPlugin((IPlugin)this.creator);
+			} catch (UnkillableException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 	
 }

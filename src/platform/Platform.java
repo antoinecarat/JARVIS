@@ -117,24 +117,6 @@ public class Platform {
 	 * @param pluginFile the plugin's configuration file.
 	 */
 	@SuppressWarnings("unchecked")
-<<<<<<< HEAD
-	private static void loadPluginDescriptorFromFile(String pluginFile) throws FileNotFoundException {
-		Yaml yaml = new Yaml();
-		InputStream pluginConf;
-		
-		pluginConf = new FileInputStream(new File(pluginFile));
-		Map<String, Object> prop = (Map<String, Object>) yaml.load(pluginConf);
-		if (prop.containsKey("name") && prop.containsKey("about")
-				&& prop.containsKey("class") && prop.containsKey("interface")
-				&& prop.containsKey("autorun") && prop.containsKey("singleton") 
-				&& prop.containsKey("killable")){
-				
-				if (prop.containsKey("dependencies")){
-					for(String d : (List<String>) prop.get("dependencies")){
-						String[] tmp = d.split(Pattern.quote("."));
-						String depFile = "pluginConfig/" + tmp[tmp.length - 1] + ".yaml";
-						loadPluginDescriptorFromFile(depFile);
-=======
 	private static void loadPluginDescriptorFromFile(String pluginFile) {
 		try {
 			Yaml yaml = new Yaml();
@@ -152,15 +134,7 @@ public class Platform {
 							loadPluginDescriptorFromFile(depFile);
 						}
 						prop.remove("dependencies");
->>>>>>> branch 'master' of https://github.com/cara-puce/JARVIS.git
 					}
-<<<<<<< HEAD
-					prop.remove("dependencies");
-				}
-				pluginDescript.add(new PluginDescriptor(prop));
-		} else {
-			System.out.println("Missing essential property in " + pluginFile);
-=======
 					pluginDescript.add(new PluginDescriptor(prop));
 					
 			} else {
@@ -170,7 +144,6 @@ public class Platform {
 			System.err.println("Cannot find plugin configuration file (" + pluginFile + ").");
 		} catch (MissingPropertyException e) {
 			System.err.println("Missing essential property in " + pluginFile);
->>>>>>> branch 'master' of https://github.com/cara-puce/JARVIS.git
 		}
 	}
 
@@ -192,22 +165,19 @@ public class Platform {
 					obj = (IPlugin) cl.newInstance();
 					iPluginDescriptor.addInstance(obj);
 					iPluginDescriptor.setState(PluginState.RUNNING);
-					raiseEvent("plugin.launched", null);
+					raiseEvent("plugin.launched", iPluginDescriptor);
 				}else{
 					throw new UnassignableException();
 				}
 								
 			} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 				iPluginDescriptor.setState(PluginState.FAILED);
-				raiseEvent("plugin.crashed", null);
+				raiseEvent("plugin.crashed", iPluginDescriptor);
 			}
 		} else if (iPluginDescriptor.getState() == PluginState.RUNNING) {
 			if (iPluginDescriptor.getProperties().get("singleton").equals(true)){
 				obj = iPluginDescriptor.getInstances().get(0);
-<<<<<<< HEAD
-				raiseEvent("plugin.launched", null);
-=======
->>>>>>> branch 'master' of https://github.com/cara-puce/JARVIS.git
+				raiseEvent("plugin.launched", iPluginDescriptor);
 			} else {
 				try {
 					Class<?> cl = Class.forName((String) iPluginDescriptor.getProperties().get("class"));
@@ -215,14 +185,14 @@ public class Platform {
 					if(need.isAssignableFrom(cl)){
 						obj = (IPlugin) cl.newInstance();
 						iPluginDescriptor.addInstance(obj);
-						raiseEvent("plugin.launched", null);
+						raiseEvent("plugin.launched", iPluginDescriptor);
 					}else{
 						throw new UnassignableException();
 					}
 					
 				} catch (ClassNotFoundException | UnassignableException | InstantiationException | IllegalAccessException e) {
 					iPluginDescriptor.setState(PluginState.FAILED);
-					raiseEvent("plugin.crashed", null);
+					raiseEvent("plugin.crashed", iPluginDescriptor);
 				}
 			}
 		}
@@ -232,33 +202,45 @@ public class Platform {
 	/**
 	 * Kills an instance of the plugin.
 	 * @param plugin the plugin to be killed.
+	 * @throws UnkillableException 
 	 */
-	public static void killPlugin(IPlugin plugin){
-		for (IPluginDescriptor pluginsDesc : pluginDescript){
-			if (plugin.getClass().getName().equals(pluginsDesc.getProperties().get("class"))){
-				if (pluginsDesc.getProperties().get("killable").equals(true)){
-					pluginsDesc.removeInstance(plugin);
-					if (pluginsDesc.getInstances().size() == 0){
-						pluginsDesc.setState(PluginState.AVAILABLE);
+	public static void killPlugin(IPlugin plugin) throws UnkillableException{
+		for (IPluginDescriptor pluginDesc : pluginDescript){
+			if (plugin.getClass().getName().equals(pluginDesc.getProperties().get("class"))){
+				if (pluginDesc.getProperties().get("killable").equals(true)){
+					pluginDesc.removeInstance(plugin);
+					if (pluginDesc.getInstances().size() == 0){
+						pluginDesc.setState(PluginState.AVAILABLE);
 					}
-					Platform.raiseEvent("plugin.killed", null);
+					Platform.raiseEvent("plugin.killed", pluginDesc);
 				} else {
-					System.out.println("Cannot.");
+					throw new UnkillableException();
 				}
 			}
 		}
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Add a plugin to an event's subscribers list.
-	 * @param event the event to be subscribed to.
-	 * @param plugin the plugin to be added to subscribers.
-=======
+	 * Kills all plugins and exits plateform.
+	 */
+	public static void exit() {
+		for (IPluginDescriptor iPlug : pluginDescript){
+			for (int i=0; i<iPlug.getInstances().size(); ++i){
+				IPlugin instance = iPlug.getInstances().get(i);
+				try {
+					killPlugin(instance);
+				} catch (UnkillableException e) {
+					
+				}
+			}
+		}
+		System.exit(0);
+	}
+	
+	/**
 	 * Adds a plugin to an event's subscribers list.
 	 * @param event The event to be subscribed to.
-	 * @param plugin The plugin subscribing.
->>>>>>> branch 'master' of https://github.com/cara-puce/JARVIS.git
+	 * @param plugin The subscribing plugin.
 	 */
 	public static void subscribeEvent(String event, IPlugin plugin){
 		if (eventSubscribers == null){
@@ -273,7 +255,12 @@ public class Platform {
 		}
 	}
 	
-	public static void raiseEvent(String event, List<Object> args){
+	/**
+	 * Raises an event.
+	 * @param event the event to be raised
+	 * @param arg a useful argument.
+	 */
+	public static void raiseEvent(String event, Object arg){
 		if (eventSubscribers == null){
 			eventSubscribers = new HashMap<String, List<IPlugin>>();
 		}
@@ -281,23 +268,21 @@ public class Platform {
 			String cat = event.split(Pattern.quote("."))[0];
 			if (key.equals(event) || key.equals(cat)){
 				for (IPlugin plugin : eventSubscribers.get(key)){
-					plugin.handleEvent(event);
+					plugin.handleEvent(event, arg);
 				}
 			}
 		}
 	}
-	
-	
+		
 	public static void main(String[] args) {		
 
 		loadPluginDescriptors();
-		
 		for (IPluginDescriptor plugin : pluginDescript) {
 			if(plugin.getProperties().get("autorun").equals(true)){
 				Thread obj = (Thread) loadPlugin(plugin, IAutorun.class);
 				obj.start();
 			}
-		}		
+		}
 	}
 	
 }

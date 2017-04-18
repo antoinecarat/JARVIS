@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
+import platform.UnkillableException;
 /**
  * This is the frame delivered by Base plugin.
  */
@@ -56,7 +57,7 @@ public class AgendaFrame extends JFrame {
 		
 		this.setTitle("Agenda JARVIS");
 		this.setSize(800, 600);
-		this.setLocation(0, 100);
+		this.setLocation(25, 100);
 		this.setResizable(false);
 		gb = new GridBagLayout();
 		this.setLayout(gb);
@@ -175,7 +176,12 @@ public class AgendaFrame extends JFrame {
 	 */
 	public void changePrinter(int index) {
 		List<IPluginDescriptor> listPluginDescriptor;
-		Platform.killPlugin((IPlugin) this.printer);
+		try {
+			Platform.killPlugin((IPlugin) this.printer);
+		} catch (UnkillableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		listPluginDescriptor = Platform.getPlugins(IPrinter.class);
 		this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
 	}

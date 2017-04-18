@@ -41,7 +41,7 @@ public class PluginDescriptor implements IPluginDescriptor {
 	}
 
 	public String toString() {
-		return "PluginDescriptor [properties=" + properties + ", state=" + state + "]";
+		return properties.get("name") + ";";
 	}
 
 	@Override
@@ -58,5 +58,7 @@ public class PluginDescriptor implements IPluginDescriptor {
 	public void removeInstance(IPlugin o) {
 		instances.remove(o);
 	}
+	
+	
 	
 }

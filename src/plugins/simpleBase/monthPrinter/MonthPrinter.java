@@ -2,6 +2,7 @@ package plugins.simpleBase.monthPrinter;
 
 import java.awt.GridLayout;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -43,7 +44,7 @@ public class MonthPrinter implements IPrinter, IPlugin {
 	}
 
 	@Override
-	public void handleEvent(String event) {
+	public void handleEvent(String event, Object args) {
 		// TODO Auto-generated method stub
 		
 	}

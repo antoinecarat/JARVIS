@@ -44,7 +44,7 @@ public interface IPluginDescriptor {
 	public String toString();
 
 	/**
-	 * Returns a list of instances of the plugin
+	 * Returns the list of instances of the plugin
 	 * @return list of instances
 	 */
 	List<IPlugin> getInstances();
@@ -55,6 +55,10 @@ public interface IPluginDescriptor {
 	 */
 	void addInstance(IPlugin o);
 
+	/**
+	 * Removes an instance of this plugin
+	 * @param o the instance to be removed
+	 */
 	void removeInstance(IPlugin o);
 	
 }

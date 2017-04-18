@@ -5,13 +5,12 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import java.util.List;
 
 import platform.IAutorun;
 import platform.IPlugin;
 import platform.Platform;
+import platform.UnkillableException;
 /**
  * Defines the agenda application which is calling other plugins.
  */
@@ -51,7 +50,11 @@ public class Base extends Thread implements IAutorun, IPlugin {
 	            public void windowClosing(WindowEvent e) {
 	                frame.setVisible(false);
 	                frame.dispose();
-	                Platform.killPlugin(frame.getPlugin());
+	                try {
+						Platform.killPlugin(frame.getPlugin());
+					} catch (UnkillableException e1) {
+						
+					}
 	            }
 
 				@Override
@@ -98,7 +101,7 @@ public class Base extends Thread implements IAutorun, IPlugin {
 	}
 
 	@Override
-	public void handleEvent(String event) {
+	public void handleEvent(String event, Object args) {
 		frame.refreshPrinter();
 	}
 }

@@ -15,7 +15,6 @@ import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IModifier;
 import plugins.simpleBase.IPrinter;
-import plugins.simpleBase.simpleModifier.ModifierListener;
 
 
 public class ModifierPrinter implements IPrinter, IPlugin{
@@ -66,7 +65,7 @@ public class ModifierPrinter implements IPrinter, IPlugin{
 	}
 
 	@Override
-	public void handleEvent(String event) {
+	public void handleEvent(String event, Object args) {
 		// TODO Auto-generated method stub
 		
 	}

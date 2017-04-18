@@ -105,7 +105,7 @@ public class ImportYamlCreator  implements ICreator, IPlugin {
 	}
 
 	@Override
-	public void handleEvent(String event) {
+	public void handleEvent(String event, Object args) {
 		// TODO Auto-generated method stub
 		
 	}

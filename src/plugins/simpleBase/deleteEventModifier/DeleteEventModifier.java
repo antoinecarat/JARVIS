@@ -1,10 +1,12 @@
 package plugins.simpleBase.deleteEventModifier;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import platform.IPlugin;
 import platform.Platform;
-import plugins.simpleBase.AgendaFrame;
+import platform.UnkillableException;
 import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IModifier;
@@ -25,19 +27,13 @@ public class DeleteEventModifier implements IModifier, IPlugin {
 	public void modify(IAgenda a, IEvent e) {
 		if (JOptionPane.showConfirmDialog(null, "Do you really want to remove it?", "Confirmation window", JOptionPane.YES_NO_OPTION) 
 				== JOptionPane.YES_OPTION){
-			if(!a.getEvents().remove(e)){
-				throw new IllegalArgumentException();
-			}
+			a.getEvents().remove(e);
 			Platform.raiseEvent("event.removed", null);
-			Platform.killPlugin(this);
-		} else {
-			Platform.killPlugin(this);
 		}
-		
 	}
 
 	@Override
-	public void handleEvent(String event) {
+	public void handleEvent(String event, Object args) {
 		// TODO Auto-generated method stub
 		
 	}

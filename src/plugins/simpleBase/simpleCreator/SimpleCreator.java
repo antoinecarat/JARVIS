@@ -1,7 +1,8 @@
 package plugins.simpleBase.simpleCreator;
 
+import java.util.List;
+
 import platform.IPlugin;
-import platform.Platform;
 import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.ICreator;
 
@@ -14,7 +15,7 @@ public class SimpleCreator implements ICreator, IPlugin {
 	}
 
 	@Override
-	public void handleEvent(String event) {
+	public void handleEvent(String event, Object args) {
 		// TODO Auto-generated method stub
 		
 	}

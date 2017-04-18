@@ -1,4 +1,4 @@
-package plugins.simpleBase.simpleModifier;
+package plugins.simpleBase.modifierPrinter;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +7,7 @@ import java.util.List;
 import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
+import platform.UnkillableException;
 import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IModifier;
@@ -36,7 +37,12 @@ public class ModifierListener implements ActionListener{
 		if (modifier != null){
 			this.modifier.modify(agenda, event);
 		}
-		Platform.killPlugin((IPlugin) this.modifier);
+		try {
+			Platform.killPlugin((IPlugin) this.modifier);
+		} catch (UnkillableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
