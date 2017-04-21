@@ -30,7 +30,6 @@ public class ExportYamlActionListener implements ActionListener {
 					filename = filename + ".yaml";
 				}
 				
-				System.out.println(filename);
 				exportPrinter.getFileTextField().setText(filename);
 				
 				exportPrinter.getExportButton().setEnabled(true);

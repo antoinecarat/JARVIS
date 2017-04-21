@@ -1,12 +1,8 @@
 package plugins.simpleBase.deleteEventModifier;
 
-import java.util.List;
-
 import javax.swing.JOptionPane;
 
-import platform.IPlugin;
 import platform.Platform;
-import platform.UnkillableException;
 import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IModifier;
@@ -15,7 +11,7 @@ import plugins.simpleBase.IModifier;
  * Plugin to delete a event. 
  */
 
-public class DeleteEventModifier implements IModifier, IPlugin {
+public class DeleteEventModifier implements IModifier {
 
 	
 	/**
@@ -33,8 +29,10 @@ public class DeleteEventModifier implements IModifier, IPlugin {
 	}
 
 	@Override
-	public void handleEvent(String event, Object args) {
-		// TODO Auto-generated method stub
+	public void handleEvent(String event, Object args) {}
+
+	@Override
+	public void startUp() {
 		
 	}
 }

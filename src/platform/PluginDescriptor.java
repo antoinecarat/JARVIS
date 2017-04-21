@@ -20,28 +20,29 @@ public class PluginDescriptor implements IPluginDescriptor {
 		this.state = PluginState.AVAILABLE;
 	}
 	
+	@Override
 	public Map<String, Object> getProperties() {
 		return properties;
 	}
 	
+	@Override
 	public void addProperty(String key, Object value){
 		properties.put(key, value);
 	}
 	
+	@Override
 	public void removeProperty(String key){
 		properties.remove(key);
 	}
 	
+	@Override
 	public PluginState getState() {
 		return state;
 	}
 
+	@Override
 	public void setState(PluginState state) {
 		this.state = state;
-	}
-
-	public String toString() {
-		return properties.get("name") + ";";
 	}
 
 	@Override
@@ -59,6 +60,10 @@ public class PluginDescriptor implements IPluginDescriptor {
 		instances.remove(o);
 	}
 	
+	@Override
+	public String toString() {
+		return properties.get("name") + ";";
+	}
 	
 	
 }

@@ -5,15 +5,11 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import platform.IPlugin;
 import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IPrinter;
@@ -22,38 +18,17 @@ import plugins.simpleBase.IPrinter;
 /**
  * Plugin to export the events collection.
  */
-public class ExportYamlPrinter implements IPrinter, IPlugin {
+public class ExportYamlPrinter implements IPrinter {
 	
 	private IAgenda a;
-	
-	JButton exportButton;
-	JButton browseButton;
-	JTextField fileTextField;
+	private JPanel panel;
+	private JButton exportButton;
+	private JButton browseButton;
+	private JTextField fileTextField;
 	
 	@Override
 	public JPanel display(IAgenda a) {
-		this.a = a;
-		
-		JPanel panel = new JPanel();
-		
-		this.browseButton = new JButton("Browse");
-		this.exportButton = new JButton("Export to yaml");
-		this.fileTextField = new JTextField(35);
-		
-		ActionListener actionListener = new ExportYamlActionListener(this);
-		this.browseButton.addActionListener(actionListener);
-		this.exportButton.addActionListener(actionListener);
-		
-		this.fileTextField.setEditable(false);
-		this.exportButton.setEnabled(false);
-		
-		panel.add(fileTextField);
-		panel.add(browseButton);
-		panel.add(exportButton);
-		
-		panel.setLayout(new FlowLayout());
-		
-		return panel;
+		return this.panel;
 	}
 	
 	/**
@@ -62,15 +37,12 @@ public class ExportYamlPrinter implements IPrinter, IPlugin {
 	 */
 	protected void createYaml(String filename){
 		try {
-			Map<Integer, Object> data = new HashMap<Integer, Object>();
-			
 			int cpt = 0;
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			PrintWriter writer = new PrintWriter(filename);
 			
 			for (IEvent e : a.getEvents()) {
-				//data.put(cpt, (Object)e);
 				writer.println(Integer.toString(cpt) + ": ");
 				writer.println("  name: " + e.getName());
 				writer.println("  startDate: " + formatter.format(e.getStartDate()));
@@ -81,11 +53,6 @@ public class ExportYamlPrinter implements IPrinter, IPlugin {
 				++cpt;
 			}
 			writer.close();
-			
-//			write in the file
-			//Yaml yaml = new Yaml();
-			//FileWriter writer = new FileWriter(filename);
-			//yaml.dump(data, writer);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -120,5 +87,29 @@ public class ExportYamlPrinter implements IPrinter, IPlugin {
 	public void handleEvent(String event, Object args) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void startUp() {
+		this.a = a;
+		
+		this.panel = new JPanel();
+		
+		this.browseButton = new JButton("Browse");
+		this.exportButton = new JButton("Export to yaml");
+		this.fileTextField = new JTextField(35);
+		
+		ActionListener actionListener = new ExportYamlActionListener(this);
+		this.browseButton.addActionListener(actionListener);
+		this.exportButton.addActionListener(actionListener);
+		
+		this.fileTextField.setEditable(false);
+		this.exportButton.setEnabled(false);
+		
+		panel.add(fileTextField);
+		panel.add(browseButton);
+		panel.add(exportButton);
+		
+		panel.setLayout(new FlowLayout());
 	}
 }

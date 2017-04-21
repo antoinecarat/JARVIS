@@ -2,12 +2,14 @@ package plugins.simpleBase;
 
 import javax.swing.JPanel;
 
+import platform.IPlugin;
+
 /**
  * 
  * Plugin that is of type "Printer".
  * Plugin to display the events collection
  */
-public interface IPrinter {
+public interface IPrinter  extends IPlugin {
 	/**
 	 * Returns events display.
 	 * @param a the agenda to which the events collection 

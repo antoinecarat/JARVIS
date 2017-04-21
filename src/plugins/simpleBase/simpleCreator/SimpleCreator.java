@@ -20,4 +20,10 @@ public class SimpleCreator implements ICreator, IPlugin {
 		
 	}
 
+	@Override
+	public void startUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

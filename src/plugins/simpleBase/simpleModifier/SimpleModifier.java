@@ -18,4 +18,10 @@ public class SimpleModifier implements IModifier, IPlugin {
 		
 	}
 
+	@Override
+	public void startUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

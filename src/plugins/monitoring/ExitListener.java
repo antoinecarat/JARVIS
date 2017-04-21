@@ -9,6 +9,9 @@ import platform.IPlugin;
 import platform.Platform;
 import platform.UnkillableException;
 
+/**
+ * Defines an {@link ActionListener} exiting Platform on click. 
+ */
 public class ExitListener implements ActionListener {
 
 	private IPlugin plugin;

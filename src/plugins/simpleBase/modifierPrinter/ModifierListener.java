@@ -33,7 +33,7 @@ public class ModifierListener implements ActionListener{
 
 
 	public void actionPerformed(ActionEvent arg0) {
-		this.modifier = (IModifier) Platform.loadPlugin(list.get(index), IModifier.class);
+		this.modifier = Platform.loadPlugin(list.get(index), IModifier.class);
 		if (modifier != null){
 			this.modifier.modify(agenda, event);
 		}

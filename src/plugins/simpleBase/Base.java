@@ -3,31 +3,27 @@ package plugins.simpleBase;
 import java.awt.HeadlessException;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
 
-import platform.IAutorun;
 import platform.IPlugin;
 import platform.Platform;
 import platform.UnkillableException;
 /**
  * Defines the agenda application which is calling other plugins.
  */
-public class Base extends Thread implements IAutorun, IPlugin {
+public class Base implements IPlugin {
 
 	AgendaFrame frame;
 	
 	@Override
-	public void run() {
+	public void startUp() {
 		
 		//TODO: use agenda as a plugin
 		IAgenda agenda = new Agenda();
 		
 		
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		
-		try {
+		/*try {
 			agenda.addEvent(new Event("Event1", formatter.parse("06/01/2017"), formatter.parse("07/01/2017"), "Anniversaire", "Anniversaire de Keltoum", "Chez moi"));
 			agenda.addEvent(new Event("Event2", formatter.parse("06/02/2017"), formatter.parse("07/02/2017"), "Anniversaire", "Anniversaire de Yasmine", "Chez moi"));
 			agenda.addEvent(new Event("Event3", formatter.parse("06/03/2017"), formatter.parse("07/03/2017"), "Anniversaire", "Anniversaire de Margaux", "Chez moi"));
@@ -39,7 +35,7 @@ public class Base extends Thread implements IAutorun, IPlugin {
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}*/
 			
 		try {
 			frame = new AgendaFrame(agenda, this);

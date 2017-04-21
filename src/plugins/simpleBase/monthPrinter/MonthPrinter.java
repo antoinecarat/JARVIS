@@ -49,4 +49,10 @@ public class MonthPrinter implements IPrinter, IPlugin {
 		
 	}
 
+	@Override
+	public void startUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

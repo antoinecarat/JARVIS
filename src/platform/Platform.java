@@ -13,7 +13,16 @@ import java.util.regex.Pattern;
 import org.yaml.snakeyaml.Yaml;
 
 /**
- *  Defines a static platform which can manage plugins.
+ *  Defines a static platform which is managing plugins.
+ *  
+ *  <p>
+ *  
+ *  With this platform, you can :
+ *  - Ask which plugins may implement an interface. (you can also add some properties to match)
+ *  - Load an instance of a plugin. (you can also manage singleton plugins)
+ *  - Kill an instance of a plugin.
+ *  - Manage events through a subscription mechanism.
+ *  - Kill all the running plugins and exit the platform. 
  */
 public class Platform {
 
@@ -38,11 +47,11 @@ public class Platform {
 	}
 
 	/**
-	 * Returns the list of plugins that should implement the need class.
+	 * Returns the list of plugins that may implement the needed class.
 	 * @param need the class which should be implemented.
 	 * @return plugins the list of plugins that should implement need.
 	 */
-	public static List<IPluginDescriptor> getPlugins(Class<?> need) {
+	public static <T extends IPlugin> List<IPluginDescriptor> getPlugins(Class<T> need) {
 
 		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
 		
@@ -59,12 +68,12 @@ public class Platform {
 	}
 	
 	/**
-	 * Returns the list of plugins that should implement the need class.
+	 * Returns the list of plugins that may implement the need class and that match the properties.
 	 * @param need the class which should be implemented.
 	 * @param properties the map of properties to be matched.
 	 * @return plugins the list of plugins that should implement need.
 	 */
-	public static List<IPluginDescriptor> getPlugins(Class<?> need, Map<String, Object> properties) {
+	public static <T extends IPlugin> List<IPluginDescriptor> getPlugins(Class<T> need, Map<String, Object> properties) {
 
 		List<IPluginDescriptor> plugins = new ArrayList<IPluginDescriptor>();
 		
@@ -108,7 +117,6 @@ public class Platform {
 			}
 		} catch (FileNotFoundException e) {
 			System.err.println("Cannot find platform configuration file.");
-			//e.printStackTrace();
 		}
 	}
 	
@@ -153,7 +161,7 @@ public class Platform {
 	 * @param need the class which should be implemented by the plugin.
 	 * @return obj the instance of the plugin.
 	 */
-	public static Object loadPlugin(IPluginDescriptor iPluginDescriptor, Class<?> need) {
+	public static <T extends IPlugin> T loadPlugin(IPluginDescriptor iPluginDescriptor, Class<T> need) {
 		
 		IPlugin obj = null;
 		
@@ -165,6 +173,9 @@ public class Platform {
 					obj = (IPlugin) cl.newInstance();
 					iPluginDescriptor.addInstance(obj);
 					iPluginDescriptor.setState(PluginState.RUNNING);
+					
+					obj.startUp();
+					
 					raiseEvent("plugin.launched", iPluginDescriptor);
 				}else{
 					throw new UnassignableException();
@@ -177,7 +188,7 @@ public class Platform {
 		} else if (iPluginDescriptor.getState() == PluginState.RUNNING) {
 			if (iPluginDescriptor.getProperties().get("singleton").equals(true)){
 				obj = iPluginDescriptor.getInstances().get(0);
-				raiseEvent("plugin.launched", iPluginDescriptor);
+				//raiseEvent("plugin.launched", iPluginDescriptor);
 			} else {
 				try {
 					Class<?> cl = Class.forName((String) iPluginDescriptor.getProperties().get("class"));
@@ -185,6 +196,9 @@ public class Platform {
 					if(need.isAssignableFrom(cl)){
 						obj = (IPlugin) cl.newInstance();
 						iPluginDescriptor.addInstance(obj);
+						
+						obj.startUp();
+						
 						raiseEvent("plugin.launched", iPluginDescriptor);
 					}else{
 						throw new UnassignableException();
@@ -196,7 +210,7 @@ public class Platform {
 				}
 			}
 		}
-		return obj;
+		return need.cast(obj);
 	}
 	
 	/**
@@ -212,6 +226,7 @@ public class Platform {
 					if (pluginDesc.getInstances().size() == 0){
 						pluginDesc.setState(PluginState.AVAILABLE);
 					}
+					Platform.unsubscribe(plugin);
 					Platform.raiseEvent("plugin.killed", pluginDesc);
 				} else {
 					throw new UnkillableException();
@@ -221,7 +236,7 @@ public class Platform {
 	}
 
 	/**
-	 * Kills all plugins and exits plateform.
+	 * Kills all plugins and exits platform.
 	 */
 	public static void exit() {
 		for (IPluginDescriptor iPlug : pluginDescript){
@@ -256,6 +271,18 @@ public class Platform {
 	}
 	
 	/**
+	 * Unsubscribe the given plugin from every event.
+	 * @param plugin the plugin to be unsubscribed.
+	 */
+	private static void unsubscribe(IPlugin plugin) {
+		if (eventSubscribers != null){
+			for (String key : eventSubscribers.keySet()){
+				eventSubscribers.get(key).remove(plugin);
+			}
+		}
+	}
+	
+	/**
 	 * Raises an event.
 	 * @param event the event to be raised
 	 * @param arg a useful argument.
@@ -279,8 +306,10 @@ public class Platform {
 		loadPluginDescriptors();
 		for (IPluginDescriptor plugin : pluginDescript) {
 			if(plugin.getProperties().get("autorun").equals(true)){
-				Thread obj = (Thread) loadPlugin(plugin, IAutorun.class);
-				obj.start();
+				IPlugin obj = loadPlugin(plugin, IPlugin.class);
+				new Thread(() -> {
+				    obj.startUp();
+				}).start();
 			}
 		}
 	}

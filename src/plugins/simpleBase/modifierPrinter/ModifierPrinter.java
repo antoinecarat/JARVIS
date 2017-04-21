@@ -17,7 +17,7 @@ import plugins.simpleBase.IModifier;
 import plugins.simpleBase.IPrinter;
 
 
-public class ModifierPrinter implements IPrinter, IPlugin{
+public class ModifierPrinter implements IPrinter {
 
 	/**
 	 * Returns events display with buttons for each modifier.
@@ -66,6 +66,12 @@ public class ModifierPrinter implements IPrinter, IPlugin{
 
 	@Override
 	public void handleEvent(String event, Object args) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startUp() {
 		// TODO Auto-generated method stub
 		
 	}

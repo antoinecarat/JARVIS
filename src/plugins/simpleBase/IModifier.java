@@ -1,10 +1,12 @@
 package plugins.simpleBase;
 
+import platform.IPlugin;
+
 /**
  * Plugin that is of type "Modifier". 
  * Plugin to modify a event.
  */
-public interface IModifier {
+public interface IModifier  extends IPlugin  {
 
 	/**
 	 * Changes (modify, delete...) a event of the agenda 

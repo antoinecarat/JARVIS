@@ -1,7 +1,5 @@
 # JARVIS
-School project, extandable software course. Nantes, France.
+School project, extandable software engineering course. Nantes, France.
 
-## Problèmes de dépendances snakeyaml
-
-Pour résoudre les problèmes de dépendances évetuels, ajoutez la librairie snakeyaml-1.18.jar au build path à l'aide de :
-Clic droit > Build Path > Ajouter au build path.
+## Goal
+The goal of thid project is to build a platform that manage plugins. To do so, we use the reflect API.

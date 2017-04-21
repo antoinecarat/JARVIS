@@ -35,4 +35,10 @@ public class SimplePrinter implements IPrinter, IPlugin {
 		
 	}
 
+	@Override
+	public void startUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

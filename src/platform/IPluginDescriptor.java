@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 
+ * Defines an object which delivers meta-informations about a plugin.
  */
 public interface IPluginDescriptor {
 
@@ -41,8 +41,6 @@ public interface IPluginDescriptor {
 	 */
 	void setState(PluginState state);
 	
-	public String toString();
-
 	/**
 	 * Returns the list of instances of the plugin
 	 * @return list of instances

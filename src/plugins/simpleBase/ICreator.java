@@ -1,10 +1,12 @@
 package plugins.simpleBase;
 
+import platform.IPlugin;
+
 /**
  * Plugin that is of type "creator". 
  * Plugin to create a new event.
  */
-public interface ICreator {
+public interface ICreator  extends IPlugin  {
 
 	/**
 	 * Creates a new event for a agenda.

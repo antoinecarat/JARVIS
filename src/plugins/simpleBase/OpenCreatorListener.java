@@ -28,7 +28,7 @@ public class OpenCreatorListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.creator = (ICreator) Platform.loadPlugin(list.get(index), ICreator.class);
+		this.creator = Platform.loadPlugin(list.get(index), ICreator.class);
 		if (this.creator != null){
 			this.creator.create(this.frame.getAgenda());
 			try {

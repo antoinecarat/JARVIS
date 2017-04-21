@@ -77,7 +77,7 @@ public class AgendaFrame extends JFrame {
 		if (nbPrinters > 0){
 			List<IPluginDescriptor> defaults = Platform.getPlugins(IPrinter.class, prop);
 			IPluginDescriptor defaultPrinter = defaults.size() > 0 ? defaults.get(0) : listPrinters.get(0);
-			this.printer = (IPrinter) Platform.loadPlugin(defaultPrinter, IPrinter.class);
+			this.printer = Platform.loadPlugin(defaultPrinter, IPrinter.class);
 		}
 		
 		if(this.printer == null){
@@ -177,13 +177,13 @@ public class AgendaFrame extends JFrame {
 	public void changePrinter(int index) {
 		List<IPluginDescriptor> listPluginDescriptor;
 		try {
-			Platform.killPlugin((IPlugin) this.printer);
+			Platform.killPlugin(this.printer);
 		} catch (UnkillableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		listPluginDescriptor = Platform.getPlugins(IPrinter.class);
-		this.printer = (IPrinter) Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
+		this.printer = Platform.loadPlugin(listPluginDescriptor.get(index), IPrinter.class);
 	}
 
 	public IPlugin getPlugin() {

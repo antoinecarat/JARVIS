@@ -1,7 +1,7 @@
 name: Monitoring
 about: monitor
 class: plugins.monitoring.Monitoring
-interface: platform.plugins.IAutorun
+interface: platform.plugins.IPlugin
 autorun: true
 singleton: true
 killable: true
