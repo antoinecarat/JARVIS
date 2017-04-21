@@ -13,7 +13,7 @@ import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IModifier;
 
 /**
- * Manages the call of a modifier
+ * Defines an {@link ActionListener} that manage the opening of modifier in modifierPrinter plugin.
  */
 public class ModifierListener implements ActionListener{
 
@@ -31,7 +31,7 @@ public class ModifierListener implements ActionListener{
 		this.event = event;
 	}
 
-
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.modifier = Platform.loadPlugin(list.get(index), IModifier.class);
 		if (modifier != null){

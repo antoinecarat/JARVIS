@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+/**
+ * Defines an {@link ActionListener} that manage the actual export for export plugin.
+ */
 public class ExportYamlActionListener implements ActionListener {
 	private ExportYamlPrinter exportPrinter;
 	

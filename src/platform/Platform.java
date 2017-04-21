@@ -302,13 +302,14 @@ public class Platform {
 	}
 		
 	public static void main(String[] args) {		
-
+	
 		loadPluginDescriptors();
+		
 		for (IPluginDescriptor plugin : pluginDescript) {
 			if(plugin.getProperties().get("autorun").equals(true)){
-				IPlugin obj = loadPlugin(plugin, IPlugin.class);
+				
 				new Thread(() -> {
-				    obj.startUp();
+					loadPlugin(plugin, IPlugin.class);
 				}).start();
 			}
 		}

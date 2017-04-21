@@ -3,10 +3,8 @@ package plugins.simpleBase;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import platform.IPlugin;
-import platform.Platform;
 /**
- * Manages the change of printer
+ * Defines an {@link ActionListener} that manage the change of printer in Base plugin.
  */
 public class ChangePrinterListener implements ActionListener {
 

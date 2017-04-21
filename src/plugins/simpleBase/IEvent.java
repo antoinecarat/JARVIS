@@ -3,7 +3,7 @@ package plugins.simpleBase;
 import java.util.Date;
 
 /**
- * Defines a event
+ * Defines a event with a name, a start and an end date, a type, a description and a location.
  */
 public interface IEvent {
 
@@ -79,9 +79,4 @@ public interface IEvent {
 	 */
 	void setLocation(String location);
 	
-	String toString();
-	
-	int compareTo(Event e);
-
-	boolean equals(Object obj);
 }

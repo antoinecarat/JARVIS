@@ -22,8 +22,9 @@ import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
 import platform.UnkillableException;
+
 /**
- * This is the frame delivered by Base plugin.
+ * Defines a {@link JFrame} for Base plugin.
  */
 public class AgendaFrame extends JFrame {
 	
@@ -48,8 +49,6 @@ public class AgendaFrame extends JFrame {
 
 	private IPlugin basePlugin;
 	
-	
-
 	public AgendaFrame(IAgenda agenda, IPlugin base) throws HeadlessException, ClassNotFoundException {
 		super();
 		this.agenda = agenda;

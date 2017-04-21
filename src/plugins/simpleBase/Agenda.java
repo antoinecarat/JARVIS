@@ -18,22 +18,27 @@ public class Agenda implements IAgenda{
 		this.events = new TreeSet<IEvent>();
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	@Override
 	public Collection<IEvent> getEvents() {
 		return events;
 	}
 
+	@Override
 	public void setEvents(Collection<IEvent> events) {
 		this.events = events;
 	}
 
+	@Override
 	public void addEvent(IEvent event) {
 		this.events.add(event);
 	}

@@ -8,18 +8,11 @@ import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IModifier;
 
 /**
- * Plugin to delete a event. 
+ * Defines a modifier plugin that delete a given event from a given agenda. 
  */
-
 public class DeleteEventModifier implements IModifier {
 
-	
-	/**
-	 * Delete a event of the agenda.
-	 * @param frame the application JPanel for refreshing 
-	 * @param a the agenda to which the event is delete
-	 * @param e the event deletes
-	 */
+	@Override
 	public void modify(IAgenda a, IEvent e) {
 		if (JOptionPane.showConfirmDialog(null, "Do you really want to remove it?", "Confirmation window", JOptionPane.YES_NO_OPTION) 
 				== JOptionPane.YES_OPTION){

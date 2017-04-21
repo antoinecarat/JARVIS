@@ -10,7 +10,7 @@ import platform.Platform;
 import platform.UnkillableException;
 
 /**
- * Manages the opening of creators
+ * Defines an {@link ActionListener} that manage the opening of creators in Base plugin.
  */
 public class OpenCreatorListener implements ActionListener {
 

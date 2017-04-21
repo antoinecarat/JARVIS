@@ -7,24 +7,19 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import platform.IPlugin;
 import platform.IPluginDescriptor;
 import platform.Platform;
-import plugins.simpleBase.AgendaFrame;
 import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IModifier;
 import plugins.simpleBase.IPrinter;
 
-
+/**
+ * Defines a printer plugin that allows to call modifiers plugins on each event.
+ */
 public class ModifierPrinter implements IPrinter {
 
-	/**
-	 * Returns events display with buttons for each modifier.
-	 * @param a the agenda to which the events collection 
-	 * @param frame the application JPanel for refreshing
-	 * @return the new JPanel with the events collection
-	 */
+	@Override
 	public JPanel display(IAgenda a) {
 		
 		JPanel panel = new JPanel();

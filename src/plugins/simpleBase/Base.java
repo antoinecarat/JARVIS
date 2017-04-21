@@ -7,6 +7,7 @@ import java.awt.event.WindowListener;
 import platform.IPlugin;
 import platform.Platform;
 import platform.UnkillableException;
+
 /**
  * Defines the agenda application which is calling other plugins.
  */
@@ -17,25 +18,7 @@ public class Base implements IPlugin {
 	@Override
 	public void startUp() {
 		
-		//TODO: use agenda as a plugin
 		IAgenda agenda = new Agenda();
-		
-		
-		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		
-		/*try {
-			agenda.addEvent(new Event("Event1", formatter.parse("06/01/2017"), formatter.parse("07/01/2017"), "Anniversaire", "Anniversaire de Keltoum", "Chez moi"));
-			agenda.addEvent(new Event("Event2", formatter.parse("06/02/2017"), formatter.parse("07/02/2017"), "Anniversaire", "Anniversaire de Yasmine", "Chez moi"));
-			agenda.addEvent(new Event("Event3", formatter.parse("06/03/2017"), formatter.parse("07/03/2017"), "Anniversaire", "Anniversaire de Margaux", "Chez moi"));
-			agenda.addEvent(new Event("Event4", formatter.parse("06/04/2017"), formatter.parse("07/04/2017"), "Anniversaire", "Anniversaire de Marwan", "Chez moi"));
-			agenda.addEvent(new Event("Event5", formatter.parse("06/05/2017"), formatter.parse("07/05/2017"), "Anniversaire", "Anniversaire de Pper", "Chez moi"));
-			agenda.addEvent(new Event("Event6", formatter.parse("06/06/2017"), formatter.parse("07/06/2017"), "Anniversaire", "Anniversaire de Khemi", "Chez moi"));
-			agenda.addEvent(new Event("Event7", formatter.parse("06/07/2017"), formatter.parse("07/07/2017"), "Anniversaire", "Anniversaire de Samy", "Chez moi"));
-			agenda.addEvent(new Event("Event8", formatter.parse("06/08/2017"), formatter.parse("07/08/2017"), "Anniversaire", "Anniversaire de Quentin", "Chez moi"));
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}*/
 			
 		try {
 			frame = new AgendaFrame(agenda, this);
@@ -54,40 +37,22 @@ public class Base implements IPlugin {
 	            }
 
 				@Override
-				public void windowOpened(WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
+				public void windowOpened(WindowEvent e) {}
 
 				@Override
-				public void windowClosed(WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
+				public void windowClosed(WindowEvent e) {}
 
 				@Override
-				public void windowIconified(WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
+				public void windowIconified(WindowEvent e) {}
 
 				@Override
-				public void windowDeiconified(WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
+				public void windowDeiconified(WindowEvent e) {}
 
 				@Override
-				public void windowActivated(WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
+				public void windowActivated(WindowEvent e) {}
 
 				@Override
-				public void windowDeactivated(WindowEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
+				public void windowDeactivated(WindowEvent e) {}
 	        });
 		} catch (HeadlessException | ClassNotFoundException e) {
 			e.printStackTrace();

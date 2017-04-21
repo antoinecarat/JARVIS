@@ -3,7 +3,7 @@ package plugins.simpleBase;
 import java.util.Collection;
 
 /**
- * Defines a Agenda with a bunch of events.
+ * Defines a Agenda with a name and a bunch of events.
  */
 public interface IAgenda {
 

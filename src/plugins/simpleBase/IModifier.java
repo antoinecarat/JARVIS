@@ -3,14 +3,12 @@ package plugins.simpleBase;
 import platform.IPlugin;
 
 /**
- * Plugin that is of type "Modifier". 
- * Plugin to modify a event.
+ * Defines a plugin that modify events in an agenda.
  */
 public interface IModifier  extends IPlugin  {
 
 	/**
-	 * Changes (modify, delete...) a event of the agenda 
-	 * @param frame the application JPanel for refreshing 
+	 * Changes (modify, delete...) a event of the agenda
 	 * @param a the agenda to which the event is modify
 	 * @param e the event modifies
 	 */

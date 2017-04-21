@@ -29,6 +29,7 @@ import plugins.simpleBase.ICreator;
 /**
  * Imports the events collection and display if the import went well.
  */
+@SuppressWarnings("unchecked")
 public class ImportYamlCreator  implements ICreator {
 
 	@Override
@@ -46,7 +47,6 @@ public class ImportYamlCreator  implements ICreator {
 				InputStream input = new FileInputStream(new File(filename));
 				Yaml yaml = new Yaml();
 				
-			    @SuppressWarnings("unchecked")
 				Map<String, Object> map = (Map<String, Object>) yaml.load(input);
 			    
 //			    add every event in yaml file
@@ -76,28 +76,9 @@ public class ImportYamlCreator  implements ICreator {
 				}
 			    JOptionPane.showMessageDialog(null, "Import done successfully.");
 			    Platform.raiseEvent("event.added", null);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+			} catch (FileNotFoundException | NoSuchMethodException | SecurityException | 
+					InstantiationException | IllegalAccessException| IllegalArgumentException | 
+					InvocationTargetException | ParseException e) {
 				e.printStackTrace();
 			}
 		}
@@ -105,13 +86,11 @@ public class ImportYamlCreator  implements ICreator {
 
 	@Override
 	public void handleEvent(String event, Object args) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void startUp() {
-		// TODO Auto-generated method stub
 		
 	}
 }

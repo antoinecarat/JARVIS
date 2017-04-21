@@ -14,9 +14,8 @@ import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IPrinter;
 
-
 /**
- * Plugin to export the events collection.
+ * Defines a printer plugin to export a given agenda. 
  */
 public class ExportYamlPrinter implements IPrinter {
 	
@@ -28,6 +27,27 @@ public class ExportYamlPrinter implements IPrinter {
 	
 	@Override
 	public JPanel display(IAgenda a) {
+		this.a = a;
+		
+		this.panel = new JPanel();
+		
+		this.browseButton = new JButton("Browse");
+		this.exportButton = new JButton("Export to yaml");
+		this.fileTextField = new JTextField(35);
+		
+		ActionListener actionListener = new ExportYamlActionListener(this);
+		this.browseButton.addActionListener(actionListener);
+		this.exportButton.addActionListener(actionListener);
+		
+		this.fileTextField.setEditable(false);
+		this.exportButton.setEnabled(false);
+		
+		panel.add(fileTextField);
+		panel.add(browseButton);
+		panel.add(exportButton);
+		
+		panel.setLayout(new FlowLayout());
+		
 		return this.panel;
 	}
 	
@@ -60,7 +80,7 @@ public class ExportYamlPrinter implements IPrinter {
 	}
 	
 	/**
-	 * Returns button for openning the browser.
+	 * Returns button for opening the browser.
 	 * @return button Browse
 	 */
 	protected JButton getBrowseButton(){
@@ -85,31 +105,11 @@ public class ExportYamlPrinter implements IPrinter {
 
 	@Override
 	public void handleEvent(String event, Object args) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void startUp() {
-		this.a = a;
 		
-		this.panel = new JPanel();
-		
-		this.browseButton = new JButton("Browse");
-		this.exportButton = new JButton("Export to yaml");
-		this.fileTextField = new JTextField(35);
-		
-		ActionListener actionListener = new ExportYamlActionListener(this);
-		this.browseButton.addActionListener(actionListener);
-		this.exportButton.addActionListener(actionListener);
-		
-		this.fileTextField.setEditable(false);
-		this.exportButton.setEnabled(false);
-		
-		panel.add(fileTextField);
-		panel.add(browseButton);
-		panel.add(exportButton);
-		
-		panel.setLayout(new FlowLayout());
 	}
 }

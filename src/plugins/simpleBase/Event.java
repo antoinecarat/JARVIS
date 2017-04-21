@@ -2,7 +2,6 @@ package plugins.simpleBase;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class Event implements Comparable<Event>, IEvent {
 
 	String name;
