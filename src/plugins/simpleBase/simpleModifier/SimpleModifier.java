@@ -1,11 +1,13 @@
 package plugins.simpleBase.simpleModifier;
 
-import platform.IPlugin;
 import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.IEvent;
 import plugins.simpleBase.IModifier;
 
-public class SimpleModifier implements IModifier, IPlugin {
+/**
+ * Defines a modifier plugin for editing an event.
+ */
+public class SimpleModifier implements IModifier {
 
 	public void modify(IAgenda a, IEvent e) {
 		ModifierEventFrame popup = new ModifierEventFrame(e);
@@ -13,15 +15,9 @@ public class SimpleModifier implements IModifier, IPlugin {
 	}
 
 	@Override
-	public void handleEvent(String event, Object args) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void handleEvent(String event, Object args) {}
 
 	@Override
-	public void startUp() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void startUp() {}
 
 }

@@ -15,7 +15,7 @@ import plugins.simpleBase.Event;
 import plugins.simpleBase.IAgenda;
 
 /**
- * Creates an event with the content of fields.
+ * Defines an {@link ActionListener} that manage the validation of event creation in simpleCreator plugin.
  */
 public class CreateListener implements ActionListener {
 

@@ -21,7 +21,7 @@ import plugins.simpleBase.Event;
 import plugins.simpleBase.IEvent;
 
 /**
- * Frame for modifying an event.
+ * Defines an {@link JFrame} for the simpleModifier plugin.
  */
 public class ModifierEventFrame extends JDialog {
 

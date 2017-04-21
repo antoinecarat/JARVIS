@@ -1,12 +1,12 @@
 package plugins.simpleBase.simpleCreator;
 
-import java.util.List;
-
-import platform.IPlugin;
 import plugins.simpleBase.IAgenda;
 import plugins.simpleBase.ICreator;
 
-public class SimpleCreator implements ICreator, IPlugin {
+/**
+ * Defines a creator plugin that creates an event in a given Agenda.
+ */
+public class SimpleCreator implements ICreator {
 
 	@Override
 	public void create(IAgenda a) {
@@ -15,15 +15,9 @@ public class SimpleCreator implements ICreator, IPlugin {
 	}
 
 	@Override
-	public void handleEvent(String event, Object args) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void handleEvent(String event, Object args) {}
 
 	@Override
-	public void startUp() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void startUp() {}
 
 }

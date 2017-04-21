@@ -16,7 +16,7 @@ import plugins.simpleBase.Event;
 import plugins.simpleBase.IAgenda;
 
 /**
- * Frame for create a new event.
+ * Defines an {@link JFrame} for the simpleCreator plugin.
  */
 public class CreationFrame extends JDialog{
 
@@ -25,9 +25,6 @@ public class CreationFrame extends JDialog{
 	JLabel[] labels;
 	JTextField[] textFields;
 	
-	/**
-	 * Constructor  
-	 */
 	public CreationFrame(IAgenda a) {
 		
 		this.setTitle("Create a new event");
@@ -64,10 +61,6 @@ public class CreationFrame extends JDialog{
 	
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public List<String> getFieldsContent(){
 		List<String> content = new ArrayList<String>();
 		for (JTextField t : this.textFields){
@@ -79,9 +72,6 @@ public class CreationFrame extends JDialog{
 		return content;
 	}
 	
-	/**
-	 * Clear each fileds when the new event is validate
-	 */
 	public void clearFields() {
 		for (JTextField t : this.textFields){
 			if(t.getText().length()>0){

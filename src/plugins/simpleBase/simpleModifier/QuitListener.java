@@ -4,13 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Closes the frame.
- *
+ * Defines an {@link ActionListener} that manage the closing of frame in simpleModifier plugin.
  */
 public class QuitListener implements ActionListener {
 
-	
-	
 	private ModifierEventFrame frame;
 
 	public QuitListener(ModifierEventFrame frame) {

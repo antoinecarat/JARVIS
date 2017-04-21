@@ -2,8 +2,9 @@ package plugins.simpleBase.simpleCreator;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 /**
- * Closes the frame.
+ * Defines an {@link ActionListener} that manage the closing of frame in simpleCreator plugin.
  */
 public class QuitListener implements ActionListener {
 	private CreationFrame frame;

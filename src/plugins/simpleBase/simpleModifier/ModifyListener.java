@@ -14,7 +14,7 @@ import plugins.simpleBase.Event;
 import plugins.simpleBase.IEvent;
 
 /**
- * Modifies the event with the content of fields.
+ * Defines an {@link ActionListener} that manages the modification of event in simpleModifier plugin.
  */
 public class ModifyListener implements ActionListener {
 
@@ -35,23 +35,29 @@ public class ModifyListener implements ActionListener {
 		Method method;
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		String tmp = null;
 		try {
-	
-				for (int i = 0 ; i < fieldsContent.size() ; ++i) {
-					String content = fieldsContent.get(i);
-					String field = fields[i].getName();
-					
-					cl = fields[i].getType();
-					method = event.getClass().getMethod("set"+upFirstChar(field), cl);
-					if(cl.equals(Date.class)){
+			for (int i = 0 ; i < fieldsContent.size() ; ++i) {
+				String content = fieldsContent.get(i);
+				String field = fields[i].getName();
+				cl = fields[i].getType();
+				method = event.getClass().getMethod("set"+upFirstChar(field), cl);
+				if(cl.equals(Date.class)){
+					if (field.equals("startDate")){ //Test to avoid simultaneous startDate and endDate modification which was leading to an Exception.
+						tmp = content;
+					} else {
 						method.invoke(event, formatter.parse(content));
-					}else{
-						method.invoke(event, content);
 					}
+				}else{
+					method.invoke(event, content);
 				}
-				frame.dispose();
+			}
+			if (tmp != null){
+				method = event.getClass().getMethod("setStartDate", Date.class);
+				method.invoke(event, formatter.parse(tmp));
+			}
+			frame.dispose();
 		} catch (InvocationTargetException e1){
-			System.out.println("kek");
 				try {
 					throw e1.getCause();
 				} catch (IllegalArgumentException e11){
