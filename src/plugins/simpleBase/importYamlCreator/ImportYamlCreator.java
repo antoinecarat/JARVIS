@@ -41,7 +41,7 @@ public class ImportYamlCreator  implements ICreator {
 		
 		if(result == JFileChooser.APPROVE_OPTION){
 			String filename = fc.getSelectedFile().toString();
-
+			
 //			read yaml file
 			try {
 				InputStream input = new FileInputStream(new File(filename));
@@ -49,30 +49,31 @@ public class ImportYamlCreator  implements ICreator {
 				
 				Map<String, Object> map = (Map<String, Object>) yaml.load(input);
 			    
-//			    add every event in yaml file
-			    for (Object value : map.values()) {
-			    	Field[] fields = Event.class.getDeclaredFields();
-			    	Class<?> paramTypes[] = new Class<?>[fields.length];
-			    	Object args[] = new Object[fields.length];
-					Constructor<Event> m;
-					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-					List<String> fileContent = new ArrayList<String>();
-					for (Object s : ((LinkedHashMap)value).values()){
-						fileContent.add((String) s);
-					}
-					for (int i = 0 ; i < fields.length ; ++i) {
-						paramTypes[i] = fields[i].getType();
-						if (paramTypes[i].equals(Date.class)){
-							args[i] = formatter.parse(fileContent.get(i));
-						} else {
-							args[i] = (String) fileContent.get(i);
+				if (map != null){
+				    for (Object value : map.values()) {
+				    	Field[] fields = Event.class.getDeclaredFields();
+				    	Class<?> paramTypes[] = new Class<?>[fields.length];
+				    	Object args[] = new Object[fields.length];
+						Constructor<Event> m;
+						SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+						List<String> fileContent = new ArrayList<String>();
+						for (Object s : ((LinkedHashMap)value).values()){
+							fileContent.add((String) s);
 						}
+						for (int i = 0 ; i < fields.length ; ++i) {
+							paramTypes[i] = fields[i].getType();
+							if (paramTypes[i].equals(Date.class)){
+								args[i] = formatter.parse(fileContent.get(i));
+							} else {
+								args[i] = (String) fileContent.get(i);
+							}
+						}
+						
+						Event event;
+						m = Event.class.getConstructor(paramTypes);
+						event = m.newInstance(args);
+						agenda.addEvent(event);
 					}
-					
-					Event event;
-					m = Event.class.getConstructor(paramTypes);
-					event = m.newInstance(args);
-					agenda.addEvent(event);
 				}
 			    JOptionPane.showMessageDialog(null, "Import done successfully.");
 			    Platform.raiseEvent("event.added", null);
